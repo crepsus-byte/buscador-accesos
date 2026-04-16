@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de accesos</title>
+    <style>
+        :root {
+            --bg-color: #050507;
+            --card-bg: #111116;
+            --neon-cyan: #00f3ff;
+            --text-main: #ffffff;
+            --text-muted: #888890;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        h1 {
+            font-size: 28px;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.3);
+            margin-bottom: 5px;
+        }
+
+        .author-subtitle {
+            font-size: 14px;
+            color: var(--neon-cyan);
+            opacity: 0.8;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .instruction-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 10px;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        #disclaimer {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 20px;
+            font-size: 18px;
+            background-color: var(--card-bg);
+            border: 2px solid rgba(0, 243, 255, 0.5);
+            border-radius: 12px;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.2);
+        }
+
+        .results {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 8px;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card-pk {
+            font-size: 24px;
+            color: var(--neon-cyan);
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .card-info {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background-color: var(--neon-cyan);
+            color: #000;
+            text-align: center;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 8px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+        }
+
+        .status-msg {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 16px;
+            padding: 20px 0;
+            font-weight: bold;
+        }
+
+        footer {
+            padding: 25px 20px;
+            text-align: center;
+            background-color: var(--card-bg);
+            border-top: 1px solid rgba(0, 243, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .selector-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        #egg-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 99999; display: flex; justify-content: center; align-items: center; overflow: hidden; transition: all 0.5s; opacity: 0; }
+        #egg-overlay.active { opacity: 1; pointer-events: all; }
+
+        @keyframes trainMove { 0% { transform: translateX(-100vw); } 100% { transform: translateX(100vw); } }
+        .fgc-train { width: 400px; height: 100px; animation: trainMove 4s linear forwards; }
+
+        @keyframes glitch { 0% { transform: translate(0) } 20% { transform: translate(-2px, 2px) } 40% { transform: translate(-2px, -2px) } 60% { transform: translate(2px, 2px) } 80% { transform: translate(2px, -2px) } 100% { transform: translate(0) } }
+        .byd-text { font-size: 4rem; color: #fff; font-family: monospace; animation: glitch 0.2s infinite; }
+        .byd-car { width: 300px; fill: #00f3ff; filter: drop-shadow(-20px 0 10px #00f3ff); animation: trainMove 1.5s cubic-bezier(.17,.67,.83,.67) forwards; }
+
+        .matrix-text { position: absolute; color: #0f0; font-family: monospace; font-size: 2rem; background: #000; padding: 20px; border: 2px solid #0f0; z-index: 2; }
+
+        @keyframes slideInL { from { transform: translateX(-100vw) } to { transform: translateX(0) } }
+        @keyframes slideInR { from { transform: translateX(100vw) } to { transform: translateX(0) } }
+        @keyframes fadeUp { to { transform: translateY(-100vh); opacity: 0; } }
+        .fcb-bg { position: absolute; width: 50vw; height: 100vh; top: 0; }
+        .fcb-blue { left: 0; background: #004D98; animation: slideInL 1s forwards; }
+        .fcb-red { right: 0; background: #A50044; animation: slideInR 1s forwards; }
+        .fcb-content { z-index: 2; display: flex; flex-direction: column; align-items: center; opacity: 0; animation: fadeInFCB 1s 1s forwards; }
+        .fcb-text { color: #FDB913; font-size: 3rem; margin-top: 20px; text-transform: uppercase; }
+        .fcb-out { animation: fadeUp 1.5s forwards; }
+        @keyframes fadeInFCB { to { opacity: 1; } }
+
+        @keyframes drawText { from { width: 0; } to { width: 100%; } }
+        @keyframes rotateStar { to { transform: rotate(360deg); } }
+        .shalom-bg { background: radial-gradient(circle, #fffbe0 0%, #fff 100%); width: 100%; height: 100%; position: absolute; }
+        .shalom-star { width: 150px; fill: none; stroke: #d4af37; stroke-width: 2; animation: rotateStar 10s linear infinite; }
+        .shalom-text { font-family: 'Brush Script MT', cursive; font-size: 3rem; color: #d4af37; text-shadow: 0 0 10px #d4af37; white-space: nowrap; overflow: hidden; animation: drawText 3s steps(40) forwards; }
+
+        @keyframes flashEffect { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0; } }
+        .rm-flash { position: absolute; width: 100%; height: 100%; background: #fff; animation: flashEffect 0.5s forwards; }
+        .rm-stripe { position: absolute; width: 150%; height: 100px; background: #fff; border-top: 5px solid #FEBE10; border-bottom: 5px solid #FEBE10; transform: rotate(-45deg); }
+        .rm-content { z-index: 2; text-align: center; animation: scaleUp 1s 0.5s backwards; }
+        .rm-text { font-family: 'Times New Roman', serif; font-size: 4rem; color: #000; margin-top: 20px; }
+        @keyframes scaleUp { from { transform: scale(0); } to { transform: scale(1); } }
+
+        @keyframes fallDown { to { transform: translateY(100vh); } }
+        @keyframes pulseBetis { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+        .betis-bar { width: 7.69%; height: 100%; background: #009A44; float: left; }
+        .betis-bar:nth-child(even) { background: #fff; }
+        .betis-content { position: absolute; z-index: 2; text-align: center; }
+        .betis-shield { width: 200px; animation: pulseBetis 1s infinite; }
+        .betis-text { font-family: cursive; font-size: 3rem; color: #000; -webkit-text-stroke: 2px #fff; margin-top: 20px; z-index: 3; }
+
+        .esp-bg { background: linear-gradient(to bottom, #0047b6, #fff); width: 100%; height: 100%; position: absolute; z-index: 1; }
+        .esp-shield { width: 200px; filter: drop-shadow(0 0 20px #fff); z-index: 3; position: relative; }
+        .esp-text { position: absolute; bottom: 50px; font-size: 3rem; background: linear-gradient(to right, #0047b6, #00a0e9); -webkit-background-clip: text; color: transparent; z-index: 3; }
+
+        @keyframes waveFlag { 0% { background-position: 0 0; } 100% { background-position: 100px 0; } }
+        .es-bg { width: 100%; height: 100%; background: linear-gradient(to bottom, #c60d0f 33%, #ffc400 33%, #ffc400 66%, #c60d0f 66%); animation: waveFlag 2s infinite linear; position: absolute; }
+        .es-text { position: absolute; width: 100%; text-align: center; font-size: 8rem; font-weight: 900; color: #333; text-shadow: 2px 2px 0 #000, -1px -1px 0 #555; mix-blend-mode: overlay; z-index: 2; }
+
+        .cat-bg { width: 100%; height: 100%; background: #ffed00; position: absolute; }
+        .cat-bar { width: 100%; height: 10%; background: #da121a; position: absolute; left: 0; transform: scaleY(0); transition: transform 0.5s; }
+        .cat-bar:nth-child(1) { top: 10%; } .cat-bar:nth-child(2) { top: 30%; } .cat-bar:nth-child(3) { top: 50%; } .cat-bar:nth-child(4) { top: 70%; }
+        .cat-triangle { width: 0; height: 0; border-top: 50vh solid transparent; border-bottom: 50vh solid transparent; border-left: 50vw solid #0f47af; position: absolute; left: -50vw; top: 0; transition: left 1s; }
+        .cat-star { position: absolute; left: 15vw; top: 40vh; width: 100px; fill: #fff; opacity: 0; transition: opacity 1s 1s; }
+        .cat-text { position: absolute; font-family: 'Impact', sans-serif; font-size: 4rem; text-align: center; width: 100%; color: #000; z-index: 2; opacity: 0; transition: opacity 1s 2s; }
+
+        @keyframes saberUp { from { height: 0; } to { height: 300px; } }
+        .sw-saber { width: 10px; height: 300px; background: #f00; box-shadow: 0 0 20px #f00, 0 0 40px #f00; border-radius: 5px 5px 0 0; position: absolute; bottom: 40%; animation: saberUp 0.5s forwards; z-index: 2; }
+        .sw-text { position: absolute; bottom: 20%; font-family: sans-serif; font-size: 2rem; color: #fff; letter-spacing: 5px; z-index: 2; }
+
+        @keyframes appleSweep { 0% { left: -100%; } 100% { left: 100%; } }
+        .apple-bg { background: #000; width: 100%; height: 100%; position: absolute; }
+        .apple-sweep { position: absolute; top: 0; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent); animation: appleSweep 2s infinite; }
+        .apple-logo { width: 150px; fill: #fff; z-index: 2; filter: drop-shadow(0 0 20px rgba(255,255,255,0.5)); }
+        .apple-text { position: absolute; bottom: 20%; color: #fff; font-size: 2rem; font-family: sans-serif; letter-spacing: 3px; z-index: 2; }
+        @keyframes singleFlash { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
+        .flash-overlay { position: absolute; width: 100%; height: 100%; background: #fff; animation: singleFlash 0.3s forwards; pointer-events: none; z-index: 4; }
+
+        @keyframes fallCrash { 0% { transform: translateY(-100vh) rotate(0); } 80% { transform: translateY(10vh) rotate(15deg); } 100% { transform: translateY(100vh) rotate(45deg); opacity: 0; } }
+        @keyframes popInThumb { 0% { transform: scale(0); opacity: 0; } 80% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
+        .tesla-t { fill: #e82127; width: 150px; animation: fallCrash 2s forwards; position: absolute; z-index: 2; }
+        .tesla-thumb { fill: #e82127; width: 200px; position: absolute; opacity: 0; animation: popInThumb 0.5s 1.5s forwards; z-index: 2; }
+        .tesla-text { color: #fff; font-family: sans-serif; font-size: 3rem; font-weight: bold; position: absolute; bottom: 20%; opacity: 0; animation: popInThumb 0.5s 1.5s forwards; z-index: 2; text-shadow: 0 0 10px #e82127; text-transform: uppercase; text-align: center; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Buscador de accesos</h1>
+        <div class="author-subtitle">Hecho por Raúl Fajardo</div>
+        <div class="instruction-subtitle">Escribe el PK y una zona cercana para ser más rápido.</div>
+    </header>
+
+    <main>
+        <div id="disclaimer">
+            <strong>AVISO IMPORTANTE:</strong> Esta es una herramienta independiente sin vinculación oficial con FGC. Ha sido desarrollada de forma externa por y para trabajadores con el fin de facilitar la localización de accesos a vía.
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Ej: 4200 VL o Baixador..." autocomplete="off">
+        </div>
+        <div id="filterMenu" style="display:none; margin-bottom: 20px;">
+            <div class="status-msg" id="filterTitle">Hay varias zonas cerca de ese PK. ¿Dónde estás?</div>
+            <div id="filterButtons" class="selector-grid"></div>
+            <button class="btn btn-secondary" onclick="resetSearch()" style="margin-top: 20px;">Cancelar / Nueva búsqueda</button>
+        </div>
+        <div class="results" id="resultsContainer"></div>
+    </main>
+
+    <footer>
+        Si tienes más accesos, pásamelos a mi teléfono privado o al correo rfajardo@fgc.cat
+    </footer>
+
+    <div id="egg-overlay"></div>
+
+    <script>
+        const rawData = `
+        0,000 | PC | PLAÇA CATALUNYA | https://goo.gl/maps/K9p7fBxezpJ7MCpUA
+        0,000 | SR | SARRIÀ | https://goo.gl/maps/MRPJawa7Uq15GSWt7
+        0,000 | MM | MONISTROL DE MONTSERRAT | https://goo.gl/maps/eQDftksJ5v72SZ1F7
+        0,100 | BT-UN | BELLATERRA - UNIVERSIDAD AUTONOMA | https://goo.gl/maps/GgWoK2fPT4FZt7Fq8
+        0,300 | BT-UN VIA 1 | BELLATERRA - UNIVERSIDAD AUTONOMA | https://maps.app.goo.gl/mPUKd4vtYMiPq6LD8
+        0,300 | BT-UN VIA 2 | BELLATERRA - UNIVERSIDAD AUTONOMA | https://goo.gl/maps/U95Ss1s9MZ1tFpnv6
+        0,390 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/KqxJYL7P6jfjQwF38
+        0,400 | SC-VO | SANT CUGAT - VOLPELLERES | https://goo.gl/maps/7B5vaSrkSjSHqhibA
+        0,450 | BP | CAMBIOS DEL PUERTO | https://goo.gl/maps/Yqm5cCCPvEkkUSNV7
+        0,600 | PM | PLAÇA MOLINA | https://goo.gl/maps/SYiasoD6SnRpi7wF6
+        0,600 | BT-UN | BELLATERRA - UNIVERSIDAD AUTONOMA | https://goo.gl/maps/WEarzhG94N1ryYE77
+        0,700 | LP-LF | LES PLANES - LA FLORESTA | https://goo.gl/maps/y2vPiRWcSaDssq4v8
+        0,800 | BT-UN | BELLATERRA - UNIVERSIDAD AUTONOMA | https://goo.gl/maps/Lf92dL9o6QA9naJi9
+        0,800 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/TC5yVcq5rnq5vGE9A
+        0,900 | SU-SL | SURIA - SALLENT tramo comun | https://goo.gl/maps/MXaaUzhFhE1c1cmk8
+        0,900 | LP-LF | LES PLANES - LA FLORESTA | https://goo.gl/maps/1g6RMhVqu8kG28yt6
+        1,000 | MO | MONISTROL VILA | https://goo.gl/maps/rvsgabsKQ9XupYfy6
+        1,010 | PD | PADUA | https://goo.gl/maps/4L2i2x9RRhSdfLfu8
+        1,050 | SC-VO | SANT CUGAT - VOLPELLERES | https://goo.gl/maps/8RhhViQNBPc4Ycdh9
+        1,220 | PR | PROVENÇA | https://goo.gl/maps/JWuuw3wFbEWpJpV16
+        1,300 | UN | UNIVERSIDAD AUTONOMA | https://goo.gl/maps/3BBgidFu2WDNGjjF7
+        1,300 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/BWRDeEdLVSmxwmf69
+        1,400 | SC-VO | SANT CUGAT - VOLPELLERES | https://goo.gl/maps/xWNjR47Wo9s33FQJ8
+        1,400 | UN-SQ | UNIVERSIDAD AUTONOMA - SANT QUIRZE | https://goo.gl/maps/WaygV9KZNgzS7qvz8
+        1,410 | EP | EL PUTXET | https://goo.gl/maps/PMkjt85MV5SpPEi17
+        1,500 | SC-VO | SANT CUGAT - VOLPELLERES | https://goo.gl/maps/bSMLQUCKbPe4zEhg8
+        1,500 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/oCMKSpscAKnfgfrU8
+        1,532 | VO | VOLPELLERES | https://goo.gl/maps/bAufDweZCRkpDboc7
+        1,700 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/cBg99o8FGPTErRfv6
+        1,800 | VO-SJ | VOLPELLERES - SANT JOAN | https://goo.gl/maps/gW5LF1THt2qE2onN7
+        1,800 | MO-C | MONISTROL VILA - MONTSERRAT | https://maps.app.goo.gl/5vvsWVCQLPo2rWY38 
+        1,860 | TB | AV.TIBIDABO | https://goo.gl/maps/PpjJgiRAh9mJQgku6
+        2,050 | GR | GRACIA | https://goo.gl/maps/7YhVz1KfDFGrzpDN8
+        2,090 | PF | PEU DEL FUNICULAR | https://goo.gl/maps/YbcxncXZc8roejAWA
+        2,200 | VO-SJ | VOLPELLERES - SANT JOAN | https://goo.gl/maps/umdJ9ZP1b1M7JVgM7
+        2,300 | UN-SQ | UNIVERSIDAD AUTONOMA - SANT QUIRZE | https://goo.gl/maps/zuc7BPvHbFfior7t7
+        2,400 | LP-LF | LES PLANES - LA FLORESTA | https://goo.gl/maps/CFpKCvFAUuEZRM1y8
+        2,500 | VO-SJ | VOLPELLERES - SANT JOAN | https://goo.gl/maps/XKNWGuG9CyX4vWE19
+        2,610 | SG | SANT GERVASI | https://goo.gl/maps/5w8oUvgXvs5ek3RB8
+        2,730 | SJ | SANT JOAN | https://goo.gl/maps/Z2ztLU5kH4yTxqXP7
+        2,850 | LF | LA FLORESTA | https://goo.gl/maps/mQ7uZcA7ZaMK6fveA
+        2,950 | SJ-BT | SANT JOAN - BELLATERRA | https://goo.gl/maps/GLiwGu1Cqifv8iQQ8
+        3,080 | MN | MUNTANER | https://goo.gl/maps/YVtuAa24DJQWy1gd8
+        3,150 | LF-VD | LA FLORESTA-VALLDOREIX | https://goo.gl/maps/6qNUhEhhcQBEVrrJ8
+        3,350 | SJ-BT | SANT JOAN - BELLATERRA | https://goo.gl/maps/PVXZS7ktDYYsBvr17
+        3,600 | UN-SQ | UNIVERSIDAD AUTONOMA - SANT QUIRZE | https://goo.gl/maps/Xd8eqqrK3GftQFB39
+        3,610 | BN | LA BONANOVA | https://goo.gl/maps/k6y68EvAVB37x2GJ8
+        3,760 | VL | BAIXADOR DE VALLVIDRERA | https://goo.gl/maps/YNgB7aKxifxXsgEE6
+        3,800 | SJ-BT | SANT JOAN - BELLATERRA | https://goo.gl/maps/jqkRc2yaicB7vQeP7
+        4,080 | TT | LES TRES TORRES | https://goo.gl/maps/4Sditb17NQhZDYBz8
+        4,100 | SJ-BT | SANT JOAN - BELLATERRA | https://goo.gl/maps/6wfMaNTBKBEapYS97
+        4,200 | VL-LP | BAIXADOR DE VALLVIDRERA - LES PLANES | https://goo.gl/maps/wkqFSGHsdiWSjSuc6
+        4,200 | LF-VD | LA FLORESTA-VALLDOREIX | https://goo.gl/maps/cJKx7zoZn377GTEq9
+        4,400 | BT | BELLATERRA | https://goo.gl/maps/5wMagdqom6Fjd4ck8
+        4,450 | SU-SL | SURIA - SALLENT tramo comun | https://goo.gl/maps/pHrRSxMf2wzbAgg77
+        4,540 | VD | VALLDOREIX | https://goo.gl/maps/1RJEzCwN4osd8cjp9
+        4,600 | SR | SARRIA | https://goo.gl/maps/MRPJawa7Uq15GSWt7
+        4,710 | LP | LES PLANES | https://goo.gl/maps/hwCGkDS2DaLfLPH37
+        4,800 | SU-SL | SURIA - SALLENT tramo comun | https://goo.gl/maps/uPAWdwsgbnpoQpBp6
+        5,000 | ZF-BP | TRAMO COMUN CON RENFE | https://goo.gl/maps/Tdt6TKXc3oZZjEvo6
+        5,160 | RE | REINA ELISENDA | https://goo.gl/maps/DU5PfTjzJTjjcLth7
+        5,300 | SU-SL | SURIA - SALLENT tramo comun | https://goo.gl/maps/nZb16NgpuhpPdpcaA
+        5,350 | VD-SC | VALLDOREIX - SANT CUGAT | https://goo.gl/maps/Wp5n5SnQXK1e5px57
+        5,600 | VD-SC | VALLDOREIX - SANT CUGAT | https://goo.gl/maps/P4qyfBVQxUAQ9yAB6
+        5,830 | SU-SL | SURIA - SALLENT tramo comun | https://goo.gl/maps/MFHkvbgNDhsmSgKJA
+        5,990 | SC | SANT CUGAT | https://goo.gl/maps/u1Um9ZuhJqo1cSGC8
+        6,200 | SU | SURIA linea Suria | https://goo.gl/maps/6UGjJMmj6p57GBDF9
+        6,500 | SL | SALLENT principio | https://goo.gl/maps/uVh9cGf2mejs5Pjs8
+        6,750 | ZF | CAMBIOS ZONA FRANCA | https://goo.gl/maps/ojLXg71s1Yu1Tfyf8
+        7,000 | UN-SQ | UNIVERSIDAD AUTONOMA - SANT QUIRZE | https://goo.gl/maps/DQeeKMcpNHUWd3Bx9
+        7,000 | ZF | CAMBIOS ZONA FRANCA | https://goo.gl/maps/nxbd2vhDrEra7Lg47
+        7,760 | SQ | SANT QUIRZE | https://goo.gl/maps/asKgbiFxZBfLvuxM8
+        7,800 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/KiwNspvCyuE6EUSHA
+        7,950 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/jxqeoXH7VM2nSjbW9
+        8,020 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/YftMQPnpekygV2PP6
+        8,100 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/hxsujkAstKyyp4ck9
+        8,150 | SL | SALLENT | https://goo.gl/maps/p832fARWW3LNuZZj9
+        8,300 | SQ-CF | SANT QUIRZE - CAN FEU | https://goo.gl/maps/tRk5QB7mggnhn9um7
+        8,300 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/zM9SyTuPDjoNd8kF9
+        8,450 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/agFF8ucvuDb65Pqw6
+        8,600 | SQ-CF | SANT QUIRZE - CAN FEU | https://goo.gl/maps/Zk8P7Vq2T
+        8,800 | SL | SALLENT | https://goo.gl/maps/oeK5LKQpvE81NAdKA
+        8,900 | MS-HG | MIRA-SOL - HOSPITAL GENERAL | https://goo.gl/maps/5ruVGJqrNtpr44jK7
+        9,050 | HG | HOSPITAL GENERAL | https://goo.gl/maps/6sC1cMJdQEXo6GzLA
+        9,100 | CF | CAN FEU | https://goo.gl/maps/Mp3L9Rw5B
+        9,100 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/C5pLFfxeWsoNEc1t6
+        9,400 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/NXsJr7kkqsghy69J7
+        9,400 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/Per5KSVCv8HvkaJd9
+        9,600 | CF-SM | CAN FEU - SABADELL PLACA MAJOR | https://goo.gl/maps/Xy4N2Bc7J
+        9,600 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/f4Wk9v4V8GFdYnzL6
+        9,900 | SL | SALLENT Intermedio | https://goo.gl/maps/s3quGJZX3dJN7n4XA
+        9,950 | HG-RB | HOSPITAL GENERAL - RUBÍ | https://goo.gl/maps/6Zhbv37j5Cvcs31BA
+        10,200 | SM | SABADELL PLACA MAJOR | https://goo.gl/maps/Qc9T6Hj3K
+        10,500 | HG-RB | HOSPITAL GENERAL - RUBÍ (I.F RUBÍ) | https://goo.gl/maps/8q8ZYhZVevS89DCD8
+        10,600 | SM-CA | SABADELL PLACA MAJOR - LA CREU ALTA | https://goo.gl/maps/Vn5M8Gf2D
+        10,890 | RB | RUBÍ | https://goo.gl/maps/e588ZqEwNezhbakh8
+        11,100 | CA | LA CREU ALTA | https://goo.gl/maps/Wb3F1Zp9M
+        11,100 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/MCaGD1vbtyRFF4xz9
+        11,200 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/sJyc5LZdVHMRrQBY9
+        11,500 | CA-SN | LA CREU ALTA - SABADELL NORD | https://goo.gl/maps/Yr7K4Tw8C
+        11,500 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/tTEiN7cxGELf6SRo7
+        11,700 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/dGkrGdudMR41MeSR7
+        11,700 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/UDt1YQVidPx2eXnP8
+        11,750 | CA | CAPELLADES | https://goo.gl/maps/BDt6HuGUHWz9NgHYA
+        12,000 | SN | SABADELL NORD | https://goo.gl/maps/Hs2D9Vb6L
+        12,500 | SN-PN | SABADELL NORD - SABADELL PARC DEL NORD | https://goo.gl/maps/Gj6N3Lm4F
+        12,600 | VA-CA | VALLBONA D´ANOIA - CAPELLADES | https://goo.gl/maps/hwcaScLfSHX7gKiG6
+        12,700 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/6EJTWLkpM1PokNVFA
+        13,000 | PN | SABADELL PARC DEL NORD | https://goo.gl/maps/Tk5P8Rc7V
+        13,000 | VA-CA | VALLBONA D´ANOIA - CAPELLADES | https://goo.gl/maps/fvd65oZdunKnV4HD7
+        13,100 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/oxNaC3YooBnRkSkYA
+        13,400 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/NLt8U25uh4kFChw58
+        13,600 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/Hmm6rhUEwrvqX1tRA
+        13,600 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/Bs4ULrtH8svD2DBd7
+        13,831 | VA | VALLBONA D´ANOIA | https://goo.gl/maps/BPXMWbgvXtaTUhUQ9
+        14,200 | SL | SALLENT | https://goo.gl/maps/NZMHGPjbyhfx5iiJ6
+        14,350 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/UqMiEZNSm8RzF7vWA
+        14,600 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/rQpWuMmuZznAtosB8
+        14,800 | SU | Estacion de SURIA Cambios | https://goo.gl/maps/Ubv4wEhf2CpBjHfx5
+        14,900 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/W8KBRQauJWS1kcGK9
+        15,500 | PI-VA | PIERA - VALLBONA D´ANOIA | https://maps.app.goo.gl/zZKdgKKu6Qnc234F7 
+        15,550 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/YDFYF5PxXg6ZADty5
+        15,810 | FN | LES FONTS | https://goo.gl/maps/W8KbUwfc1xrBpHH17
+        16,000 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/7JmigMQLwJwxQPTC7
+        16,100 | SL | SALLENT estacion | https://goo.gl/maps/yixCButffTiiSfeg7
+        16,400 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/t8WaXJxrcrT37ScM8
+        16,420 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/JD9qFMidGgtS7U6K8
+        16,560 | PI-VA | PIERA - VALLBONA D´ANOIA | https://maps.app.goo.gl/hmJK2xs6yKTVJDXo6 
+        16,700 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/YYGDufN9xeZJVJqz5
+        16,900 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/sjGNwdG5iReoFGCeA
+        17,100 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/4TohaPjpCp9LPQPV8
+        17,100 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/59bma2cBwpQXpPpVA
+        17,300 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/Hd85r4h7pjFybkkU8
+        17,400 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/5HE29PJpNtNoQJpp6
+        17,750 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/LGnRwrZ9WpoKdLY87
+        17,770 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/bkHpXJN5gYf2Zw4d7
+        17,900 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/z47oXKVTqXqnmSwc9
+        18,100 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/h1rdNaDf34ULyLya8
+        18,150 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/dUaAXrvjTKdCgUMSA
+        18,400 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/j2DvZpjdqSWEPBsY9
+        18,600 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/E7nCN1H4JtoDF1MD9
+        18,900 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/41AcNDqUytAsgmRJ8
+        18,975 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/baCVLDQ85rXoNW7p8
+        18,977 | PI | PIERA | https://goo.gl/maps/ZoxKst2ESxsYiPim8
+        19,700 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/xQAC6uZhWu3RfZ3o6
+        19,900 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/GQQfGP66ZTxE7JTP6
+        20,150 | TR | TERRASSA-RAMBLA | https://goo.gl/maps/6SRBDM6PUNVf3SGm6
+        20,300 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/VCyneyQ3ivbXrGEU6
+        21,100 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/TAjP5GgeLAPCsPRL7
+        21,500 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/gCdaF5cUw4gVWfhw7
+        21,670 | VP | VALLPARADÍS | https://goo.gl/maps/an9vifAP6NTyUoTo6
+        21,930 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/CVpVCKWywCrsAinC9
+        22,000 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/qpJuxjuWJ2uAJzie8
+        22,585 | EN | ESTACIÓ DEL NORD | https://goo.gl/maps/tX3pBd5KtLqHBCF86
+        22,700 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/L1buk4DTPLvQopLn9
+        23,800 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/8ERjBs7cSAXALs9E7
+        23,852 | NA | NACIONS UNIDES | https://goo.gl/maps/mheErGwXRJPEFAmA8
+        24,700 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/JaphKe9AUfJafeSW9
+        25,000 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/aR6MrjitutKD2dhB6
+        25,217 | MQ | MASQUEFA | https://goo.gl/maps/TvoAAaJjxnhw2RvQ6
+        25,250 | CP-MQ | CAN PARELLADA - MASQUEFA | https://goo.gl/maps/Q1iNNDcMEryRgCHW7
+        26,550 | CP-MQ | CAN PARELLADA - MASQUEFA | https://goo.gl/maps/ahyaWqzcnRtEeNxw5
+        26,980 | CP | CAN PARELLADA | https://goo.gl/maps/EwHwEobEwCp3Vsmk6
+        27,200 | BE-CP | LA BEGUDA - CAN PARELLADA | https://goo.gl/maps/V8ttbqpQpc3oL9FU9
+        27,646 | BE | LA BEGUDA | https://goo.gl/maps/sk6ZwbWqYtLVs1kaA
+        27,750 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/y8BdS9X949UdZhM69
+        28,300 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/rFhmqwWNczQMkU5D7
+        29,300 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/7UULBL61qqMcQb7z9
+        29,700 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/phryFx4h5wSbXHev7
+        29,900 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/yVuFbJf7F97V5sEj6
+        30,100 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/nAaxvhVCGi52PiNU8
+        30,128 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/wQi8PAjmMfCRrLou7
+        30,340 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/FTnRXtVrd4yDnLWTA
+        30,500 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/er1hsnXzB2wES7AG7
+        30,720 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://maps.app.goo.gl/BTxG89mvmVb8ceDf6 
+        31,000 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/TwQFUd8Sk95voHh46
+        31,700 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/nt1oZLAr9tqqZjTZ6
+        31,814 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/9DeeubGMFN4mAyVy8
+        32,204 | SE | SANT ESTEVE SESROVIRES | https://goo.gl/maps/Lbr9sMYUCyQwytfU8
+        32,319 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/DZim8vkfw73mNWFL8
+        32,400 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/dPBgxCa2Pcg4RnTm9
+        32,800 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/sY5ZS4irCzSC89238
+        32,800 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/LV5jcPrYreYdfk1s8
+        33,158 | AB | ABRERA | https://goo.gl/maps/nAUVvHk8m4xYLp8h8
+        33,200 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/WBnrpD84Jvz9KWvq5
+        33,330 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/NSYxZNpVJcPY4dEv6
+        33,450 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
+        33,750 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
+        33,900 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
+        34,100 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
+        34,200 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/zzW4A6bi4p83HKfi6
+        34,250 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
+        34,320 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
+        34,600 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/fj6zbJ5kr5SN5Yq77
+        35,050 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/ZVNXJE5KL8TKbdvs9
+        35,300 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
+        35,300 | AB-OL | ABRERA - OLESA DE MONTSERRAT vía 1 | https://goo.gl/maps/MAWTXuFq7mMzGPCL9
+        35,350 | AB-OL | ABRERA - OLESA DE MONTSERRAT vía 2 | https://goo.gl/maps/ahW61d8WiJZxZr4P8
+        35,500 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/bVa6Yaf7CQNTScJ59
+        35,700 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/xJaF77RV92tvnEoaA
+        35,750 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/AnVDazQyF4gDheJX6
+        35,942 | OL | OLESA DE MONTSERRAT | https://goo.gl/maps/p2UWiL2R15TW3mNS8
+        36,100 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/XLKmLuoFGDL1uECQ7
+        36,210 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/55ovyhGJkrnvWRDx5
+        36,400 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://maps.app.goo.gl/yVxQdYX7WWMdUsyv9?g_st=im
+        36,600 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/esdPLLGqAKDJX35UA
+        36,740 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/6oMXKdDJkcVUZEsMA
+        36,748 | ME | MARTORELL ENLLAÇ | https://goo.gl/maps/PpV1aEEGnWmFURNY8
+        37,100 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/Hg8jQqDyKfGfXzkN8
+        37,250 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/gGd83k8m6KEn3KiY8
+        37,600 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/J481A6Y4Uzfvv2qeA
+        37,700 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/j7M2r752h1r9tSQP9
+        37,800 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/j7M2r752h1r9tSQP9
+        37,900 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/YWMqx9WafecZfTdm7
+        38,280 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/P5a1sfkdDyM42Tnv7
+        39,500 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/RCwf3TmoQLiTm9N59
+        40,650 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/H1J5w74EwetvzEwWA
+        41,140 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/N5rCYH3aecc32obC8
+        41,500 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/FdXh4C9LVEK16sbD9
+        43,067 | AE | AERI DE MONTSERRAT | https://goo.gl/maps/WT2BcKHYFEVYV8Gd9
+        45,360 | AE-MO | AERI DE MONTSERRAT - MONISTROL DE MONTSERRAT | https://goo.gl/maps/7RtFyqfWQMEVPxpF7
+        45,508 | MO | MONISTROL DE MONTSERRAT | https://goo.gl/maps/6S6vTZyMYxuH1yNF8
+        49,243 | CB | CASTELLBELL I EL VILAR | https://goo.gl/maps/K85FwfQTYEZ9dbnu7
+        50,500 | CB-SV | CASTELLBELL I EL VILAR - SANT VICENÇ/CASTELLGALÍ | https://goo.gl/maps/ZBfxwj4vF666Gkqf6
+        50,800 | CB-SV | CASTELLBELL I EL VILAR - SANT VICENÇ/CASTELLGALÍ | https://goo.gl/maps/SNyTFrDSaab9Zb8b7
+        51,765 | CB-SV | CASTELLBELL I EL VILAR - SANT VICENÇ/CASTELLGALÍ | https://goo.gl/maps/GngQVy4YAbWFB6mb9
+        52,509 | SV | SANT VICENÇ / CASTELLGALÍ | https://goo.gl/maps/vRzXf2VGtW9Q3hbA7
+        54,400 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/DR7XWLUo8ovabHch6
+        55,011 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/NHjDHAX9zysdwzNa8
+        55,542 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/yNYcxDb31nDGyfnCA
+        56,336 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/7yd95ND9PvEWF9LZ6
+        57,470 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/6C1had13wf45MBej9
+        58,450 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/HFG9GWwahXBgUs2V6
+        58,690 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/qAQCBGwqxPMP8qeAA
+        59,749 | VI | MANRESA VILADORDIS | https://goo.gl/maps/SQ5s9S8DCKooGjFJ6
+        60,310 | VI-MA | MANRESA VILADORDIS - MANRESA ALTA | https://goo.gl/maps/cwTBjEZ5nMZJpAxQ6
+        61,148 | MA | MANRESA ALTA | https://goo.gl/maps/FZJXd57ipfHrXDzN8
+        61,593 | MB | MANRESA BAIXADOR | https://goo.gl/maps/AFHZtnGfe5T9xMVh7
+        `;
+
+        const parsePk = (pkStr) => {
+            const clean = pkStr.replace(/[.,]/g, '').split(' ')[0];
+            return parseFloat(clean) || 0;
+        };
+
+        const accesos = rawData.trim().split('\n').filter(line => line.includes('|')).map(line => {
+            const [pkRaw, abrev, tramo, link] = line.split('|').map(s => s.trim());
+            return { 
+                pk: parsePk(pkRaw), 
+                originalPk: pkRaw, 
+                originalAbrev: abrev,
+                originalTramo: tramo,
+                abrevSearch: abrev.toLowerCase(),
+                tramoSearch: tramo.toLowerCase(),
+                link 
+            };
+        }).sort((a, b) => a.pk - b.pk);
+
+        const searchInput = document.getElementById('searchInput');
+        const resultsContainer = document.getElementById('resultsContainer');
+        const filterMenu = document.getElementById('filterMenu');
+        const filterButtons = document.getElementById('filterButtons');
+        const disclaimer = document.getElementById('disclaimer');
+
+        function renderCards(items, message = '') {
+            let html = message ? `<div class="status-msg">${message}</div>` : '';
+            html += items.map(item => `
+                <div class="card">
+                    <div class="card-pk">PK ${item.originalPk}</div>
+                    <div class="card-info">${item.originalAbrev} - ${item.originalTramo}</div>
+                    <a href="${item.link}" target="_blank" class="btn">Abrir en Maps</a>
+                </div>
+            `).join('');
+            resultsContainer.innerHTML = html || '<div class="status-msg">No hay coincidencias.</div>';
+        }
+
+        function resetSearch() {
+            filterMenu.style.display = 'none';
+            resultsContainer.innerHTML = '';
+            searchInput.value = '';
+            disclaimer.style.display = 'block';
+            searchInput.focus();
+        }
+
+        function showZoneSelection(tramos, targetPk) {
+            filterButtons.innerHTML = '';
+            tramos.forEach(tramo => {
+                const btn = document.createElement('button');
+                btn.className = 'btn';
+                btn.innerText = tramo;
+                btn.onclick = () => filterByTramo(tramo, targetPk);
+                filterButtons.appendChild(btn);
+            });
+            filterMenu.style.display = 'block';
+            resultsContainer.innerHTML = '';
+        }
+
+        function filterByTramo(tramoName, targetPk) {
+            const sectionData = accesos.filter(a => a.originalTramo.split(/ vía| VIA/i)[0].trim() === tramoName);
+            const closeData = sectionData.filter(a => Math.abs(a.pk - targetPk) <= 1300);
+            const exactMatches = closeData.filter(a => a.pk === targetPk);
+            const prevMatches = closeData.filter(a => a.pk < targetPk).slice(-2);
+            const nextMatches = closeData.filter(a => a.pk > targetPk).slice(0, 2);
+            const finalSelection = [...prevMatches, ...exactMatches, ...nextMatches];
+            finalSelection.sort((a,b) => a.pk - b.pk);
+            filterMenu.style.display = 'none';
+            renderCards(finalSelection, finalSelection.length > 0 ? `Accesos en la zona: ${tramoName}` : `No hay accesos a menos de 1.300m en la zona ${tramoName}`);
+        }
+
+        searchInput.addEventListener('input', (e) => {
+            const queryRaw = e.target.value.trim();
+            const queryLowercase = queryRaw.toLowerCase();
+
+            disclaimer.style.display = queryRaw ? 'none' : 'block';
+
+            if (!queryLowercase) { 
+                filterMenu.style.display = 'none';
+                resultsContainer.innerHTML = '';
+                return; 
+            }
+
+            const cleanQuery = queryLowercase.replace(/[.,]/g, '');
+            const numMatch = cleanQuery.match(/\d+/);
+            const targetPk = numMatch ? parseFloat(numMatch[0]) : null;
+            const textStr = cleanQuery.replace(/\d+/g, '').trim();
+
+            if (targetPk !== null) {
+                let candidates = accesos;
+                if (textStr) {
+                    const terms = textStr.split(/\s+/).filter(t => t.length > 0);
+                    candidates = candidates.filter(a => terms.every(term => a.abrevSearch.includes(term) || a.tramoSearch.includes(term)));
+                }
+                candidates = candidates.map(a => ({ ...a, dist: Math.abs(a.pk - targetPk) })).filter(a => a.dist <= 1300);
+
+                if (candidates.length === 0) {
+                    filterMenu.style.display = 'none';
+                    renderCards([], `No hay accesos a menos de 1.300m para el PK ${targetPk}.`);
+                    return;
+                }
+
+                if (textStr) {
+                    filterMenu.style.display = 'none';
+                    candidates.sort((a, b) => a.pk - b.pk);
+                    const exactMatches = candidates.filter(a => a.pk === targetPk);
+                    const prevMatches = candidates.filter(a => a.pk < targetPk).slice(-2);
+                    const nextMatches = candidates.filter(a => a.pk > targetPk).slice(0, 2);
+                    const finalSelection = [...prevMatches, ...exactMatches, ...nextMatches].sort((a, b) => a.pk - b.pk);
+                    renderCards(finalSelection, `Accesos a menos de 1.300m del PK ${targetPk}:`);
+                } else {
+                    const uniqueTramos = [...new Set(candidates.map(a => a.originalTramo.split(/ vía| VIA/i)[0].trim()))];
+                    if (uniqueTramos.length > 1) showZoneSelection(uniqueTramos, targetPk);
+                    else if (uniqueTramos.length === 1) filterByTramo(uniqueTramos[0], targetPk);
+                }
+            } else {
+                filterMenu.style.display = 'none';
+                const terms = textStr.split(/\s+/).filter(t => t.length > 0);
+                renderCards(accesos.filter(a => terms.every(term => a.abrevSearch.includes(term) || a.tramoSearch.includes(term))));
+            }
+        });
+
+        (function(){
+            const overlay = document.getElementById('egg-overlay');
+            let seq = "";
+            let isRunning = false;
+
+            const clearEgg = (delay = 5000) => {
+                setTimeout(() => {
+                    overlay.className = '';
+                    overlay.innerHTML = '';
+                    overlay.style.background = 'transparent';
+                    document.body.style.filter = '';
+                    isRunning = false;
+                }, delay);
+            };
+
+            const canvasFeathers = () => {
+                const c = document.createElement('canvas');
+                c.width = window.innerWidth; c.height = window.innerHeight;
+                c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; c.style.zIndex = '2';
+                overlay.appendChild(c);
+                const ctx = c.getContext('2d');
+                let feathers = Array(50).fill().map(() => ({x: Math.random() * c.width, y: Math.random() * -c.height, s: Math.random() * 2 + 1, a: Math.random() * Math.PI * 2, c: Math.random() > 0.5 ? '#fff' : '#00a0e9'}));
+                const interval = setInterval(() => {
+                    ctx.clearRect(0, 0, c.width, c.height);
+                    feathers.forEach(f => {
+                        ctx.fillStyle = f.c; ctx.save(); ctx.translate(f.x, f.y); ctx.rotate(f.a);
+                        ctx.beginPath(); ctx.ellipse(0, 0, 4 * f.s, 10 * f.s, 0, 0, Math.PI * 2); ctx.fill();
+                        ctx.restore();
+                        f.y += f.s * 2; f.x += Math.sin(f.a) * 2; f.a += 0.05;
+                        if(f.y > c.height) { f.y = -20; f.x = Math.random() * c.width; }
+                    });
+                }, 30);
+                setTimeout(() => clearInterval(interval), 4400);
+            };
+
+            const canvasMatrix = () => {
+                const c = document.createElement('canvas');
+                c.width = window.innerWidth; c.height = window.innerHeight;
+                c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0';
+                overlay.appendChild(c);
+                const ctx = c.getContext('2d');
+                const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+                const drops = Array(Math.floor(c.width / 20)).fill(1);
+                const interval = setInterval(() => {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                    ctx.fillRect(0, 0, c.width, c.height);
+                    ctx.fillStyle = '#0F0';
+                    ctx.font = '20px monospace';
+                    drops.forEach((y, i) => {
+                        ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * 20, y * 20);
+                        if (y * 20 > c.height && Math.random() > 0.975) drops[i] = 0;
+                        drops[i]++;
+                    });
+                }, 50);
+                setTimeout(() => clearInterval(interval), 4900);
+            };
+
+            const canvasStars = () => {
+                const c = document.createElement('canvas');
+                c.width = window.innerWidth; c.height = window.innerHeight;
+                c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0';
+                overlay.appendChild(c);
+                const ctx = c.getContext('2d');
+                let stars = Array(400).fill().map(() => ({x: Math.random() * c.width - c.width/2, y: Math.random() * c.height - c.height/2, z: Math.random() * 200}));
+                let speed = 2;
+                const draw = () => {
+                    ctx.fillStyle = 'black'; ctx.fillRect(0, 0, c.width, c.height);
+                    ctx.translate(c.width/2, c.height/2);
+                    stars.forEach(s => {
+                        s.z -= speed; if(s.z <= 0) { s.x = Math.random() * c.width - c.width/2; s.y = Math.random() * c.height - c.height/2; s.z = 200; }
+                        const sx = (s.x / s.z) * 100; const sy = (s.y / s.z) * 100;
+                        const px = (s.x / (s.z + speed)) * 100; const py = (s.y / (s.z + speed)) * 100;
+                        ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(sx, sy); ctx.strokeStyle = 'white'; ctx.lineWidth = 2; ctx.stroke();
+                    });
+                    ctx.translate(-c.width/2, -c.height/2);
+                    speed += 0.5;
+                    if(speed < 50) requestAnimationFrame(draw);
+                };
+                draw();
+            };
+
+            const eggs = {
+                "fgc": () => {
+                    document.body.style.filter = 'sepia(0.6)';
+                    overlay.style.background = 'transparent';
+                    overlay.innerHTML = '<svg class="fgc-train" viewBox="0 0 400 100"><rect x="10" y="20" width="380" height="60" rx="10" fill="#fff" stroke="#e05206" stroke-width="4"/><rect x="30" y="30" width="40" height="30" fill="#333"/><rect x="90" y="30" width="40" height="30" fill="#333"/><rect x="150" y="30" width="40" height="30" fill="#333"/><rect x="210" y="30" width="40" height="30" fill="#333"/><rect x="270" y="30" width="40" height="30" fill="#333"/><rect x="330" y="30" width="40" height="30" fill="#333"/><circle cx="80" cy="90" r="10" fill="#555"/><circle cx="120" cy="90" r="10" fill="#555"/><circle cx="280" cy="90" r="10" fill="#555"/><circle cx="320" cy="90" r="10" fill="#555"/></svg>';
+                    clearEgg(4000);
+                },
+                "byd": () => {
+                    overlay.style.background = '#000';
+                    overlay.innerHTML = '<div class="byd-text" id="bydt">BUILD YOUR DREAMS</div>';
+                    setTimeout(() => {
+                        document.getElementById('bydt').style.display = 'none';
+                        overlay.innerHTML += '<svg class="byd-car" viewBox="0 0 200 60"><path d="M10 50 L30 30 L80 20 L150 25 L180 40 L190 50 Z" fill="none" stroke="#00f3ff" stroke-width="3"/></svg><div style="position:absolute; bottom:20%; color:#00f3ff; font-family:monospace; font-size:2rem; animation: glitch 1s infinite;">EL FUTURO ES ELÉCTRICO</div>';
+                    }, 1000);
+                    clearEgg(4000);
+                },
+                "tesla": () => {
+                    overlay.style.background = '#000';
+                    overlay.innerHTML = '<svg class="tesla-t" viewBox="0 0 100 100"><path d="M10,20 L90,20 L90,35 L55,35 L55,90 L45,90 L45,35 L10,35 Z"/></svg><svg class="tesla-thumb" viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><div class="tesla-text">Lavadora Americana Sobrevalorada</div>';
+                    clearEgg(6000);
+                },
+                "fajardo": () => {
+                    overlay.style.background = '#000';
+                    canvasMatrix();
+                    overlay.innerHTML += '<div class="matrix-text">ACCESS_LEVEL: ROOT_CREATOR<br>IDENTIFIED: FAJARDO</div>';
+                    clearEgg(5000);
+                },
+                "fc barcelona": () => {
+                    overlay.style.background = 'transparent';
+                    overlay.innerHTML = '<div class="fcb-bg fcb-blue"></div><div class="fcb-bg fcb-red"></div><div class="fcb-content"><svg viewBox="0 0 100 100" width="200"><path d="M50 10 C20 10 10 30 10 50 C10 80 50 90 50 90 C50 90 90 80 90 50 C90 30 80 10 50 10 Z" fill="#A50044"/><path d="M50 10 C20 10 10 30 10 50 L90 50 C90 30 80 10 50 10 Z" fill="#004D98"/><circle cx="50" cy="70" r="10" fill="#FDB913"/></svg><div class="fcb-text">Mes que un club</div></div>';
+                    setTimeout(() => { overlay.children[0].classList.add('fcb-out'); overlay.children[1].classList.add('fcb-out'); overlay.children[2].classList.add('fcb-out'); }, 4000);
+                    clearEgg(5500);
+                },
+                "shalom": () => {
+                    overlay.style.background = 'transparent';
+                    overlay.innerHTML = '<div class="shalom-bg"></div><div style="z-index:2; text-align:center"><svg class="shalom-star" viewBox="0 0 100 100"><polygon points="50,10 90,80 10,80"/><polygon points="50,90 90,20 10,20"/></svg><div class="shalom-text">Raul te desea paz, prosperidad y mucha luz</div></div>';
+                    clearEgg(5000);
+                },
+                "real madrid": () => {
+                    overlay.style.background = 'transparent';
+                    overlay.innerHTML = '<div class="rm-flash"></div><div class="rm-stripe"></div><div class="rm-content"><svg viewBox="0 0 100 100" width="200"><circle cx="50" cy="50" r="40" fill="#fff" stroke="#FEBE10" stroke-width="5"/><path d="M50 10 L60 20 L40 20 Z" fill="#FEBE10"/><text x="50" y="60" text-anchor="middle" font-family="serif" font-size="30" fill="#00529F">MCF</text></svg><div class="rm-text">Hala Madrid y nada mas</div></div>';
+                    setTimeout(() => { overlay.style.background = '#fff'; overlay.innerHTML = ''; }, 4000);
+                    clearEgg(4500);
+                },
+                "vox": () => {
+                    overlay.style.background = 'transparent';
+                    overlay.innerHTML = '<div class="es-bg"></div><div class="es-text">VIVA ESPAÑA</div>';
+                    clearEgg(5000);
+                },
+                "puigdemont": () => {
+                    overlay.style.background = 'transparent';
+                    overlay.innerHTML = '<div class="cat-bg"><div class="cat-bar"></div><div class="cat-bar"></div><div class="cat-bar"></div><div class="cat-bar"></div></div><div class="cat-triangle"></div><svg class="cat-star" viewBox="0 0 100 100"><polygon points="50,10 60,40 90,40 65,60 75,90 50,70 25,90 35,60 10,40 40,40"/></svg><div class="cat-text" style="top:20%;">IN-DE-PEN-DEN-CIA</div><div class="cat-text" style="top:60%;">VISCA CATALUNYA</div>';
+                    setTimeout(() => { document.querySelectorAll('.cat-bar').forEach(b => b.style.transform = 'scaleY(1)'); }, 100);
+                    setTimeout(() => { document.querySelector('.cat-triangle').style.left = '0'; document.querySelector('.cat-star').style.opacity = '1'; document.querySelectorAll('.cat-text').forEach(t => t.style.opacity = '1'); }, 1000);
+                    clearEgg(5000);
+                },
+                "star wars": () => {
+                    overlay.style.background = '#000';
+                    canvasStars();
+                    setTimeout(() => { overlay.innerHTML = '<div class="sw-saber"></div><div class="sw-text">QUE LA FUERZA TE ACOMPAÑE</div>'; }, 2000);
+                    clearEgg(6000);
+                },
+                "apple": () => {
+                    overlay.style.background = 'transparent';
+                    overlay.innerHTML = '<div class="apple-bg"><div class="apple-sweep"></div></div><svg class="apple-logo" viewBox="0 0 100 100"><path d="M80,50 C80,30 60,30 60,30 C50,30 45,35 40,35 C35,35 30,30 20,30 C10,30 0,40 0,60 C0,80 15,95 25,95 C30,95 35,90 40,90 C45,90 50,95 55,95 C65,95 80,80 80,60 C70,60 65,55 65,45 C65,35 75,30 80,30 M60,5 C60,5 50,5 45,15 C40,25 45,35 45,35 C45,35 55,35 60,25 C65,15 60,5 60,5"/></svg><div class="apple-text">Designed in California</div>';
+                    setTimeout(() => { overlay.innerHTML += '<div class="flash-overlay"></div>'; }, 3000);
+                    clearEgg(5000);
+                },
+                "betis": () => {
+                    overlay.style.background = 'transparent';
+                    overlay.innerHTML = '<div style="width:100%;height:100%;position:absolute;">' + '<div class="betis-bar"></div>'.repeat(13) + '</div><div class="betis-content"><svg class="betis-shield" viewBox="0 0 100 100"><polygon points="50,10 90,30 50,90 10,30" fill="#009A44" stroke="#fff"/></svg><div class="betis-text">Viva er Betis manque pierda</div></div>';
+                    clearEgg(5000);
+                },
+                "espanyol": () => {
+                    overlay.style.background = 'transparent';
+                    overlay.innerHTML = '<div class="esp-bg"></div><svg class="esp-shield" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#0047b6" stroke="#fff" stroke-width="5"/></svg><div class="esp-text">La Força d un Sentiment</div>';
+                    canvasFeathers();
+                    clearEgg(5000);
+                }
+            };
+
+            window.addEventListener('keydown', (e) => {
+                if(isRunning) return;
+                seq = (seq + e.key).toLowerCase().slice(-20);
+                for (let word in eggs) {
+                    if (seq.includes(word)) {
+                        isRunning = true;
+                        overlay.classList.add('active');
+                        eggs[word]();
+                        seq = "";
+                        break;
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
