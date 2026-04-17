@@ -208,8 +208,12 @@
             z-index: 10;
             position: relative;
         }
-
-        /* ANIMACIONES RENOVADAS */
+        
+        .egg-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
 
         /* FGC Tren de madera */
         @keyframes trainChug { 0% { transform: translateX(-120vw); } 100% { transform: translateX(120vw); } }
@@ -250,17 +254,22 @@
         .bg-betis { background: repeating-linear-gradient(90deg, #009A44 0px, #009A44 40px, #ffffff 40px, #ffffff 80px); }
         @keyframes slideBg { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
         
-        .football-crest { width: 150px; height: auto; z-index: 10; margin-bottom: 20px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
+        .title-madrid { color: #00529F; text-shadow: 3px 3px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
+        .title-barca { color: #FDB913; text-shadow: 4px 4px 0 #004D98, -2px -2px 0 #A50044, 2px -2px 0 #A50044, -2px 2px 0 #A50044, 2px 2px 0 #A50044; }
+        .title-betis { color: #009A44; text-shadow: 3px 3px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
+        
         .text-madrid { color: #00529F; text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; }
         .text-barca { color: #FDB913; text-shadow: 2px 2px 4px #000; }
         .text-betis { color: #000; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
 
-        /* Puigdemont Estelada */
+        /* Banderas */
         .estelada-container { position: absolute; inset: 0; z-index: 1; overflow: hidden; background: repeating-linear-gradient(180deg, #ffed00 0%, #ffed00 10%, #da121a 10%, #da121a 20%); background-size: 100% 100vh; animation: flagWave 3s ease-in-out infinite alternate; }
         .estelada-triangle { position: absolute; left: 0; top: 0; width: 0; height: 0; border-top: 50vh solid transparent; border-bottom: 50vh solid transparent; border-left: 60vw solid #0f47af; }
         .estelada-star { position: absolute; left: 10vw; top: 50%; transform: translateY(-50%) rotate(-18deg); width: 15vw; min-width: 60px; fill: white; }
+        .spain-bg { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, #AA151B 25%, #F1BF00 25%, #F1BF00 75%, #AA151B 75%); background-size: 100% 120%; animation: flagWave 3s ease-in-out infinite alternate; }
         @keyframes flagWave { 0% { transform: scale(1.05) skewY(1deg); } 100% { transform: scale(1.05) skewY(-1deg); } }
         .text-cat { color: #fff; text-shadow: 3px 3px 0 #da121a, -1px -1px 0 #da121a, 1px -1px 0 #da121a, -1px 1px 0 #da121a, 1px 1px 0 #da121a; }
+        .text-spain { color: #fff; text-shadow: 3px 3px 0 #AA151B, -1px -1px 0 #AA151B, 1px -1px 0 #AA151B, -1px 1px 0 #AA151B, 1px 1px 0 #AA151B; font-size: 3rem; font-weight: 900; }
 
         /* Star Wars 3D Crawl */
         .sw-space { position: absolute; inset: 0; background: #000; z-index: 1; overflow: hidden; perspective: 400px; }
@@ -362,6 +371,7 @@
             const c = document.createElement('canvas');
             c.width = window.innerWidth; c.height = window.innerHeight;
             c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; c.style.zIndex = '2';
+            c.style.pointerEvents = 'none';
             overlay.appendChild(c);
             const ctx = c.getContext('2d');
             let feathers = Array(50).fill().map(() => ({x: Math.random() * c.width, y: Math.random() * -c.height, s: Math.random() * 2 + 1, a: Math.random() * Math.PI * 2, c: Math.random() > 0.5 ? '#fff' : '#00a0e9'}));
@@ -382,6 +392,7 @@
             const c = document.createElement('canvas');
             c.width = window.innerWidth; c.height = window.innerHeight;
             c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; c.style.zIndex = '1';
+            c.style.pointerEvents = 'none';
             overlay.appendChild(c);
             const ctx = c.getContext('2d');
             const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*'.split('');
@@ -412,8 +423,8 @@
             },
             "fajardo": () => {
                 overlay.style.background = '#000';
+                overlay.innerHTML = '<div class="egg-content" style="z-index: 10;"><div class="matrix-msg">ACCESS_LEVEL: ROOT_CREATOR<br><br>IDENTIFIED: rFajardo<br><br>STATUS: UNSTOPPABLE</div></div>';
                 canvasMatrix();
-                overlay.innerHTML += '<div class="egg-content" style="z-index: 10;"><div class="matrix-msg">ACCESS_LEVEL: ROOT_CREATOR<br><br>IDENTIFIED: rFajardo<br><br>STATUS: UNSTOPPABLE</div></div>';
                 clearEgg(5000);
             },
             "shalom": () => {
@@ -422,19 +433,23 @@
                 clearEgg(5000);
             },
             "real madrid": () => {
-                overlay.innerHTML = '<div class="football-bg bg-madrid"></div><div class="egg-content"><svg class="football-crest" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#fff" stroke="#FDB913" stroke-width="5"/><path d="M 20 40 L 50 10 L 80 40 L 50 30 Z" fill="#FDB913"/><text x="50" y="65" font-family="sans-serif" font-size="30" font-weight="bold" fill="#00529F" text-anchor="middle">RM</text></svg><div class="egg-text text-madrid">¡Hala Madrid y nada más!</div></div>';
+                overlay.innerHTML = '<div class="football-bg bg-madrid"></div><div class="egg-content"><div class="egg-title title-madrid">REAL MADRID</div><div class="egg-text text-madrid">¡Hala Madrid y nada más!</div></div>';
                 clearEgg(5000);
             },
             "fc barcelona": () => {
-                overlay.innerHTML = '<div class="football-bg bg-barca"></div><div class="egg-content"><svg class="football-crest" viewBox="0 0 100 100"><path d="M 10 20 Q 50 0 90 20 L 90 60 Q 50 100 10 60 Z" fill="#004D98" stroke="#FDB913" stroke-width="4"/><path d="M 10 40 L 90 40" stroke="#A50044" stroke-width="15"/><text x="50" y="75" font-family="sans-serif" font-size="25" font-weight="bold" fill="#FDB913" text-anchor="middle">FCB</text></svg><div class="egg-text text-barca">Més que un club</div></div>';
+                overlay.innerHTML = '<div class="football-bg bg-barca"></div><div class="egg-content"><div class="egg-title title-barca">FC BARCELONA</div><div class="egg-text text-barca">Més que un club</div></div>';
                 clearEgg(5000);
             },
             "betis": () => {
-                overlay.innerHTML = '<div class="football-bg bg-betis"></div><div class="egg-content"><svg class="football-crest" viewBox="0 0 100 100"><path d="M 30 10 L 70 10 L 90 50 L 50 90 L 10 50 Z" fill="#009A44" stroke="#fff" stroke-width="5"/><circle cx="50" cy="45" r="20" fill="#fff"/><text x="50" y="55" font-family="sans-serif" font-size="25" font-weight="bold" fill="#009A44" text-anchor="middle">B</text></svg><div class="egg-text text-betis">¡Viva er Betis manque pierda!</div></div>';
+                overlay.innerHTML = '<div class="football-bg bg-betis"></div><div class="egg-content"><div class="egg-title title-betis">REAL BETIS</div><div class="egg-text text-betis">¡Viva er Betis manque pierda!</div></div>';
                 clearEgg(5000);
             },
             "puigdemont": () => {
                 overlay.innerHTML = '<div class="estelada-container"><div class="estelada-triangle"></div><svg class="estelada-star" viewBox="0 0 100 100"><polygon points="50,5 61,35 95,35 68,55 78,85 50,65 22,85 32,55 5,35 39,35"/></svg></div><div class="egg-content"><div class="egg-text text-cat">VISCA CATALUNYA LLIURE</div></div>';
+                clearEgg(5000);
+            },
+            "vox": () => {
+                overlay.innerHTML = '<div class="spain-bg"></div><div class="egg-content"><div class="egg-text text-spain">VIVA ESPAÑA</div></div>';
                 clearEgg(5000);
             },
             "star wars": () => {
