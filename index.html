@@ -551,6 +551,166 @@
         const filterMenu = document.getElementById('filterMenu');
         const filterButtons = document.getElementById('filterButtons');
         const disclaimer = document.getElementById('disclaimer');
+        const overlay = document.getElementById('egg-overlay');
+
+        let isEggRunning = false;
+
+        const clearEgg = (delay = 5000) => {
+            setTimeout(() => {
+                overlay.className = '';
+                overlay.innerHTML = '';
+                overlay.style.background = 'transparent';
+                document.body.style.filter = '';
+                isEggRunning = false;
+            }, delay);
+        };
+
+        const canvasFeathers = () => {
+            const c = document.createElement('canvas');
+            c.width = window.innerWidth; c.height = window.innerHeight;
+            c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; c.style.zIndex = '2';
+            overlay.appendChild(c);
+            const ctx = c.getContext('2d');
+            let feathers = Array(50).fill().map(() => ({x: Math.random() * c.width, y: Math.random() * -c.height, s: Math.random() * 2 + 1, a: Math.random() * Math.PI * 2, c: Math.random() > 0.5 ? '#fff' : '#00a0e9'}));
+            const interval = setInterval(() => {
+                ctx.clearRect(0, 0, c.width, c.height);
+                feathers.forEach(f => {
+                    ctx.fillStyle = f.c; ctx.save(); ctx.translate(f.x, f.y); ctx.rotate(f.a);
+                    ctx.beginPath(); ctx.ellipse(0, 0, 4 * f.s, 10 * f.s, 0, 0, Math.PI * 2); ctx.fill();
+                    ctx.restore();
+                    f.y += f.s * 2; f.x += Math.sin(f.a) * 2; f.a += 0.05;
+                    if(f.y > c.height) { f.y = -20; f.x = Math.random() * c.width; }
+                });
+            }, 30);
+            setTimeout(() => clearInterval(interval), 4400);
+        };
+
+        const canvasMatrix = () => {
+            const c = document.createElement('canvas');
+            c.width = window.innerWidth; c.height = window.innerHeight;
+            c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0';
+            overlay.appendChild(c);
+            const ctx = c.getContext('2d');
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            const drops = Array(Math.floor(c.width / 20)).fill(1);
+            const interval = setInterval(() => {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, c.width, c.height);
+                ctx.fillStyle = '#0F0';
+                ctx.font = '20px monospace';
+                drops.forEach((y, i) => {
+                    ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * 20, y * 20);
+                    if (y * 20 > c.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                });
+            }, 50);
+            setTimeout(() => clearInterval(interval), 4900);
+        };
+
+        const canvasStars = () => {
+            const c = document.createElement('canvas');
+            c.width = window.innerWidth; c.height = window.innerHeight;
+            c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0';
+            overlay.appendChild(c);
+            const ctx = c.getContext('2d');
+            let stars = Array(400).fill().map(() => ({x: Math.random() * c.width - c.width/2, y: Math.random() * c.height - c.height/2, z: Math.random() * 200}));
+            let speed = 2;
+            const draw = () => {
+                ctx.fillStyle = 'black'; ctx.fillRect(0, 0, c.width, c.height);
+                ctx.translate(c.width/2, c.height/2);
+                stars.forEach(s => {
+                    s.z -= speed; if(s.z <= 0) { s.x = Math.random() * c.width - c.width/2; s.y = Math.random() * c.height - c.height/2; s.z = 200; }
+                    const sx = (s.x / s.z) * 100; const sy = (s.y / s.z) * 100;
+                    const px = (s.x / (s.z + speed)) * 100; const py = (s.y / (s.z + speed)) * 100;
+                    ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(sx, sy); ctx.strokeStyle = 'white'; ctx.lineWidth = 2; ctx.stroke();
+                });
+                ctx.translate(-c.width/2, -c.height/2);
+                speed += 0.5;
+                if(speed < 50) requestAnimationFrame(draw);
+            };
+            draw();
+        };
+
+        const eggs = {
+            "fgc": () => {
+                document.body.style.filter = 'sepia(0.6)';
+                overlay.style.background = 'transparent';
+                overlay.innerHTML = '<svg class="fgc-train" viewBox="0 0 400 100"><rect x="10" y="20" width="380" height="60" rx="10" fill="#fff" stroke="#e05206" stroke-width="4"/><rect x="30" y="30" width="40" height="30" fill="#333"/><rect x="90" y="30" width="40" height="30" fill="#333"/><rect x="150" y="30" width="40" height="30" fill="#333"/><rect x="210" y="30" width="40" height="30" fill="#333"/><rect x="270" y="30" width="40" height="30" fill="#333"/><rect x="330" y="30" width="40" height="30" fill="#333"/><circle cx="80" cy="90" r="10" fill="#555"/><circle cx="120" cy="90" r="10" fill="#555"/><circle cx="280" cy="90" r="10" fill="#555"/><circle cx="320" cy="90" r="10" fill="#555"/></svg>';
+                clearEgg(4000);
+            },
+            "byd": () => {
+                overlay.style.background = '#000';
+                overlay.innerHTML = '<div class="byd-text" id="bydt">BUILD YOUR DREAMS</div>';
+                setTimeout(() => {
+                    document.getElementById('bydt').style.display = 'none';
+                    overlay.innerHTML += '<svg class="byd-car" viewBox="0 0 200 60"><path d="M10 50 L30 30 L80 20 L150 25 L180 40 L190 50 Z" fill="none" stroke="#00f3ff" stroke-width="3"/></svg><div style="position:absolute; bottom:20%; color:#00f3ff; font-family:monospace; font-size:2rem; animation: glitch 1s infinite;">EL FUTURO ES ELÉCTRICO</div>';
+                }, 1000);
+                clearEgg(4000);
+            },
+            "tesla": () => {
+                overlay.style.background = '#000';
+                overlay.innerHTML = '<svg class="tesla-t" viewBox="0 0 100 100"><path d="M10,20 L90,20 L90,35 L55,35 L55,90 L45,90 L45,35 L10,35 Z"/></svg><svg class="tesla-thumb" viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><div class="tesla-text">Lavadora Americana Sobrevalorada</div>';
+                clearEgg(6000);
+            },
+            "fajardo": () => {
+                overlay.style.background = '#000';
+                canvasMatrix();
+                overlay.innerHTML += '<div class="matrix-text">ACCESS_LEVEL: ROOT_CREATOR<br>IDENTIFIED: FAJARDO</div>';
+                clearEgg(5000);
+            },
+            "fc barcelona": () => {
+                overlay.style.background = 'transparent';
+                overlay.innerHTML = '<div class="fcb-bg fcb-blue"></div><div class="fcb-bg fcb-red"></div><div class="fcb-content"><svg viewBox="0 0 100 100" width="200"><path d="M50 10 C20 10 10 30 10 50 C10 80 50 90 50 90 C50 90 90 80 90 50 C90 30 80 10 50 10 Z" fill="#A50044"/><path d="M50 10 C20 10 10 30 10 50 L90 50 C90 30 80 10 50 10 Z" fill="#004D98"/><circle cx="50" cy="70" r="10" fill="#FDB913"/></svg><div class="fcb-text">Mes que un club</div></div>';
+                setTimeout(() => { overlay.children[0].classList.add('fcb-out'); overlay.children[1].classList.add('fcb-out'); overlay.children[2].classList.add('fcb-out'); }, 4000);
+                clearEgg(5500);
+            },
+            "shalom": () => {
+                overlay.style.background = 'transparent';
+                overlay.innerHTML = '<div class="shalom-bg"></div><div style="z-index:2; text-align:center"><svg class="shalom-star" viewBox="0 0 100 100"><polygon points="50,10 90,80 10,80"/><polygon points="50,90 90,20 10,20"/></svg><div class="shalom-text">Raul te desea paz, prosperidad y mucha luz</div></div>';
+                clearEgg(5000);
+            },
+            "real madrid": () => {
+                overlay.style.background = 'transparent';
+                overlay.innerHTML = '<div class="rm-flash"></div><div class="rm-stripe"></div><div class="rm-content"><svg viewBox="0 0 100 100" width="200"><circle cx="50" cy="50" r="40" fill="#fff" stroke="#FEBE10" stroke-width="5"/><path d="M50 10 L60 20 L40 20 Z" fill="#FEBE10"/><text x="50" y="60" text-anchor="middle" font-family="serif" font-size="30" fill="#00529F">MCF</text></svg><div class="rm-text">Hala Madrid y nada mas</div></div>';
+                setTimeout(() => { overlay.style.background = '#fff'; overlay.innerHTML = ''; }, 4000);
+                clearEgg(4500);
+            },
+            "vox": () => {
+                overlay.style.background = 'transparent';
+                overlay.innerHTML = '<div class="es-bg"></div><div class="es-text">VIVA ESPAÑA</div>';
+                clearEgg(5000);
+            },
+            "puigdemont": () => {
+                overlay.style.background = 'transparent';
+                overlay.innerHTML = '<div class="cat-bg"><div class="cat-bar"></div><div class="cat-bar"></div><div class="cat-bar"></div><div class="cat-bar"></div></div><div class="cat-triangle"></div><svg class="cat-star" viewBox="0 0 100 100"><polygon points="50,10 60,40 90,40 65,60 75,90 50,70 25,90 35,60 10,40 40,40"/></svg><div class="cat-text" style="top:20%;">IN-DE-PEN-DEN-CIA</div><div class="cat-text" style="top:60%;">VISCA CATALUNYA</div>';
+                setTimeout(() => { document.querySelectorAll('.cat-bar').forEach(b => b.style.transform = 'scaleY(1)'); }, 100);
+                setTimeout(() => { document.querySelector('.cat-triangle').style.left = '0'; document.querySelector('.cat-star').style.opacity = '1'; document.querySelectorAll('.cat-text').forEach(t => t.style.opacity = '1'); }, 1000);
+                clearEgg(5000);
+            },
+            "star wars": () => {
+                overlay.style.background = '#000';
+                canvasStars();
+                setTimeout(() => { overlay.innerHTML = '<div class="sw-saber"></div><div class="sw-text">QUE LA FUERZA TE ACOMPAÑE</div>'; }, 2000);
+                clearEgg(6000);
+            },
+            "apple": () => {
+                overlay.style.background = 'transparent';
+                overlay.innerHTML = '<div class="apple-bg"><div class="apple-sweep"></div></div><svg class="apple-logo" viewBox="0 0 100 100"><path d="M80,50 C80,30 60,30 60,30 C50,30 45,35 40,35 C35,35 30,30 20,30 C10,30 0,40 0,60 C0,80 15,95 25,95 C30,95 35,90 40,90 C45,90 50,95 55,95 C65,95 80,80 80,60 C70,60 65,55 65,45 C65,35 75,30 80,30 M60,5 C60,5 50,5 45,15 C40,25 45,35 45,35 C45,35 55,35 60,25 C65,15 60,5 60,5"/></svg><div class="apple-text">Designed in California</div>';
+                setTimeout(() => { overlay.innerHTML += '<div class="flash-overlay"></div>'; }, 3000);
+                clearEgg(5000);
+            },
+            "betis": () => {
+                overlay.style.background = 'transparent';
+                overlay.innerHTML = '<div style="width:100%;height:100%;position:absolute;">' + '<div class="betis-bar"></div>'.repeat(13) + '</div><div class="betis-content"><svg class="betis-shield" viewBox="0 0 100 100"><polygon points="50,10 90,30 50,90 10,30" fill="#009A44" stroke="#fff"/></svg><div class="betis-text">Viva er Betis manque pierda</div></div>';
+                clearEgg(5000);
+            },
+            "espanyol": () => {
+                overlay.style.background = 'transparent';
+                overlay.innerHTML = '<div class="esp-bg"></div><svg class="esp-shield" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#0047b6" stroke="#fff" stroke-width="5"/></svg><div class="esp-text">La Força d un Sentiment</div>';
+                canvasFeathers();
+                clearEgg(5000);
+            }
+        };
 
         function renderCards(items, message = '') {
             let html = message ? `<div class="status-msg">${message}</div>` : '';
@@ -598,8 +758,27 @@
         }
 
         searchInput.addEventListener('input', (e) => {
-            const queryRaw = e.target.value.trim();
+            if (isEggRunning) {
+                e.preventDefault();
+                return;
+            }
+
+            const queryRaw = e.target.value;
             const queryLowercase = queryRaw.toLowerCase();
+
+            for (let word in eggs) {
+                if (queryLowercase.includes(word)) {
+                    isEggRunning = true;
+                    overlay.classList.add('active');
+                    eggs[word]();
+                    searchInput.value = '';
+                    searchInput.blur();
+                    filterMenu.style.display = 'none';
+                    resultsContainer.innerHTML = '';
+                    disclaimer.style.display = 'block';
+                    return;
+                }
+            }
 
             disclaimer.style.display = queryRaw ? 'none' : 'block';
 
@@ -647,183 +826,6 @@
                 renderCards(accesos.filter(a => terms.every(term => a.abrevSearch.includes(term) || a.tramoSearch.includes(term))));
             }
         });
-
-        (function(){
-            const overlay = document.getElementById('egg-overlay');
-            let seq = "";
-            let isRunning = false;
-
-            const clearEgg = (delay = 5000) => {
-                setTimeout(() => {
-                    overlay.className = '';
-                    overlay.innerHTML = '';
-                    overlay.style.background = 'transparent';
-                    document.body.style.filter = '';
-                    isRunning = false;
-                }, delay);
-            };
-
-            const canvasFeathers = () => {
-                const c = document.createElement('canvas');
-                c.width = window.innerWidth; c.height = window.innerHeight;
-                c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; c.style.zIndex = '2';
-                overlay.appendChild(c);
-                const ctx = c.getContext('2d');
-                let feathers = Array(50).fill().map(() => ({x: Math.random() * c.width, y: Math.random() * -c.height, s: Math.random() * 2 + 1, a: Math.random() * Math.PI * 2, c: Math.random() > 0.5 ? '#fff' : '#00a0e9'}));
-                const interval = setInterval(() => {
-                    ctx.clearRect(0, 0, c.width, c.height);
-                    feathers.forEach(f => {
-                        ctx.fillStyle = f.c; ctx.save(); ctx.translate(f.x, f.y); ctx.rotate(f.a);
-                        ctx.beginPath(); ctx.ellipse(0, 0, 4 * f.s, 10 * f.s, 0, 0, Math.PI * 2); ctx.fill();
-                        ctx.restore();
-                        f.y += f.s * 2; f.x += Math.sin(f.a) * 2; f.a += 0.05;
-                        if(f.y > c.height) { f.y = -20; f.x = Math.random() * c.width; }
-                    });
-                }, 30);
-                setTimeout(() => clearInterval(interval), 4400);
-            };
-
-            const canvasMatrix = () => {
-                const c = document.createElement('canvas');
-                c.width = window.innerWidth; c.height = window.innerHeight;
-                c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0';
-                overlay.appendChild(c);
-                const ctx = c.getContext('2d');
-                const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-                const drops = Array(Math.floor(c.width / 20)).fill(1);
-                const interval = setInterval(() => {
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                    ctx.fillRect(0, 0, c.width, c.height);
-                    ctx.fillStyle = '#0F0';
-                    ctx.font = '20px monospace';
-                    drops.forEach((y, i) => {
-                        ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * 20, y * 20);
-                        if (y * 20 > c.height && Math.random() > 0.975) drops[i] = 0;
-                        drops[i]++;
-                    });
-                }, 50);
-                setTimeout(() => clearInterval(interval), 4900);
-            };
-
-            const canvasStars = () => {
-                const c = document.createElement('canvas');
-                c.width = window.innerWidth; c.height = window.innerHeight;
-                c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0';
-                overlay.appendChild(c);
-                const ctx = c.getContext('2d');
-                let stars = Array(400).fill().map(() => ({x: Math.random() * c.width - c.width/2, y: Math.random() * c.height - c.height/2, z: Math.random() * 200}));
-                let speed = 2;
-                const draw = () => {
-                    ctx.fillStyle = 'black'; ctx.fillRect(0, 0, c.width, c.height);
-                    ctx.translate(c.width/2, c.height/2);
-                    stars.forEach(s => {
-                        s.z -= speed; if(s.z <= 0) { s.x = Math.random() * c.width - c.width/2; s.y = Math.random() * c.height - c.height/2; s.z = 200; }
-                        const sx = (s.x / s.z) * 100; const sy = (s.y / s.z) * 100;
-                        const px = (s.x / (s.z + speed)) * 100; const py = (s.y / (s.z + speed)) * 100;
-                        ctx.beginPath(); ctx.moveTo(px, py); ctx.lineTo(sx, sy); ctx.strokeStyle = 'white'; ctx.lineWidth = 2; ctx.stroke();
-                    });
-                    ctx.translate(-c.width/2, -c.height/2);
-                    speed += 0.5;
-                    if(speed < 50) requestAnimationFrame(draw);
-                };
-                draw();
-            };
-
-            const eggs = {
-                "fgc": () => {
-                    document.body.style.filter = 'sepia(0.6)';
-                    overlay.style.background = 'transparent';
-                    overlay.innerHTML = '<svg class="fgc-train" viewBox="0 0 400 100"><rect x="10" y="20" width="380" height="60" rx="10" fill="#fff" stroke="#e05206" stroke-width="4"/><rect x="30" y="30" width="40" height="30" fill="#333"/><rect x="90" y="30" width="40" height="30" fill="#333"/><rect x="150" y="30" width="40" height="30" fill="#333"/><rect x="210" y="30" width="40" height="30" fill="#333"/><rect x="270" y="30" width="40" height="30" fill="#333"/><rect x="330" y="30" width="40" height="30" fill="#333"/><circle cx="80" cy="90" r="10" fill="#555"/><circle cx="120" cy="90" r="10" fill="#555"/><circle cx="280" cy="90" r="10" fill="#555"/><circle cx="320" cy="90" r="10" fill="#555"/></svg>';
-                    clearEgg(4000);
-                },
-                "byd": () => {
-                    overlay.style.background = '#000';
-                    overlay.innerHTML = '<div class="byd-text" id="bydt">BUILD YOUR DREAMS</div>';
-                    setTimeout(() => {
-                        document.getElementById('bydt').style.display = 'none';
-                        overlay.innerHTML += '<svg class="byd-car" viewBox="0 0 200 60"><path d="M10 50 L30 30 L80 20 L150 25 L180 40 L190 50 Z" fill="none" stroke="#00f3ff" stroke-width="3"/></svg><div style="position:absolute; bottom:20%; color:#00f3ff; font-family:monospace; font-size:2rem; animation: glitch 1s infinite;">EL FUTURO ES ELÉCTRICO</div>';
-                    }, 1000);
-                    clearEgg(4000);
-                },
-                "tesla": () => {
-                    overlay.style.background = '#000';
-                    overlay.innerHTML = '<svg class="tesla-t" viewBox="0 0 100 100"><path d="M10,20 L90,20 L90,35 L55,35 L55,90 L45,90 L45,35 L10,35 Z"/></svg><svg class="tesla-thumb" viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><div class="tesla-text">Lavadora Americana Sobrevalorada</div>';
-                    clearEgg(6000);
-                },
-                "fajardo": () => {
-                    overlay.style.background = '#000';
-                    canvasMatrix();
-                    overlay.innerHTML += '<div class="matrix-text">ACCESS_LEVEL: ROOT_CREATOR<br>IDENTIFIED: FAJARDO</div>';
-                    clearEgg(5000);
-                },
-                "fc barcelona": () => {
-                    overlay.style.background = 'transparent';
-                    overlay.innerHTML = '<div class="fcb-bg fcb-blue"></div><div class="fcb-bg fcb-red"></div><div class="fcb-content"><svg viewBox="0 0 100 100" width="200"><path d="M50 10 C20 10 10 30 10 50 C10 80 50 90 50 90 C50 90 90 80 90 50 C90 30 80 10 50 10 Z" fill="#A50044"/><path d="M50 10 C20 10 10 30 10 50 L90 50 C90 30 80 10 50 10 Z" fill="#004D98"/><circle cx="50" cy="70" r="10" fill="#FDB913"/></svg><div class="fcb-text">Mes que un club</div></div>';
-                    setTimeout(() => { overlay.children[0].classList.add('fcb-out'); overlay.children[1].classList.add('fcb-out'); overlay.children[2].classList.add('fcb-out'); }, 4000);
-                    clearEgg(5500);
-                },
-                "shalom": () => {
-                    overlay.style.background = 'transparent';
-                    overlay.innerHTML = '<div class="shalom-bg"></div><div style="z-index:2; text-align:center"><svg class="shalom-star" viewBox="0 0 100 100"><polygon points="50,10 90,80 10,80"/><polygon points="50,90 90,20 10,20"/></svg><div class="shalom-text">Raul te desea paz, prosperidad y mucha luz</div></div>';
-                    clearEgg(5000);
-                },
-                "real madrid": () => {
-                    overlay.style.background = 'transparent';
-                    overlay.innerHTML = '<div class="rm-flash"></div><div class="rm-stripe"></div><div class="rm-content"><svg viewBox="0 0 100 100" width="200"><circle cx="50" cy="50" r="40" fill="#fff" stroke="#FEBE10" stroke-width="5"/><path d="M50 10 L60 20 L40 20 Z" fill="#FEBE10"/><text x="50" y="60" text-anchor="middle" font-family="serif" font-size="30" fill="#00529F">MCF</text></svg><div class="rm-text">Hala Madrid y nada mas</div></div>';
-                    setTimeout(() => { overlay.style.background = '#fff'; overlay.innerHTML = ''; }, 4000);
-                    clearEgg(4500);
-                },
-                "vox": () => {
-                    overlay.style.background = 'transparent';
-                    overlay.innerHTML = '<div class="es-bg"></div><div class="es-text">VIVA ESPAÑA</div>';
-                    clearEgg(5000);
-                },
-                "puigdemont": () => {
-                    overlay.style.background = 'transparent';
-                    overlay.innerHTML = '<div class="cat-bg"><div class="cat-bar"></div><div class="cat-bar"></div><div class="cat-bar"></div><div class="cat-bar"></div></div><div class="cat-triangle"></div><svg class="cat-star" viewBox="0 0 100 100"><polygon points="50,10 60,40 90,40 65,60 75,90 50,70 25,90 35,60 10,40 40,40"/></svg><div class="cat-text" style="top:20%;">IN-DE-PEN-DEN-CIA</div><div class="cat-text" style="top:60%;">VISCA CATALUNYA</div>';
-                    setTimeout(() => { document.querySelectorAll('.cat-bar').forEach(b => b.style.transform = 'scaleY(1)'); }, 100);
-                    setTimeout(() => { document.querySelector('.cat-triangle').style.left = '0'; document.querySelector('.cat-star').style.opacity = '1'; document.querySelectorAll('.cat-text').forEach(t => t.style.opacity = '1'); }, 1000);
-                    clearEgg(5000);
-                },
-                "star wars": () => {
-                    overlay.style.background = '#000';
-                    canvasStars();
-                    setTimeout(() => { overlay.innerHTML = '<div class="sw-saber"></div><div class="sw-text">QUE LA FUERZA TE ACOMPAÑE</div>'; }, 2000);
-                    clearEgg(6000);
-                },
-                "apple": () => {
-                    overlay.style.background = 'transparent';
-                    overlay.innerHTML = '<div class="apple-bg"><div class="apple-sweep"></div></div><svg class="apple-logo" viewBox="0 0 100 100"><path d="M80,50 C80,30 60,30 60,30 C50,30 45,35 40,35 C35,35 30,30 20,30 C10,30 0,40 0,60 C0,80 15,95 25,95 C30,95 35,90 40,90 C45,90 50,95 55,95 C65,95 80,80 80,60 C70,60 65,55 65,45 C65,35 75,30 80,30 M60,5 C60,5 50,5 45,15 C40,25 45,35 45,35 C45,35 55,35 60,25 C65,15 60,5 60,5"/></svg><div class="apple-text">Designed in California</div>';
-                    setTimeout(() => { overlay.innerHTML += '<div class="flash-overlay"></div>'; }, 3000);
-                    clearEgg(5000);
-                },
-                "betis": () => {
-                    overlay.style.background = 'transparent';
-                    overlay.innerHTML = '<div style="width:100%;height:100%;position:absolute;">' + '<div class="betis-bar"></div>'.repeat(13) + '</div><div class="betis-content"><svg class="betis-shield" viewBox="0 0 100 100"><polygon points="50,10 90,30 50,90 10,30" fill="#009A44" stroke="#fff"/></svg><div class="betis-text">Viva er Betis manque pierda</div></div>';
-                    clearEgg(5000);
-                },
-                "espanyol": () => {
-                    overlay.style.background = 'transparent';
-                    overlay.innerHTML = '<div class="esp-bg"></div><svg class="esp-shield" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#0047b6" stroke="#fff" stroke-width="5"/></svg><div class="esp-text">La Força d un Sentiment</div>';
-                    canvasFeathers();
-                    clearEgg(5000);
-                }
-            };
-
-            window.addEventListener('keydown', (e) => {
-                if(isRunning) return;
-                seq = (seq + e.key).toLowerCase().slice(-20);
-                for (let word in eggs) {
-                    if (seq.includes(word)) {
-                        isRunning = true;
-                        overlay.classList.add('active');
-                        eggs[word]();
-                        seq = "";
-                        break;
-                    }
-                }
-            });
-        })();
     </script>
 </body>
 </html>
