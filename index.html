@@ -229,7 +229,6 @@
             text-transform: uppercase;
         }
 
-        /* ANIMACIONES */
         @keyframes trainChug { 0% { transform: translateX(-120vw); } 100% { transform: translateX(120vw); } }
         @keyframes wheelRoll { 100% { transform: rotate(360deg); } }
         .wooden-train { width: 80vw; max-width: 400px; animation: trainChug 4s linear forwards; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.5)); }
@@ -265,17 +264,22 @@
         .bg-betis { background: repeating-linear-gradient(90deg, #009A44 0px, #009A44 40px, #ffffff 40px, #ffffff 80px); }
         @keyframes slideBg { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
         
-        .title-madrid { color: #00529F; text-shadow: 3px 3px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
+        .title-madrid { color: #000; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
+        .text-madrid { color: #000; text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff; }
         .title-barca { color: #FDB913; text-shadow: 4px 4px 0 #004D98, -2px -2px 0 #A50044, 2px -2px 0 #A50044, -2px 2px 0 #A50044, 2px 2px 0 #A50044; }
-        .title-betis { color: #009A44; text-shadow: 3px 3px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
+        .title-betis { color: #000; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
+        .text-betis { color: #000; text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff; }
 
         .estelada-container { position: absolute; inset: 0; z-index: 1; overflow: hidden; background: repeating-linear-gradient(180deg, #ffed00 0%, #ffed00 10%, #da121a 10%, #da121a 20%); background-size: 100% 100vh; animation: flagWave 3s ease-in-out infinite alternate; }
         .estelada-triangle { position: absolute; left: 0; top: 0; width: 0; height: 0; border-top: 50vh solid transparent; border-bottom: 50vh solid transparent; border-left: 60vw solid #0f47af; }
         .estelada-star { position: absolute; left: 10vw; top: 50%; transform: translateY(-50%) rotate(-18deg); width: 15vw; min-width: 60px; fill: white; }
-        .spain-bg { position: absolute; inset: 0; z-index: 1; background: linear-gradient(to bottom, #AA151B 25%, #F1BF00 25%, #F1BF00 75%, #AA151B 75%); background-size: 100% 120%; animation: flagWave 3s ease-in-out infinite alternate; }
+        
+        .vox-bg { position: absolute; inset: 0; background: #111; display: flex; align-items: center; justify-content: center; z-index: 1; }
+        .flag-box { width: 80vw; max-width: 400px; aspect-ratio: 3/2; background: linear-gradient(to bottom, #AA151B 25%, #F1BF00 25%, #F1BF00 75%, #AA151B 75%); box-shadow: 0 0 40px rgba(0,0,0,0.8); animation: flagWave 3s ease-in-out infinite alternate; }
         @keyframes flagWave { 0% { transform: scale(1.05) skewY(1deg); } 100% { transform: scale(1.05) skewY(-1deg); } }
+        
         .text-cat { color: #fff; text-shadow: 3px 3px 0 #da121a, -1px -1px 0 #da121a, 1px -1px 0 #da121a, -1px 1px 0 #da121a, 1px 1px 0 #da121a; }
-        .text-spain { color: #fff; text-shadow: 3px 3px 0 #AA151B, -1px -1px 0 #AA151B, 1px -1px 0 #AA151B, -1px 1px 0 #AA151B, 1px 1px 0 #AA151B; font-size: 3rem; font-weight: 900; }
+        .text-spain { color: #000; text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff; font-size: 3rem; font-weight: 900; }
 
         .sw-space { position: absolute; inset: 0; background: #000; z-index: 1; overflow: hidden; perspective: 400px; }
         .sw-stars { position: absolute; inset: 0; background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)), radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0)); background-repeat: repeat; background-size: 200px 200px; animation: spaceMove 10s linear infinite; }
@@ -287,12 +291,17 @@
         .merida-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0047b6 25%, #fff 25%, #fff 50%, #0047b6 50%, #0047b6 75%, #fff 75%, #fff 100%); background-size: 50px 50px; z-index: 1; animation: moveBg 2s linear infinite; }
         @keyframes moveBg { from { background-position: 0 0; } to { background-position: 50px 50px; } }
 
-        .tesla-t { fill: #e82127; width: 120px; animation: fallCrash 2.5s cubic-bezier(.47,0,.74,.71) forwards; }
-        .tesla-thumb { fill: #e82127; width: 150px; opacity: 0; animation: fadeIn 0.5s 1.8s forwards; }
-        @keyframes fallCrash { 0% { transform: translateY(-100vh) rotate(0); } 70% { transform: translateY(0) rotate(0); } 100% { transform: translateY(100vh) rotate(45deg); opacity: 0; } }
+        .tesla-t { fill: #e82127; width: 120px; animation: teslaShatter 2s forwards; }
+        .tesla-thumb-box { position: absolute; display: flex; flex-direction: column; align-items: center; opacity: 0; animation: fadeIn 0.5s 2s forwards; }
+        @keyframes teslaShatter { 0% { transform: scale(1); filter: drop-shadow(0 0 0 red); } 30% { transform: scale(1.2); filter: drop-shadow(0 0 20px red); } 40% { transform: scale(1.2) rotate(-10deg) skewX(20deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(45deg); opacity: 0; } }
+        
         .apple-bg { background: #000; width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
         .apple-sweep { position: absolute; top: 0; width: 100%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent); animation: appleSweep 1.5s infinite; }
         @keyframes appleSweep { 0% { left: -100%; } 100% { left: 100%; } }
+        .apple-logo-anim { animation: pulseGlow 2s infinite alternate; }
+
+        canvas { touch-action: none; background: #111; max-width: 100vw; max-height: 100vh; }
+        #scoreBoard { position: absolute; top: 20px; left: 20px; color: #00f3ff; font-family: monospace; font-size: 24px; z-index: 50; }
 
     </style>
 </head>
@@ -327,11 +336,245 @@
 
     <script>
         const rawData = `
-        0,000 | PC | PLAÇA CATALUNYA | https://goo.gl/maps/K9p7fBxezpJ7MCpUA
-        0,000 | SR | SARRIÀ | https://goo.gl/maps/MRPJawa7Uq15GSWt7
-        4,200 | VL-LP | BAIXADOR DE VALLVIDRERA - LES PLANES | https://goo.gl/maps/wkqFSGHsdiWSjSuc6
-        4,200 | LF-VD | LA FLORESTA-VALLDOREIX | https://goo.gl/maps/cJKx7zoZn377GTEq9
+        5,990 | SC | SANT CUGAT | https://goo.gl/maps/WPGJyzao7Mep6Qkt5
+        0,400 | SC-VO | SANT CUGAT - VOLPELLERES | https://goo.gl/maps/7B5vaSrkSjSHqhibA
+        1,050 | SC-VO | SANT CUGAT - VOLPELLERES | https://goo.gl/maps/8RhhViQNBPc4Ycdh9
+        1,400 | SC-VO | SANT CUGAT - VOLPELLERES | https://goo.gl/maps/xWNjR47Wo9s33FQJ8
+        1,500 | SC-VO | SANT CUGAT - VOLPELLERES | https://goo.gl/maps/bSMLQUCKbPe4zEhg8
+        1,532 | VO | VOLPELLERES | https://goo.gl/maps/bAufDweZCRkpDboc7
+        1,800 | VO-SJ | VOLPELLERES - SANT JOAN | https://goo.gl/maps/gW5LF1THt2qE2onN7
+        2,200 | VO-SJ | VOLPELLERES - SANT JOAN | https://goo.gl/maps/umdJ9ZP1b1M7JVgM7
+        2,500 | VO-SJ | VOLPELLERES - SANT JOAN | https://goo.gl/maps/XKNWGuG9CyX4vWE19
+        2,730 | SJ | SANT JOAN | https://goo.gl/maps/Z2ztLU5kH4yTxqXP7
+        2,950 | SJ-BT | SANT JOAN - BELLATERRA | https://goo.gl/maps/GLiwGu1Cqifv8iQQ8
+        3,350 | SJ-BT | SANT JOAN - BELLATERRA | https://goo.gl/maps/PVXZS7ktDYYsBvr17
+        3,800 | SJ-BT | SANT JOAN - BELLATERRA | https://goo.gl/maps/jqkRc2yaicB7vQeP7
+        4,100 | SJ-BT | SANT JOAN - BELLATERRA | https://goo.gl/maps/6wfMaNTBKBEapYS97
+        4,400 | BT | BELLATERRA | https://goo.gl/maps/5wMagdqom6Fjd4ck8
+        0,100 | BT-UN | BELLATERRA - UNIVERSIDAD AUTONOMA | https://goo.gl/maps/GgWoK2fPT4FZt7Fq8
+        0,300 | BT-UN VIA 2 | BELLATERRA - UNIVERSIDAD AUTONOMA | https://goo.gl/maps/U95Ss1s9MZ1tFpnv6
+        0,300 | BT-UN VIA 1 | BELLATERRA - UNIVERSIDAD AUTONOMA | https://maps.app.goo.gl/mPUKd4vtYMiPq6LD8
+        0,600 | BT-UN | BELLATERRA - UNIVERSIDAD AUTONOMA | https://goo.gl/maps/WEarzhG94N1ryYE77
+        0,800 | BT-UN | BELLATERRA - UNIVERSIDAD AUTONOMA | https://goo.gl/maps/Lf92dL9o6QA9naJi9
+        1,300 | UN | UNIVERSIDAD AUTONOMA | https://goo.gl/maps/3BBgidFu2WDNGjjF7
+        1,400 | UN-SQ | UNIVERSIDAD AUTONOMA - SANT QUIRZE | https://goo.gl/maps/WaygV9KZNgzS7qvz8
+        2,300 | UN-SQ | UNIVERSIDAD AUTONOMA - SANT QUIRZE | https://goo.gl/maps/zuc7BPvHbFfior7t7
+        3,600 | UN-SQ | UNIVERSIDAD AUTONOMA - SANT QUIRZE | https://goo.gl/maps/Xd8eqqrK3GftQFB39
+        7,000 | UN-SQ | UNIVERSIDAD AUTONOMA - SANT QUIRZE | https://goo.gl/maps/DQeeKMcpNHUWd3Bx9
+        7,760 | SQ | SANT QUIRZE | https://goo.gl/maps/asKgbiFxZBfLvuxM8
+        8,300 | SQ-CF | SANT QUIRZE - CAN FEU | https://goo.gl/maps/tRk5QB7mggnhn9um7
+        8,600 | SQ-CF | SANT QUIRZE - CAN FEU | https://goo.gl/maps/Zk8P7Vq2T
+        9,100 | CF | CAN FEU | https://goo.gl/maps/Mp3L9Rw5B
+        9,600 | CF-SM | CAN FEU - SABADELL PLACA MAJOR | https://goo.gl/maps/Xy4N2Bc7J
+        10,200 | SM | SABADELL PLACA MAJOR | https://goo.gl/maps/Qc9T6Hj3K
+        10,600 | SM-CA | SABADELL PLACA MAJOR - LA CREU ALTA | https://goo.gl/maps/Vn5M8Gf2D
+        11,100 | CA | LA CREU ALTA | https://goo.gl/maps/Wb3F1Zp9M
+        11,500 | CA-SN | LA CREU ALTA - SABADELL NORD | https://goo.gl/maps/Yr7K4Tw8C
+        12,000 | SN | SABADELL NORD | https://goo.gl/maps/Hs2D9Vb6L
+        12,500 | SN-PN | SABADELL NORD - SABADELL PARC DEL NORD | https://goo.gl/maps/Gj6N3Lm4F
+        13,000 | PN | SABADELL PARC DEL NORD | https://goo.gl/maps/Tk5P8Rc7V
+        8,900 | MS-HG | MIRA-SOL - HOSPITAL GENERAL | https://goo.gl/maps/5ruVGJqrNtpr44jK7 
+        9,050 | HG | HOSPITAL GENERAL | https://goo.gl/maps/6sC1cMJdQEXo6GzLA 
+        9.950 | HG-RB | HOSPITAL GENERAL - RUBÍ | https://goo.gl/maps/6Zhbv37j5Cvcs31BA 
+        10,500 | HG-RB | HOSPITAL GENERAL - RUBÍ (I.F RUBÍ) | https://goo.gl/maps/8q8ZYhZVevS89DCD8 
+        10,890 | RB | RUBÍ | https://goo.gl/maps/e588ZqEwNezhbakh8 
+        11,100 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/MCaGD1vbtyRFF4xz9 
+        11,200 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/sJyc5LZdVHMRrQBY9 
+        11,700 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/dGkrGdudMR41MeSR7 
+        12,700 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/6EJTWLkpM1PokNVFA 
+        13,100 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/oxNaC3YooBnRkSkYA 
+        13,600 al 13,800 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/Hmm6rhUEwrvqX1tRA 
+        14,600 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/rQpWuMmuZznAtosB8 
+        15,550 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/YDFYF5PxXg6ZADty5 
+        15,810 | FN | LES FONTS | https://goo.gl/maps/W8KbUwfc1xrBpHH17 
+        16,400 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/t8WaXJxrcrT37ScM8 
+        16,900 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/sjGNwdG5iReoFGCeA 
+        17,100 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/4TohaPjpCp9LPQPV8 
+        17,400 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/5HE29PJpNtNoQJpp6 
+        17,750 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/LGnRwrZ9WpoKdLY87 
+        18,150 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/dUaAXrvjTKdCgUMSA 
+        18,900 | FN-TR | LES FONTS - TERRASSA-RAMBLA | https://goo.gl/maps/41AcNDqUytAsgmRJ8 
+        20,150 | TR | TERRASSA-RAMBLA | https://goo.gl/maps/6SRBDM6PUNVf3SGm6 
+        21,670 | VP | VALLPARADÍS | https://goo.gl/maps/an9vifAP6NTyUoTo6 
+        22,585 | EN | ESTACIÓ DEL NORD | https://goo.gl/maps/tX3pBd5KtLqHBCF86 
+        23,852 | NA | NACIONS UNIDES | https://goo.gl/maps/mheErGwXRJPEFAmA8
+        0,000 | PC | PLAÇA CATALUNYA | https://goo.gl/maps/K9p7fBxezpJ7MCpUA 
+        1.220 | PR | PROVENÇA | https://goo.gl/maps/JWuuw3wFbEWpJpV16 
+        2,050 | GR | GRACIA | https://goo.gl/maps/7YhVz1KfDFGrzpDN8 
+        2,610 | SG | SANT GERVASI | https://goo.gl/maps/5w8oUvgXvs5ek3RB8 
+        3,080 | MN | MUNTANER | https://goo.gl/maps/YVtuAa24DJQWy1gd8 
+        3,610 | BN | LA BONANOVA | https://goo.gl/maps/k6y68EvAVB37x2GJ8 
+        4,080 | TT | LES TRES TORRES | https://goo.gl/maps/4Sditb17NQhZDYBz8 
+        4,600 | SR | SARRIA | https://goo.gl/maps/MRPJawa7Uq15GSWt7 
+        5,160 | RE | REINA ELISENDA | https://goo.gl/maps/DU5PfTjzJTjjcLth7 
+        0,600 | PM | PLAÇA MOLINA | https://goo.gl/maps/SYiasoD6SnRpi7wF6 
+        1,010 | PD | PADUA | https://goo.gl/maps/4L2i2x9RRhSdfLfu8 
+        1,410 | EP | EL PUTXET | https://goo.gl/maps/PMkjt85MV5SpPEi17 
+        1,860 | TB | AV.TIBIDABO | https://goo.gl/maps/PpjJgiRAh9mJQgku6 
+        0,000 | SR | SARRIÀ | https://goo.gl/maps/MRPJawa7Uq15GSWt7 
+        0,390 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/KqxJYL7P6jfjQwF38 
+        0,800 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/TC5yVcq5rnq5vGE9A 
+        1,300 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/BWRDeEdLVSmxwmf69 
+        1,500 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/oCMKSpscAKnfgfrU8 
+        1,700 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/cBg99o8FGPTErRfv6 
+        2,090 | PF | PEU DEL FUNICULAR | https://goo.gl/maps/YbcxncXZc8roejAWA 
+        3,760 | VL | BAIXADOR DE VALLVIDRERA | https://goo.gl/maps/YNgB7aKxifxXsgEE6 
+        4,200 | VL-LP | BAIXADOR DE VALLVIDRERA - LES PLANES | https://goo.gl/maps/wkqFSGHsdiWSjSuc6 
+        4,710 | LP | LES PLANES | https://goo.gl/maps/hwCGkDS2DaLfLPH37 
+        0,700 | LP-LF | LES PLANES - LA FLORESTA | https://goo.gl/maps/y2vPiRWcSaDssq4v8 
+        0,900 | LP-LF | LES PLANES - LA FLORESTA | https://goo.gl/maps/1g6RMhVqu8kG28yt6 
+        2,400 | LP-LF | LES PLANES - LA FLORESTA | https://goo.gl/maps/CFpKCvFAUuEZRM1y8 
+        2,850 | LF | LA FLORESTA | https://goo.gl/maps/mQ7uZcA7ZaMK6fveA 
+        3,150 | LF-VD | LA FLORESTA-VALLDOREIX | https://goo.gl/maps/6qNUhEhhcQBEVrrJ8 
+        4,200 | LF-VD | LA FLORESTA-VALLDOREIX | https://goo.gl/maps/cJKx7zoZn377GTEq9 
+        4,540 | VD | VALLDOREIX | https://goo.gl/maps/1RJEzCwN4osd8cjp9 
+        5,350 | VD-SC | VALLDOREIX - SANT CUGAT | https://goo.gl/maps/Wp5n5SnQXK1e5px57 
+        5,600 | VD-SC | VALLDOREIX - SANT CUGAT | https://goo.gl/maps/P4qyfBVQxUAQ9yAB6 
+        5,990 | SC | SANT CUGAT | https://goo.gl/maps/u1Um9ZuhJqo1cSGC8
+        36,748 | ME | MARTORELL ENLLAÇ | https://goo.gl/maps/PpV1aEEGnWmFURNY8 
+        36,600 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/esdPLLGqAKDJX35UA 
+        36,100 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/XLKmLuoFGDL1uECQ7 
+        35,700 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/xJaF77RV92tvnEoaA 
+        35,300 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/iWKKfm6rWDFffcsR7 
+        34.600 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/fj6zbJ5kr5SN5Yq77 
+        34,320 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
+        34,250 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
+        34,100 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
+        33,900 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
+        33,750 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
+        33,450 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
+        32,800 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/sY5ZS4irCzSC89238 
+        32,204 | SE | SANT ESTEVE SESROVIRES | https://goo.gl/maps/Lbr9sMYUCyQwytfU8 
+        31,700 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/nt1oZLAr9tqqZjTZ6 
+        31,000 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/TwQFUd8Sk95voHh46 
+        30,720 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://maps.app.goo.gl/BTxG89mvmVb8ceDf6 
+        30,340 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/FTnRXtVrd4yDnLWTA 
+        30,100 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/nAaxvhVCGi52PiNU8 
+        29,700 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/phryFx4h5wSbXHev7 
+        28,300 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/rFhmqwWNczQMkU5D7 
+        27,750 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/y8BdS9X949UdZhM69 
+        27,646 | BE | LA BEGUDA | https://goo.gl/maps/sk6ZwbWqYtLVs1kaA 
+        27,200 | BE-CP | LA BEGUDA - CAN PARELLADA | https://goo.gl/maps/V8ttbqpQpc3oL9FU9 
+        26,980 | CP | CAN PARELLADA | https://goo.gl/maps/EwHwEobEwCp3Vsmk6 
+        26,550 | CP-MQ | CAN PARELLADA - MASQUEFA | https://goo.gl/maps/ahyaWqzcnRtEeNxw5 
+        25,250 | CP-MQ | CAN PARELLADA - MASQUEFA | https://goo.gl/maps/Q1iNNDcMEryRgCHW7 
+        25,217 | MQ | MASQUEFA | https://goo.gl/maps/TvoAAaJjxnhw2RvQ6 
+        25,000 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/aR6MrjitutKD2dhB6 
+        24,700 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/JaphKe9AUfJafeSW9 
+        23,800 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/8ERjBs7cSAXALs9E7 
+        22,700 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/L1buk4DTPLvQopLn9 
+        22,000 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/qpJuxjuWJ2uAJzie8 
+        21,930 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/CVpVCKWywCrsAinC9 
+        21,500 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/gCdaF5cUw4gVWfhw7 
+        21,100 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/TAjP5GgeLAPCsPRL7 
+        20,300 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/VCyneyQ3ivbXrGEU6 
+        19,900 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/GQQfGP66ZTxE7JTP6 
+        19,700 | MQ-PI | MASQUEFA-PIERA | https://goo.gl/maps/xQAC6uZhWu3RfZ3o6 
+        18,977 | PI | PIERA | https://goo.gl/maps/ZoxKst2ESxsYiPim8 
+        18,975 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/baCVLDQ85rXoNW7p8 
+        18,600 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/E7nCN1H4JtoDF1MD9 
+        18,400 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/j2DvZpjdqSWEPBsY9 
+        18,100 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/h1rdNaDf34ULyLya8 
+        17,900 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/z47oXKVTqXqnmSwc9 
+        17,770 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/bkHpXJN5gYf2Zw4d7 
+        17,300 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/Hd85r4h7pjFybkkU8 
+        17,100 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/59bma2cBwpQXpPpVA 
+        16,700 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/YYGDufN9xeZJVJqz5 
+        16,560 | PI-VA | PIERA - VALLBONA D´ANOIA | https://maps.app.goo.gl/hmJK2xs6yKTVJDXo6 
+        16,420 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/JD9qFMidGgtS7U6K8 
+        16,000 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/7JmigMQLwJwxQPTC7 
+        15,500 | PI-VA | PIERA - VALLBONA D´ANOIA | https://maps.app.goo.gl/zZKdgKKu6Qnc234F7 
+        14,900 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/W8KBRQauJWS1kcGK9 
+        14,350 | PI-VA | PIERA - VALLBONA D´ANOIA | https://goo.gl/maps/UqMiEZNSm8RzF7vWA 
+        13,831 | VA | VALLBONA D´ANOIA | https://goo.gl/maps/BPXMWbgvXtaTUhUQ9 
+        13,000 | VA-CA | VALLBONA D´ANOIA - CAPELLADES | https://goo.gl/maps/fvd65oZdunKnV4HD7 
+        12,600 | VA-CA | VALLBONA D´ANOIA - CAPELLADES | https://goo.gl/maps/hwcaScLfSHX7gKiG6 
+        11,750 | CA | CAPELLADES | https://goo.gl/maps/BDt6HuGUHWz9NgHYA 
+        11,700 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/UDt1YQVidPx2eXnP8 
+        11,500 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/tTEiN7cxGELf6SRo7 
+        9,600 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/f4Wk9v4V8GFdYnzL6 
+        9,400 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/Per5KSVCv8HvkaJd9 
+        9,100 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/C5pLFfxeWsoNEc1t6 
+        8,300 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/zM9SyTuPDjoNd8kF9 
+        8,100 | CA-PO | CAPELLADES - LA POBLA DE CLARAMUNT | https://goo.gl/maps/hxsujkAstKyyp4ck9
+        29,300 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/7UULBL61qqMcQb7z9
+        29,900 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/yVuFbJf7F97V5sEj6
+        30,128 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/wQi8PAjmMfCRrLou7
+        30,500 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/er1hsnXzB2wES7AG7
+        31,814 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/9DeeubGMFN4mAyVy8
+        32,319 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/DZim8vkfw73mNWFL8
+        32,400 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/dPBgxCa2Pcg4RnTm9
+        32,800 | ME-AB | MARTORELL ENLLAÇ - ABRERA | https://goo.gl/maps/LV5jcPrYreYdfk1s8
+        33,158 | AB | ABRERA | https://goo.gl/maps/nAUVvHk8m4xYLp8h8
+        33,200 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/WBnrpD84Jvz9KWvq5
+        33,330 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/NSYxZNpVJcPY4dEv6
+        34,200 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/zzW4A6bi4p83HKfi6
+        35,050 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/ZVNXJE5KL8TKbdvs9
+        35,300 | AB-OL | ABRERA - OLESA DE MONTSERRAT vía 1 | https://goo.gl/maps/MAWTXuFq7mMzGPCL9
+        35,350 | AB-OL | ABRERA - OLESA DE MONTSERRAT vía 2 | https://goo.gl/maps/ahW61d8WiJZxZr4P8
+        35,500 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/bVa6Yaf7CQNTScJ59
+        35,750 | AB-OL | ABRERA - OLESA DE MONTSERRAT | https://goo.gl/maps/AnVDazQyF4gDheJX6
+        35,942 | OL | OLESA DE MONTSERRAT | https://goo.gl/maps/p2UWiL2R15TW3mNS8
+        36,210 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/55ovyhGJkrnvWRDx5
+        36,400 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://maps.app.goo.gl/yVxQdYX7WWMdUsyv9?g_st=im
+        36,740 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/6oMXKdDJkcVUZEsMA
+        37,100 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/Hg8jQqDyKfGfXzkN8
+        37,250 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/gGd83k8m6KEn3KiY8
+        37,600 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/J481A6Y4Uzfvv2qeA
+        37,700 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/j7M2r752h1r9tSQP9
+        37,900 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/YWMqx9WafecZfTdm7
+        38,280 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/P5a1sfkdDyM42Tnv7
+        39,500 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/RCwf3TmoQLiTm9N59
+        40,650 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/H1J5w74EwetvzEwWA
+        41,140 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/N5rCYH3aecc32obC8
+        41,500 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/FdXh4C9LVEK16sbD9
+        43,067 | AE | AERI DE MONTSERRAT | https://g.page/aeridemontserrat?share
+        45,360 | AE-MO | AERI DE MONTSERRAT - MONISTROL DE MONTSERRAT | https://goo.gl/maps/7RtFyqfWQMEVPxpF7
+        45,508 | MO | MONISTROL DE MONTSERRAT | https://goo.gl/maps/6S6vTZyMYxuH1yNF8
+        49,243 | CB | CASTELLBELL I EL VILAR | https://goo.gl/maps/K85FwfQTYEZ9dbnu7
+        50,500 | CB-SV | CASTELLBELL I EL VILAR - SANT VICENÇ/CASTELLGALÍ | https://goo.gl/maps/ZBfxwj4vF666Gkqf6
+        50,800 | CB-SV | CASTELLBELL I EL VILAR - SANT VICENÇ/CASTELLGALÍ | https://goo.gl/maps/SNyTFrDSaab9Zb8b7
+        51,765 | CB-SV | CASTELLBELL I EL VILAR - SANT VICENÇ/CASTELLGALÍ | https://goo.gl/maps/GngQVy4YAbWFB6mb9
+        52,509 | SV | SANT VICENÇ / CASTELLGALÍ | https://goo.gl/maps/vRzXf2VGtW9Q3hbA7
+        54,400 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/DR7XWLUo8ovabHch6
+        55,011 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/NHjDHAX9zysdwzNa8
+        55,542 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/yNYcxDb31nDGyfnCA
+        56,336 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/7yd95ND9PvEWF9LZ6
+        57,470 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/6C1had13wf45MBej9
+        58,450 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/HFG9GWwahXBgUs2V6
+        58,690 | SV-VI | SANT VICENÇ / CASTELLGALÍ - MANRESA VILADORDIS | https://goo.gl/maps/qAQCBGwqxPMP8qeAA
+        59,749 | VI | MANRESA VILADORDIS | https://goo.gl/maps/SQ5s9S8DCKooGjFJ6
+        60,310 | VI-MA | MANRESA VILADORDIS - MANRESA ALTA | https://goo.gl/maps/cwTBjEZ5nMZJpAxQ6
+        61,148 | MA | MANRESA ALTA | https://goo.gl/maps/FZJXd57ipfHrXDzN8
         61,593 | MB | MANRESA BAIXADOR | https://goo.gl/maps/AFHZtnGfe5T9xMVh7
+        4,800 | SU-SL | SURIA - SALLENT tramo comun | https://goo.gl/maps/uPAWdwsgbnpoQpBp6 
+        4,450 | SU-SL | SURIA - SALLENT tramo comun | https://goo.gl/maps/pHrRSxMf2wzbAgg77 
+        5,300 | SU-SL | SURIA - SALLENT tramo comun | https://goo.gl/maps/nZb16NgpuhpPdpcaA 
+        5,830 | SU-SL | SURIA - SALLENT tramo comun | https://goo.gl/maps/MFHkvbgNDhsmSgKJA 
+        0,900 | SU-SL | SURIA - SALLENT tramo comun | https://goo.gl/maps/MXaaUzhFhE1c1cmk8 
+        14,800 | SU | Estacion de SURIA Cambios | https://goo.gl/maps/Ubv4wEhf2CpBjHfx5 
+        6,200 | SU | SURIA linea Suria | https://goo.gl/maps/6UGjJMmj6p57GBDF9 
+        6,500 | SL | SALLENT principio | https://goo.gl/maps/uVh9cGf2mejs5Pjs8 
+        8,150 | SL | SALLENT | https://goo.gl/maps/p832fARWW3LNuZZj9 
+        8,800 | SL | SALLENT | https://goo.gl/maps/oeK5LKQpvE81NAdKA 
+        9,900 | SL | SALLENT Intermedio | https://goo.gl/maps/s3quGJZX3dJN7n4XA 
+        14,200 | SL | SALLENT (Lateral hasta fin de vias) | https://goo.gl/maps/NZMHGPjbyhfx5iiJ6 
+        16,100 | SL | SALLENT estacion | https://goo.gl/maps/yixCButffTiiSfeg7 
+        13,600 | BO-ZF | SANT BOI - ZONA FRANCA Camino paralelo hasta el 9,400. | https://goo.gl/maps/Bs4ULrtH8svD2DBd7 
+        13,400 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/NLt8U25uh4kFChw58 
+        9,400 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/NXsJr7kkqsghy69J7 
+        8,450 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/agFF8ucvuDb65Pqw6 
+        8,020 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/YftMQPnpekygV2PP6 
+        7,950 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/jxqeoXH7VM2nSjbW9 
+        7,800 | BO-ZF | SANT BOI - ZONA FRANCA | https://goo.gl/maps/KiwNspvCyuE6EUSHA 
+        7,000 | ZF | CAMBIOS ZONA FRANCA | https://goo.gl/maps/nxbd2vhDrEra7Lg47 
+        6,750 | ZF | CAMBIOS ZONA FRANCA | https://goo.gl/maps/ojLXg71s1Yu1Tfyf8 
+        5,000 | ZF-BP | TRAMO COMUN CON RENFE | https://goo.gl/maps/Tdt6TKXc3oZZjEvo6 
+        0,450 | BP | CAMBIOS DEL PUERTO | https://goo.gl/maps/Yqm5cCCPvEkkUSNV7 
+        1,800 | MO-C | MONISTROL VILA - MONTSERRAT | https://maps.app.goo.gl/5vvsWVCQLPo2rWY38 
+        1,000 | MO | MONISTROL VILA | https://goo.gl/maps/rvsgabsKQ9XupYfy6 
+        0,000 | MM | MONISTROL DE MONTSERRAT | https://goo.gl/maps/eQDftksJ5v72SZ1F7 
+        Estacion | C | MONTSERRAT | https://goo.gl/maps/PEiC7DxzjTHLNZAQA
         `;
 
         const parsePk = (pkStr) => {
@@ -422,6 +665,16 @@
             setTimeout(() => clearInterval(interval), 4900);
         };
 
+        function startArcade(gameLogic) {
+            overlay.style.background = '#000';
+            overlay.innerHTML = '<button class="close-egg" onclick="clearEgg(0)">SALIR</button><div id="scoreBoard">0</div><canvas id="gameCanvas"></canvas>';
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = Math.min(window.innerWidth, 500);
+            canvas.height = Math.min(window.innerHeight, 800);
+            gameLogic(canvas, ctx);
+        }
+
         const eggs = {
             "fgc": () => {
                 document.body.style.filter = 'sepia(0.4)';
@@ -457,72 +710,12 @@
                 clearEgg(5000);
             },
             "vox": () => {
-                overlay.innerHTML = '<div class="spain-bg"></div><div class="egg-content"><div class="egg-text text-spain">VIVA ESPAÑA</div></div>';
+                overlay.innerHTML = '<div class="vox-bg"><div class="flag-box"></div></div><div class="egg-content"><div class="egg-text text-spain" style="z-index:10;">VIVA ESPAÑA</div></div>';
                 clearEgg(5000);
             },
             "star wars": () => {
                 overlay.innerHTML = '<div class="sw-space"><div class="sw-stars"></div><div class="sw-crawl-container"><div class="sw-text">Hace mucho tiempo,<br>en una galaxia muy,<br>muy lejana...<br><br>EPISODIO FGC<br><br>La búsqueda del PK perdido.</div></div></div>';
                 clearEgg(8000);
-            },
-            "arkanoid": () => {
-                overlay.style.background = '#000';
-                overlay.innerHTML = '<button class="close-egg" onclick="clearEgg(0)">SALIR</button><canvas id="gameCanvas"></canvas>';
-                const canvas = document.getElementById('gameCanvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = Math.min(window.innerWidth, 400);
-                canvas.height = Math.min(window.innerHeight - 100, 600);
-                let ballRadius = 8, x = canvas.width/2, y = canvas.height-30, dx = 3, dy = -3;
-                let paddleHeight = 10, paddleWidth = 75, paddleX = (canvas.width-paddleWidth)/2;
-                let brickRowCount = 5, brickColumnCount = 4, brickWidth = (canvas.width - 50) / 4, brickHeight = 20, brickPadding = 10, brickOffsetTop = 50, brickOffsetLeft = 25;
-                let bricks = [];
-                for(let c=0; c<brickColumnCount; c++) {
-                    bricks[c] = [];
-                    for(let r=0; r<brickRowCount; r++) { bricks[c][r] = { x: 0, y: 0, status: 1 }; }
-                }
-                function drawBall() { ctx.beginPath(); ctx.arc(x, y, ballRadius, 0, Math.PI*2); ctx.fillStyle = "#00f3ff"; ctx.fill(); ctx.closePath(); }
-                function drawPaddle() { ctx.beginPath(); ctx.rect(paddleX, canvas.height-paddleHeight-10, paddleWidth, paddleHeight); ctx.fillStyle = "#00f3ff"; ctx.fill(); ctx.closePath(); }
-                function drawBricks() {
-                    for(let c=0; c<brickColumnCount; c++) {
-                        for(let r=0; r<brickRowCount; r++) {
-                            if(bricks[c][r].status == 1) {
-                                let brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
-                                let brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
-                                bricks[c][r].x = brickX; bricks[c][r].y = brickY;
-                                ctx.beginPath(); ctx.rect(brickX, brickY, brickWidth, brickHeight);
-                                ctx.fillStyle = r % 2 == 0 ? "#00f3ff" : "#ffffff"; ctx.fill(); ctx.closePath();
-                            }
-                        }
-                    }
-                }
-                function collisionDetection() {
-                    for(let c=0; c<brickColumnCount; c++) {
-                        for(let r=0; r<brickRowCount; r++) {
-                            let b = bricks[c][r];
-                            if(b.status == 1) {
-                                if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) { dy = -dy; b.status = 0; }
-                            }
-                        }
-                    }
-                }
-                function draw() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
-                    drawBricks(); drawBall(); drawPaddle(); collisionDetection();
-                    if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) dx = -dx;
-                    if(y + dy < ballRadius) dy = -dy;
-                    else if(y + dy > canvas.height-ballRadius-10) {
-                        if(x > paddleX && x < paddleX + paddleWidth) { dy = -dy; }
-                        else { clearEgg(2000); return; }
-                    }
-                    x += dx; y += dy;
-                    gameRequest = requestAnimationFrame(draw);
-                }
-                const movePaddle = (e) => {
-                    let relativeX = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - (window.innerWidth - canvas.width) / 2;
-                    if(relativeX > 0 && relativeX < canvas.width) paddleX = relativeX - paddleWidth/2;
-                };
-                document.addEventListener("mousemove", movePaddle);
-                document.addEventListener("touchmove", movePaddle);
-                draw();
             },
             "byd": () => {
                 overlay.style.background = '#000';
@@ -531,18 +724,149 @@
             },
             "tesla": () => {
                 overlay.style.background = '#000';
-                overlay.innerHTML = '<div class="egg-content"><svg class="tesla-t" viewBox="0 0 100 100"><path d="M10,20 L90,20 L90,35 L55,35 L55,90 L45,90 L45,35 L10,35 Z"/></svg><svg class="tesla-thumb" viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><div class="egg-text" style="color:#e82127;">Lavadora Americana Sobrevalorada</div></div>';
-                clearEgg(6000);
+                overlay.innerHTML = '<div class="egg-content"><svg class="tesla-t" viewBox="0 0 100 100"><path d="M10,20 L90,20 L90,35 L55,35 L55,90 L45,90 L45,35 L10,35 Z"/></svg><div class="tesla-thumb-box"><svg class="tesla-thumb" viewBox="0 0 24 24" style="fill:#e82127; width:150px;"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><div class="egg-text" style="color:#e82127;">Lavadora Americana Sobrevalorada</div></div></div>';
+                clearEgg(7000);
             },
             "apple": () => {
                 overlay.style.background = '#000';
-                overlay.innerHTML = '<div class="apple-bg"><div class="apple-sweep"></div></div><div class="egg-content"><svg width="100" fill="#fff" viewBox="0 0 100 100"><path d="M80,50 C80,30 60,30 60,30 C50,30 45,35 40,35 C35,35 30,30 20,30 C10,30 0,40 0,60 C0,80 15,95 25,95 C30,95 35,90 40,90 C45,90 50,95 55,95 C65,95 80,80 80,60 C70,60 65,55 65,45 C65,35 75,30 80,30 M60,5 C60,5 50,5 45,15 C40,25 45,35 45,35 C45,35 55,35 60,25 C65,15 60,5 60,5"/></svg><div class="egg-text">Designed in California</div></div>';
+                overlay.innerHTML = '<div class="apple-bg"><div class="apple-sweep"></div></div><div class="egg-content"><svg class="apple-logo-anim" viewBox="0 0 170 170" width="120" fill="#fff"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.74 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.92.21-9.84-1.96-14.74-6.53-3.13-2.73-7.1-7.43-11.92-14.09-6.28-8.65-11.27-19.16-14.96-31.54-3.7-12.38-5.54-24.36-5.54-35.95 0-14.34 3.58-26.04 10.74-35.1 5.3-6.66 11.83-11.4 19.59-14.22 7.64-2.81 15.5-4.09 23.55-3.84 5.33.15 10.97 1.48 16.92 3.99 5.95 2.51 10.15 4.04 12.61 4.58 2.02.45 6.47-1.15 13.33-4.8 6.87-3.65 14.16-5.35 21.87-5.1 11.08.35 20.35 3.53 27.81 9.54 2.87 2.3 5.4 5.01 7.6 8.14-11.85 7.15-17.65 16.94-17.41 29.36.21 11.4 4.54 20.61 13.01 27.63 2.76 2.29 5.86 4.12 9.29 5.48-2.6 7.9-5.91 15.11-9.92 21.65zM100.86 31.96c-1.85-7.72 1.06-15.34 8.74-22.88 7.02-6.9 14.51-10.05 22.45-9.45 1.54 8.35-1.55 16.35-9.28 24.01-6.73 6.7-14.12 9.88-21.91 8.32z"/></svg><div class="egg-text">Designed in California</div></div>';
                 clearEgg(5000);
             },
             "merida": () => {
                 overlay.innerHTML = '<div class="merida-bg"></div><div class="egg-content"><svg width="150" viewBox="0 0 24 24" fill="#0047b6"><path d="M21,5C21,5 21,2 18,2C15,2 15,5 15,5C15,5 12,5 12,8C12,11 15,11 15,11L15,13C15,13 13,13 13,15C13,17 15,17 15,17L15,22L18,22L18,17C18,17 20,17 20,15C20,13 18,13 18,13L18,11C18,11 21,11 21,8C21,5 18,5 18,5L21,5Z"/></svg><div class="egg-text" style="color:#0047b6; background:white; padding:10px; border-radius:10px;">¡Força Espanyol!</div></div>';
                 canvasFeathers();
                 clearEgg(5000);
+            },
+            "arkanoid": () => {
+                startArcade((canvas, ctx) => {
+                    let r = 8, x = canvas.width/2, y = canvas.height-30, dx = 4, dy = -4;
+                    let pW = 80, pH = 10, pX = (canvas.width-pW)/2;
+                    let rows = 5, cols = 4, bW = (canvas.width-50)/4, bH = 20, bricks = [];
+                    for(let c=0; c<cols; c++) { bricks[c]=[]; for(let r=0; r<rows; r++) bricks[c][r]={x:0,y:0,s:1}; }
+                    const move = e => pX = (e.touches ? e.touches[0].clientX : e.clientX) - canvas.getBoundingClientRect().left - pW/2;
+                    canvas.addEventListener('mousemove', move); canvas.addEventListener('touchmove', move);
+                    function loop() {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        for(let c=0; c<cols; c++) {
+                            for(let r=0; r<rows; r++) {
+                                let b = bricks[c][r];
+                                if(b.s == 1) {
+                                    b.x = c*(bW+10)+25; b.y = r*(bH+10)+50;
+                                    ctx.fillStyle = r%2==0 ? "#00f3ff" : "#fff"; ctx.fillRect(b.x, b.y, bW, bH);
+                                    if(x>b.x && x<b.x+bW && y>b.y && y<b.y+bH) { dy = -dy; b.s = 0; }
+                                }
+                            }
+                        }
+                        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fillStyle = "#00f3ff"; ctx.fill();
+                        ctx.fillRect(pX, canvas.height-pH-10, pW, pH);
+                        if(x+dx > canvas.width-r || x+dx < r) dx = -dx;
+                        if(y+dy < r) dy = -dy;
+                        else if(y+dy > canvas.height-r-10) {
+                            if(x > pX && x < pX + pW) dy = -dy;
+                            else { clearEgg(2000); return; }
+                        }
+                        x+=dx; y+=dy; gameRequest = requestAnimationFrame(loop);
+                    }
+                    loop();
+                });
+            },
+            "dinosaurio": () => {
+                startArcade((canvas, ctx) => {
+                    let dino = {x: 50, y: 0, w: 30, h: 40, dy: 0, jump: -12, g: 0.6, onGround: false};
+                    let obs = [], frame = 0, score = 0, ground = canvas.height - 100;
+                    dino.y = ground - dino.h;
+                    const tap = () => { if(dino.onGround) { dino.dy = dino.jump; dino.onGround = false; } };
+                    canvas.addEventListener('mousedown', tap); canvas.addEventListener('touchstart', tap);
+                    function loop() {
+                        dino.dy += dino.g; dino.y += dino.dy;
+                        if(dino.y + dino.h >= ground) { dino.y = ground - dino.h; dino.dy = 0; dino.onGround = true; }
+                        if(frame % 100 === 0) obs.push({x: canvas.width, y: ground - 30, w: 20, h: 30});
+                        ctx.clearRect(0,0,canvas.width,canvas.height);
+                        ctx.fillStyle = '#333'; ctx.fillRect(0, ground, canvas.width, 2);
+                        ctx.fillStyle = '#00f3ff'; ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
+                        ctx.fillStyle = '#ff003c';
+                        for(let i=0; i<obs.length; i++) {
+                            let o = obs[i]; o.x -= 5; ctx.fillRect(o.x, o.y, o.w, o.h);
+                            if(dino.x < o.x+o.w && dino.x+dino.w > o.x && dino.y < o.y+o.h && dino.y+dino.h > o.y) { clearEgg(2000); return; }
+                        }
+                        obs = obs.filter(o => o.x > -50);
+                        frame++; score++; document.getElementById('scoreBoard').innerText = Math.floor(score/10);
+                        gameRequest = requestAnimationFrame(loop);
+                    }
+                    loop();
+                });
+            },
+            "pong": () => {
+                startArcade((canvas, ctx) => {
+                    let pW = 80, pH = 10, pX = canvas.width/2 - pW/2, aiX = pX;
+                    let bx = canvas.width/2, by = canvas.height/2, bdx = 5, bdy = 5, br = 6, score = 0;
+                    const move = e => pX = (e.touches ? e.touches[0].clientX : e.clientX) - canvas.getBoundingClientRect().left - pW/2;
+                    canvas.addEventListener('mousemove', move); canvas.addEventListener('touchmove', move);
+                    function loop() {
+                        bx += bdx; by += bdy;
+                        if(bx < br || bx > canvas.width-br) bdx = -bdx;
+                        if(by < br + pH) { if(bx > aiX && bx < aiX+pW) bdy = -bdy; else bdy = -bdy; } 
+                        else if(by > canvas.height-br-pH) {
+                            if(bx > pX && bx < pX+pW) { bdy = -bdy; by = canvas.height-pH-br-1; score++; document.getElementById('scoreBoard').innerText = score; }
+                            else { clearEgg(2000); return; }
+                        }
+                        aiX += (bx - (aiX + pW/2)) * 0.1;
+                        ctx.clearRect(0,0,canvas.width,canvas.height);
+                        ctx.fillStyle = '#fff'; ctx.fillRect(pX, canvas.height-pH, pW, pH); ctx.fillRect(aiX, 0, pW, pH);
+                        ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI*2); ctx.fillStyle = '#00f3ff'; ctx.fill();
+                        gameRequest = requestAnimationFrame(loop);
+                    }
+                    loop();
+                });
+            },
+            "snake": () => {
+                startArcade((canvas, ctx) => {
+                    let s = 20, snake = [{x:10, y:10}], dx = 1, dy = 0, food = {x:5, y:5}, score = 0, last = 0;
+                    const place = () => food = {x: Math.floor(Math.random()*(canvas.width/s)), y: Math.floor(Math.random()*(canvas.height/s))};
+                    place();
+                    const dir = e => {
+                        let rect = canvas.getBoundingClientRect(), cx = canvas.width/2, cy = canvas.height/2;
+                        let tx = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left, ty = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+                        if(Math.abs(tx-cx) > Math.abs(ty-cy)) { if(tx>cx && dx==0) {dx=1;dy=0;} else if(tx<cx && dx==0) {dx=-1;dy=0;} } 
+                        else { if(ty>cy && dy==0) {dx=0;dy=1;} else if(ty<cy && dy==0) {dx=0;dy=-1;} }
+                    };
+                    canvas.addEventListener('mousedown', dir); canvas.addEventListener('touchstart', dir);
+                    function loop(time) {
+                        gameRequest = requestAnimationFrame(loop);
+                        if(time - last < 100) return; last = time;
+                        let h = {x: snake[0].x+dx, y: snake[0].y+dy};
+                        if(h.x<0 || h.x>=canvas.width/s || h.y<0 || h.y>=canvas.height/s || snake.some(sg=>sg.x==h.x && sg.y==h.y)) { clearEgg(2000); return; }
+                        snake.unshift(h);
+                        if(h.x==food.x && h.y==food.y) { score+=10; document.getElementById('scoreBoard').innerText = score; place(); } else snake.pop();
+                        ctx.clearRect(0,0,canvas.width,canvas.height);
+                        ctx.fillStyle = '#ff003c'; ctx.fillRect(food.x*s, food.y*s, s-1, s-1);
+                        ctx.fillStyle = '#00f3ff'; snake.forEach(sg => ctx.fillRect(sg.x*s, sg.y*s, s-1, s-1));
+                    }
+                    gameRequest = requestAnimationFrame(loop);
+                });
+            },
+            "bird": () => {
+                startArcade((canvas, ctx) => {
+                    let b = {y: canvas.height/2, dy: 0, w: 20}, pipes = [], score = 0, frame = 0;
+                    const jump = () => b.dy = -7;
+                    canvas.addEventListener('mousedown', jump); canvas.addEventListener('touchstart', jump);
+                    function loop() {
+                        b.dy += 0.4; b.y += b.dy; frame++;
+                        if(frame % 100 === 0) { let gap = 140, h = Math.random()*(canvas.height-gap-100)+50; pipes.push({x: canvas.width, top: h, bot: h+gap, w: 40, passed: false}); }
+                        ctx.clearRect(0,0,canvas.width,canvas.height);
+                        ctx.fillStyle = '#00f3ff'; ctx.fillRect(50, b.y, b.w, b.w);
+                        ctx.fillStyle = '#00ff00';
+                        for(let i=0; i<pipes.length; i++) {
+                            let p = pipes[i]; p.x -= 3;
+                            ctx.fillRect(p.x, 0, p.w, p.top); ctx.fillRect(p.x, p.bot, p.w, canvas.height-p.bot);
+                            if(50 < p.x+p.w && 50+b.w > p.x && (b.y < p.top || b.y+b.w > p.bot) || b.y > canvas.height || b.y < 0) { clearEgg(2000); return; }
+                            if(!p.passed && p.x + p.w < 50) { p.passed = true; score++; document.getElementById('scoreBoard').innerText = score; }
+                        }
+                        pipes = pipes.filter(p => p.x > -50);
+                        gameRequest = requestAnimationFrame(loop);
+                    }
+                    loop();
+                });
             }
         };
 
