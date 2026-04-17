@@ -191,7 +191,7 @@
             padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
-            z-index: 100;
+            z-index: 110;
             font-weight: bold;
         }
 
@@ -264,44 +264,48 @@
         .bg-betis { background: repeating-linear-gradient(90deg, #009A44 0px, #009A44 40px, #ffffff 40px, #ffffff 80px); }
         @keyframes slideBg { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
         
-        .title-madrid { color: #000; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
-        .text-madrid { color: #000; text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff; }
-        .title-barca { color: #FDB913; text-shadow: 4px 4px 0 #004D98, -2px -2px 0 #A50044, 2px -2px 0 #A50044, -2px 2px 0 #A50044, 2px 2px 0 #A50044; }
-        .title-betis { color: #000; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
-        .text-betis { color: #000; text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff; }
+        .title-madrid { color: #000 !important; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff !important; }
+        .text-madrid { color: #000 !important; text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff !important; }
+        .title-barca { color: #FDB913; text-shadow: 4px 4px 0 #004D98, -2px -2px 0 #A50044 !important; }
+        .title-betis { color: #000 !important; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff !important; }
+        .text-betis { color: #000 !important; text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff !important; }
 
         .estelada-container { position: absolute; inset: 0; z-index: 1; overflow: hidden; background: repeating-linear-gradient(180deg, #ffed00 0%, #ffed00 10%, #da121a 10%, #da121a 20%); background-size: 100% 100vh; animation: flagWave 3s ease-in-out infinite alternate; }
         .estelada-triangle { position: absolute; left: 0; top: 0; width: 0; height: 0; border-top: 50vh solid transparent; border-bottom: 50vh solid transparent; border-left: 60vw solid #0f47af; }
         .estelada-star { position: absolute; left: 10vw; top: 50%; transform: translateY(-50%) rotate(-18deg); width: 15vw; min-width: 60px; fill: white; }
         
         .vox-bg { position: absolute; inset: 0; background: #111; display: flex; align-items: center; justify-content: center; z-index: 1; }
-        .flag-box { width: 80vw; max-width: 400px; aspect-ratio: 3/2; background: linear-gradient(to bottom, #AA151B 25%, #F1BF00 25%, #F1BF00 75%, #AA151B 75%); box-shadow: 0 0 40px rgba(0,0,0,0.8); animation: flagWave 3s ease-in-out infinite alternate; }
+        .flag-box { width: 80vw; max-width: 350px; aspect-ratio: 3/2; background: linear-gradient(to bottom, #AA151B 25%, #F1BF00 25%, #F1BF00 75%, #AA151B 75%); box-shadow: 0 0 40px rgba(0,0,0,0.8); animation: flagWave 3s ease-in-out infinite alternate; }
         @keyframes flagWave { 0% { transform: scale(1.05) skewY(1deg); } 100% { transform: scale(1.05) skewY(-1deg); } }
         
-        .text-cat { color: #fff; text-shadow: 3px 3px 0 #da121a, -1px -1px 0 #da121a, 1px -1px 0 #da121a, -1px 1px 0 #da121a, 1px 1px 0 #da121a; }
-        .text-spain { color: #000; text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff; font-size: 3rem; font-weight: 900; }
-
         .sw-space { position: absolute; inset: 0; background: #000; z-index: 1; overflow: hidden; perspective: 400px; }
-        .sw-stars { position: absolute; inset: 0; background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)), radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0)); background-repeat: repeat; background-size: 200px 200px; animation: spaceMove 10s linear infinite; }
+        .sw-stars { position: absolute; inset: 0; background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0)); background-repeat: repeat; background-size: 200px 200px; animation: spaceMove 10s linear infinite; }
         .sw-crawl-container { position: absolute; bottom: -100px; width: 100%; height: 100vh; display: flex; justify-content: center; transform-origin: 50% 100%; animation: swCrawl 8s linear forwards; }
         .sw-text { color: #feda4a; font-size: clamp(2rem, 6vw, 4rem); font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 4px; line-height: 1.5; width: 80%; }
         @keyframes spaceMove { from { background-position: 0 0; } to { background-position: 0 200px; } }
         @keyframes swCrawl { 0% { transform: rotateX(30deg) translateY(0); opacity: 1; } 100% { transform: rotateX(40deg) translateY(-1200px); opacity: 0; } }
 
         .merida-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0047b6 25%, #fff 25%, #fff 50%, #0047b6 50%, #0047b6 75%, #fff 75%, #fff 100%); background-size: 50px 50px; z-index: 1; animation: moveBg 2s linear infinite; }
-        @keyframes moveBg { from { background-position: 0 0; } to { background-position: 50px 50px; } }
 
-        .tesla-t { fill: #e82127; width: 120px; animation: teslaShatter 2s forwards; }
+        .tesla-t { fill: #e82127; width: 200px; animation: teslaShatter 2.5s forwards; transform-origin: center; }
         .tesla-thumb-box { position: absolute; display: flex; flex-direction: column; align-items: center; opacity: 0; animation: fadeIn 0.5s 2s forwards; }
-        @keyframes teslaShatter { 0% { transform: scale(1); filter: drop-shadow(0 0 0 red); } 30% { transform: scale(1.2); filter: drop-shadow(0 0 20px red); } 40% { transform: scale(1.2) rotate(-10deg) skewX(20deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(45deg); opacity: 0; } }
+        @keyframes teslaShatter { 
+            0% { transform: scale(1); filter: drop-shadow(0 0 0 red); } 
+            20% { transform: scale(1.5); filter: drop-shadow(0 0 30px red); }
+            30% { transform: scale(1.5) translate(2px, 2px); }
+            35% { transform: scale(1.5) translate(-2px, -2px); }
+            45% { transform: scale(1.5) rotate(-10deg) skewX(20deg); opacity: 1; } 
+            100% { transform: translateY(100vh) rotate(45deg); opacity: 0; } 
+        }
         
         .apple-bg { background: #000; width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
         .apple-sweep { position: absolute; top: 0; width: 100%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent); animation: appleSweep 1.5s infinite; }
         @keyframes appleSweep { 0% { left: -100%; } 100% { left: 100%; } }
         .apple-logo-anim { animation: pulseGlow 2s infinite alternate; }
 
-        canvas { touch-action: none; background: #111; max-width: 100vw; max-height: 100vh; }
+        canvas { touch-action: none; background: #111; max-width: 100vw; max-height: 100vh; border: 2px solid var(--neon-cyan); }
         #scoreBoard { position: absolute; top: 20px; left: 20px; color: #00f3ff; font-family: monospace; font-size: 24px; z-index: 50; }
+        #gameSplash { z-index: 120; text-align: center; }
 
     </style>
 </head>
@@ -375,7 +379,7 @@
         13,000 | PN | SABADELL PARC DEL NORD | https://goo.gl/maps/Tk5P8Rc7V
         8,900 | MS-HG | MIRA-SOL - HOSPITAL GENERAL | https://goo.gl/maps/5ruVGJqrNtpr44jK7 
         9,050 | HG | HOSPITAL GENERAL | https://goo.gl/maps/6sC1cMJdQEXo6GzLA 
-        9.950 | HG-RB | HOSPITAL GENERAL - RUBÍ | https://goo.gl/maps/6Zhbv37j5Cvcs31BA 
+        9,950 | HG-RB | HOSPITAL GENERAL - RUBÍ | https://goo.gl/maps/6Zhbv37j5Cvcs31BA 
         10,500 | HG-RB | HOSPITAL GENERAL - RUBÍ (I.F RUBÍ) | https://goo.gl/maps/8q8ZYhZVevS89DCD8 
         10,890 | RB | RUBÍ | https://goo.gl/maps/e588ZqEwNezhbakh8 
         11,100 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/MCaGD1vbtyRFF4xz9 
@@ -383,7 +387,7 @@
         11,700 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/dGkrGdudMR41MeSR7 
         12,700 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/6EJTWLkpM1PokNVFA 
         13,100 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/oxNaC3YooBnRkSkYA 
-        13,600 al 13,800 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/Hmm6rhUEwrvqX1tRA 
+        13,600 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/Hmm6rhUEwrvqX1tRA 
         14,600 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/rQpWuMmuZznAtosB8 
         15,550 | RB-FN | RUBÍ - LES FONTS | https://goo.gl/maps/YDFYF5PxXg6ZADty5 
         15,810 | FN | LES FONTS | https://goo.gl/maps/W8KbUwfc1xrBpHH17 
@@ -399,7 +403,7 @@
         22,585 | EN | ESTACIÓ DEL NORD | https://goo.gl/maps/tX3pBd5KtLqHBCF86 
         23,852 | NA | NACIONS UNIDES | https://goo.gl/maps/mheErGwXRJPEFAmA8
         0,000 | PC | PLAÇA CATALUNYA | https://goo.gl/maps/K9p7fBxezpJ7MCpUA 
-        1.220 | PR | PROVENÇA | https://goo.gl/maps/JWuuw3wFbEWpJpV16 
+        1,220 | PR | PROVENÇA | https://goo.gl/maps/JWuuw3wFbEWpJpV16 
         2,050 | GR | GRACIA | https://goo.gl/maps/7YhVz1KfDFGrzpDN8 
         2,610 | SG | SANT GERVASI | https://goo.gl/maps/5w8oUvgXvs5ek3RB8 
         3,080 | MN | MUNTANER | https://goo.gl/maps/YVtuAa24DJQWy1gd8 
@@ -411,7 +415,6 @@
         1,010 | PD | PADUA | https://goo.gl/maps/4L2i2x9RRhSdfLfu8 
         1,410 | EP | EL PUTXET | https://goo.gl/maps/PMkjt85MV5SpPEi17 
         1,860 | TB | AV.TIBIDABO | https://goo.gl/maps/PpjJgiRAh9mJQgku6 
-        0,000 | SR | SARRIÀ | https://goo.gl/maps/MRPJawa7Uq15GSWt7 
         0,390 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/KqxJYL7P6jfjQwF38 
         0,800 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/TC5yVcq5rnq5vGE9A 
         1,300 | SR-PF | SARRIÀ - PEU FUNICULAR | https://goo.gl/maps/BWRDeEdLVSmxwmf69 
@@ -426,23 +429,16 @@
         2,400 | LP-LF | LES PLANES - LA FLORESTA | https://goo.gl/maps/CFpKCvFAUuEZRM1y8 
         2,850 | LF | LA FLORESTA | https://goo.gl/maps/mQ7uZcA7ZaMK6fveA 
         3,150 | LF-VD | LA FLORESTA-VALLDOREIX | https://goo.gl/maps/6qNUhEhhcQBEVrrJ8 
-        4,200 | LF-VD | LA FLORESTA-VALLDOREIX | https://goo.gl/maps/cJKx7zoZn377GTEq9 
         4,540 | VD | VALLDOREIX | https://goo.gl/maps/1RJEzCwN4osd8cjp9 
         5,350 | VD-SC | VALLDOREIX - SANT CUGAT | https://goo.gl/maps/Wp5n5SnQXK1e5px57 
         5,600 | VD-SC | VALLDOREIX - SANT CUGAT | https://goo.gl/maps/P4qyfBVQxUAQ9yAB6 
-        5,990 | SC | SANT CUGAT | https://goo.gl/maps/u1Um9ZuhJqo1cSGC8
         36,748 | ME | MARTORELL ENLLAÇ | https://goo.gl/maps/PpV1aEEGnWmFURNY8 
         36,600 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/esdPLLGqAKDJX35UA 
         36,100 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/XLKmLuoFGDL1uECQ7 
         35,700 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/xJaF77RV92tvnEoaA 
         35,300 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/iWKKfm6rWDFffcsR7 
-        34.600 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/fj6zbJ5kr5SN5Yq77 
+        34,600 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/fj6zbJ5kr5SN5Yq77 
         34,320 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
-        34,250 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
-        34,100 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
-        33,900 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
-        33,750 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
-        33,450 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
         32,800 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/sY5ZS4irCzSC89238 
         32,204 | SE | SANT ESTEVE SESROVIRES | https://goo.gl/maps/Lbr9sMYUCyQwytfU8 
         31,700 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/nt1oZLAr9tqqZjTZ6 
@@ -528,7 +524,7 @@
         40,650 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/H1J5w74EwetvzEwWA
         41,140 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/N5rCYH3aecc32obC8
         41,500 | OL-AE | OLESA DE MONTSERRAT - AERI DE MONTSERRAT | https://goo.gl/maps/FdXh4C9LVEK16sbD9
-        43,067 | AE | AERI DE MONTSERRAT | https://g.page/aeridemontserrat?share
+        43,067 | AE | AERI DE MONTSERRAT | https://goo.gl/maps/WT2BcKHYFEVYV8Gd9
         45,360 | AE-MO | AERI DE MONTSERRAT - MONISTROL DE MONTSERRAT | https://goo.gl/maps/7RtFyqfWQMEVPxpF7
         45,508 | MO | MONISTROL DE MONTSERRAT | https://goo.gl/maps/6S6vTZyMYxuH1yNF8
         49,243 | CB | CASTELLBELL I EL VILAR | https://goo.gl/maps/K85FwfQTYEZ9dbnu7
@@ -582,18 +578,24 @@
             return parseFloat(clean) || 0;
         };
 
-        const accesos = rawData.trim().split('\n').filter(line => line.includes('|')).map(line => {
-            const [pkRaw, abrev, tramo, link] = line.split('|').map(s => s.trim());
-            return { 
-                pk: parsePk(pkRaw), 
-                originalPk: pkRaw, 
-                originalAbrev: abrev,
-                originalTramo: tramo,
-                abrevSearch: abrev.toLowerCase(),
-                tramoSearch: tramo.toLowerCase(),
-                link 
-            };
-        }).sort((a, b) => a.pk - b.pk);
+        const accesos = rawData.trim().split('\n')
+            .filter(line => line.includes('|'))
+            .map(line => {
+                const parts = line.split('|').map(s => s.trim());
+                if (parts.length < 4) return null;
+                const [pkRaw, abrev, tramo, link] = parts;
+                return { 
+                    pk: parsePk(pkRaw), 
+                    originalPk: pkRaw, 
+                    originalAbrev: abrev,
+                    originalTramo: tramo,
+                    abrevSearch: abrev.toLowerCase(),
+                    tramoSearch: tramo.toLowerCase(),
+                    link 
+                };
+            })
+            .filter(a => a !== null)
+            .sort((a, b) => a.pk - b.pk);
 
         const searchInput = document.getElementById('searchInput');
         const resultsContainer = document.getElementById('resultsContainer');
@@ -618,113 +620,74 @@
             setTimeout(() => clearEgg(0), delay);
         };
 
-        const canvasFeathers = () => {
-            const c = document.createElement('canvas');
-            c.width = window.innerWidth; c.height = window.innerHeight;
-            c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; c.style.zIndex = '2';
-            c.style.pointerEvents = 'none';
-            overlay.appendChild(c);
-            const ctx = c.getContext('2d');
-            let feathers = Array(50).fill().map(() => ({x: Math.random() * c.width, y: Math.random() * -c.height, s: Math.random() * 2 + 1, a: Math.random() * Math.PI * 2, c: Math.random() > 0.5 ? '#fff' : '#00a0e9'}));
-            const interval = setInterval(() => {
-                ctx.clearRect(0, 0, c.width, c.height);
-                feathers.forEach(f => {
-                    ctx.fillStyle = f.c; ctx.save(); ctx.translate(f.x, f.y); ctx.rotate(f.a);
-                    ctx.beginPath(); ctx.ellipse(0, 0, 4 * f.s, 10 * f.s, 0, 0, Math.PI * 2); ctx.fill();
-                    ctx.restore();
-                    f.y += f.s * 2; f.x += Math.sin(f.a) * 2; f.a += 0.05;
-                    if(f.y > c.height) { f.y = -20; f.x = Math.random() * c.width; }
-                });
-            }, 30);
-            setTimeout(() => clearInterval(interval), 4400);
-        };
-
-        const canvasMatrix = () => {
-            const c = document.createElement('canvas');
-            c.width = window.innerWidth; c.height = window.innerHeight;
-            c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; c.style.zIndex = '1';
-            c.style.pointerEvents = 'none';
-            overlay.appendChild(c);
-            const ctx = c.getContext('2d');
-            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*'.split('');
-            const fontSize = 20;
-            const columns = c.width / fontSize;
-            const drops = Array(Math.floor(columns)).fill(1);
-            const interval = setInterval(() => {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-                ctx.fillRect(0, 0, c.width, c.height);
-                ctx.fillStyle = '#0F0';
-                ctx.font = fontSize + 'px monospace';
-                for(let i = 0; i < drops.length; i++) {
-                    const text = chars[Math.floor(Math.random() * chars.length)];
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    if(drops[i] * fontSize > c.height && Math.random() > 0.975) drops[i] = 0;
-                    drops[i]++;
-                }
-            }, 50);
-            setTimeout(() => clearInterval(interval), 4900);
-        };
-
         function startArcade(gameLogic) {
             overlay.style.background = '#000';
-            overlay.innerHTML = '<button class="close-egg" onclick="clearEgg(0)">SALIR</button><div id="scoreBoard">0</div><canvas id="gameCanvas"></canvas>';
-            const canvas = document.getElementById('gameCanvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = Math.min(window.innerWidth, 500);
-            canvas.height = Math.min(window.innerHeight, 800);
-            gameLogic(canvas, ctx);
+            overlay.innerHTML = `
+                <button class="close-egg" onclick="clearEgg(0)">SALIR</button>
+                <div id="gameSplash" style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;">
+                    <h2 style="color:var(--neon-cyan); margin-bottom:20px; font-size:3rem; text-shadow:0 0 10px cyan;">READY?</h2>
+                    <button class="btn" style="width:200px;" onclick="document.getElementById('gameSplash').style.display='none'; window.runActualGame();">EMPEZAR</button>
+                </div>
+                <div id="scoreBoard" style="display:none">0</div>
+                <canvas id="gameCanvas" style="display:none"></canvas>
+            `;
+            window.runActualGame = () => {
+                const sb = document.getElementById('scoreBoard');
+                const cv = document.getElementById('gameCanvas');
+                if(sb) sb.style.display = 'block';
+                if(cv) cv.style.display = 'block';
+                const canvas = document.getElementById('gameCanvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = Math.min(window.innerWidth, 500);
+                canvas.height = Math.min(window.innerHeight, 800);
+                gameLogic(canvas, ctx);
+            };
         }
 
         const eggs = {
             "fgc": () => {
                 document.body.style.filter = 'sepia(0.4)';
                 overlay.style.background = '#87CEEB'; 
-                overlay.innerHTML = '<div class="egg-content"><svg class="wooden-train" viewBox="0 0 500 200"><path d="M 50 150 L 50 80 Q 50 50 80 50 L 150 50 L 150 150 Z" fill="#8B4513" stroke="#5C2E0B" stroke-width="5"/><rect x="150" y="70" width="200" height="80" fill="#A0522D" stroke="#5C2E0B" stroke-width="5"/><rect x="350" y="90" width="100" height="60" fill="#CD853F" stroke="#5C2E0B" stroke-width="5"/><path d="M 100 50 L 100 20 L 130 20 L 130 50 Z" fill="#696969"/><circle cx="100" cy="150" r="30" fill="#2F4F4F" class="train-wheel"/><circle cx="100" cy="150" r="15" fill="#D2B48C" class="train-wheel"/><circle cx="200" cy="150" r="30" fill="#2F4F4F" class="train-wheel"/><circle cx="200" cy="150" r="15" fill="#D2B48C" class="train-wheel"/><circle cx="300" cy="150" r="30" fill="#2F4F4F" class="train-wheel"/><circle cx="300" cy="150" r="15" fill="#D2B48C" class="train-wheel"/><circle cx="400" cy="150" r="30" fill="#2F4F4F" class="train-wheel"/><circle cx="400" cy="150" r="15" fill="#D2B48C" class="train-wheel"/><line x1="100" y1="150" x2="400" y2="150" stroke="#C0C0C0" stroke-width="8" class="train-wheel"/></svg><div class="egg-text" style="color:#5C2E0B; text-shadow: 2px 2px 0 #fff;">Próxima parada...</div></div>';
+                overlay.innerHTML = '<div class="egg-content"><svg class="wooden-train" viewBox="0 0 500 200"><path d="M 50 150 L 50 80 Q 50 50 80 50 L 150 50 L 150 150 Z" fill="#8B4513" stroke="#5C2E0B" stroke-width="5"/><rect x="150" y="70" width="200" height="80" fill="#A0522D" stroke="#5C2E0B" stroke-width="5"/><rect x="350" y="90" width="100" height="60" fill="#CD853F" stroke="#5C2E0B" stroke-width="5"/><path d="M 100 50 L 100 20 L 130 20 L 130 50 Z" fill="#696969"/><circle cx="100" cy="150" r="30" fill="#2F4F4F" class="train-wheel"/><circle cx="200" cy="150" r="30" fill="#2F4F4F" class="train-wheel"/><circle cx="300" cy="150" r="30" fill="#2F4F4F" class="train-wheel"/><circle cx="400" cy="150" r="30" fill="#2F4F4F" class="train-wheel"/></svg><div class="egg-text" style="color:#5C2E0B; text-shadow: 2px 2px 0 #fff;">Próxima parada...</div></div>';
                 clearEgg(4500);
             },
             "fajardo": () => {
                 overlay.style.background = '#000';
                 overlay.innerHTML = '<div class="egg-content" style="z-index: 10;"><div class="matrix-msg">ACCESS_LEVEL: ROOT_CREATOR<br><br>IDENTIFIED: rFajardo<br><br>STATUS: UNSTOPPABLE</div></div>';
-                canvasMatrix();
-                clearEgg(5000);
-            },
-            "shalom": () => {
-                overlay.style.background = '#1a1a1a';
-                overlay.innerHTML = '<div class="egg-content"><svg class="cross-glow" viewBox="0 0 100 150"><rect x="40" y="10" width="20" height="130" rx="5"/><rect x="15" y="40" width="70" height="20" rx="5"/></svg><div class="egg-text" style="color:#fff; font-family:serif; font-style:italic; filter: drop-shadow(0 0 10px #d4af37);">Raúl te desea paz, prosperidad y mucha luz</div></div>';
+                const c = document.createElement('canvas');
+                c.width = window.innerWidth; c.height = window.innerHeight;
+                c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; c.style.zIndex = '1';
+                overlay.appendChild(c);
+                const ctx = c.getContext('2d');
+                const columns = c.width / 20;
+                const drops = Array(Math.floor(columns)).fill(1);
+                const interval = setInterval(() => {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; ctx.fillRect(0, 0, c.width, c.height);
+                    ctx.fillStyle = '#0F0'; ctx.font = '20px monospace';
+                    drops.forEach((d, i) => {
+                        ctx.fillText(Math.floor(Math.random()*10), i*20, d*20);
+                        if(d*20 > c.height && Math.random() > 0.975) drops[i] = 0;
+                        drops[i]++;
+                    });
+                }, 50);
+                setTimeout(() => clearInterval(interval), 4900);
                 clearEgg(5000);
             },
             "real madrid": () => {
                 overlay.innerHTML = '<div class="football-bg bg-madrid"></div><div class="egg-content"><div class="egg-title title-madrid">REAL MADRID</div><div class="egg-text text-madrid">¡Hala Madrid y nada más!</div></div>';
                 clearEgg(5000);
             },
-            "fc barcelona": () => {
-                overlay.innerHTML = '<div class="football-bg bg-barca"></div><div class="egg-content"><div class="egg-title title-barca">FC BARCELONA</div><div class="egg-text text-barca">Més que un club</div></div>';
-                clearEgg(5000);
-            },
             "betis": () => {
                 overlay.innerHTML = '<div class="football-bg bg-betis"></div><div class="egg-content"><div class="egg-title title-betis">REAL BETIS</div><div class="egg-text text-betis">¡Viva er Betis manque pierda!</div></div>';
                 clearEgg(5000);
             },
-            "puigdemont": () => {
-                overlay.innerHTML = '<div class="estelada-container"><div class="estelada-triangle"></div><svg class="estelada-star" viewBox="0 0 100 100"><polygon points="50,5 61,35 95,35 68,55 78,85 50,65 22,85 32,55 5,35 39,35"/></svg></div><div class="egg-content"><div class="egg-text text-cat">VISCA CATALUNYA LLIURE</div></div>';
-                clearEgg(5000);
-            },
             "vox": () => {
-                overlay.innerHTML = '<div class="vox-bg"><div class="flag-box"></div></div><div class="egg-content"><div class="egg-text text-spain" style="z-index:10;">VIVA ESPAÑA</div></div>';
-                clearEgg(5000);
-            },
-            "star wars": () => {
-                overlay.innerHTML = '<div class="sw-space"><div class="sw-stars"></div><div class="sw-crawl-container"><div class="sw-text">Hace mucho tiempo,<br>en una galaxia muy,<br>muy lejana...<br><br>EPISODIO FGC<br><br>La búsqueda del PK perdido.</div></div></div>';
-                clearEgg(8000);
-            },
-            "byd": () => {
-                overlay.style.background = '#000';
-                overlay.innerHTML = '<div class="egg-content"><div class="egg-text" style="color:#00f3ff; font-family:monospace;">BUILD YOUR DREAMS</div><svg width="250" viewBox="0 0 200 60"><path d="M10 50 L30 30 L80 20 L150 25 L180 40 L190 50 Z" fill="none" stroke="#00f3ff" stroke-width="3"/></svg><div class="egg-text" style="color:#00f3ff;">EL FUTURO ES ELÉCTRICO</div></div>';
+                overlay.innerHTML = '<div class="vox-bg"><div class="flag-box"></div></div><div class="egg-content"><div class="egg-text text-spain">VIVA ESPAÑA</div></div>';
                 clearEgg(5000);
             },
             "tesla": () => {
                 overlay.style.background = '#000';
-                overlay.innerHTML = '<div class="egg-content"><svg class="tesla-t" viewBox="0 0 100 100"><path d="M10,20 L90,20 L90,35 L55,35 L55,90 L45,90 L45,35 L10,35 Z"/></svg><div class="tesla-thumb-box"><svg class="tesla-thumb" viewBox="0 0 24 24" style="fill:#e82127; width:150px;"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><div class="egg-text" style="color:#e82127;">Lavadora Americana Sobrevalorada</div></div></div>';
+                overlay.innerHTML = '<div class="egg-content"><svg class="tesla-t" viewBox="0 0 100 100"><path d="M10,20 L90,20 L90,35 L55,35 L55,90 L45,90 L45,35 L10,35 Z"/></svg><div class="tesla-thumb-box"><svg viewBox="0 0 24 24" style="fill:#e82127; width:150px;"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><div class="egg-text" style="color:#e82127;">Lavadora Americana Sobrevalorada</div></div></div>';
                 clearEgg(7000);
             },
             "apple": () => {
@@ -732,36 +695,28 @@
                 overlay.innerHTML = '<div class="apple-bg"><div class="apple-sweep"></div></div><div class="egg-content"><svg class="apple-logo-anim" viewBox="0 0 170 170" width="120" fill="#fff"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.74 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.92.21-9.84-1.96-14.74-6.53-3.13-2.73-7.1-7.43-11.92-14.09-6.28-8.65-11.27-19.16-14.96-31.54-3.7-12.38-5.54-24.36-5.54-35.95 0-14.34 3.58-26.04 10.74-35.1 5.3-6.66 11.83-11.4 19.59-14.22 7.64-2.81 15.5-4.09 23.55-3.84 5.33.15 10.97 1.48 16.92 3.99 5.95 2.51 10.15 4.04 12.61 4.58 2.02.45 6.47-1.15 13.33-4.8 6.87-3.65 14.16-5.35 21.87-5.1 11.08.35 20.35 3.53 27.81 9.54 2.87 2.3 5.4 5.01 7.6 8.14-11.85 7.15-17.65 16.94-17.41 29.36.21 11.4 4.54 20.61 13.01 27.63 2.76 2.29 5.86 4.12 9.29 5.48-2.6 7.9-5.91 15.11-9.92 21.65zM100.86 31.96c-1.85-7.72 1.06-15.34 8.74-22.88 7.02-6.9 14.51-10.05 22.45-9.45 1.54 8.35-1.55 16.35-9.28 24.01-6.73 6.7-14.12 9.88-21.91 8.32z"/></svg><div class="egg-text">Designed in California</div></div>';
                 clearEgg(5000);
             },
-            "merida": () => {
-                overlay.innerHTML = '<div class="merida-bg"></div><div class="egg-content"><svg width="150" viewBox="0 0 24 24" fill="#0047b6"><path d="M21,5C21,5 21,2 18,2C15,2 15,5 15,5C15,5 12,5 12,8C12,11 15,11 15,11L15,13C15,13 13,13 13,15C13,17 15,17 15,17L15,22L18,22L18,17C18,17 20,17 20,15C20,13 18,13 18,13L18,11C18,11 21,11 21,8C21,5 18,5 18,5L21,5Z"/></svg><div class="egg-text" style="color:#0047b6; background:white; padding:10px; border-radius:10px;">¡Força Espanyol!</div></div>';
-                canvasFeathers();
-                clearEgg(5000);
-            },
             "arkanoid": () => {
                 startArcade((canvas, ctx) => {
-                    let r = 8, x = canvas.width/2, y = canvas.height-30, dx = 4, dy = -4;
-                    let pW = 80, pH = 10, pX = (canvas.width-pW)/2;
+                    let x = canvas.width/2, y = canvas.height-30, dx = 4, dy = -4;
+                    let pW = 80, pX = (canvas.width-pW)/2;
                     let rows = 5, cols = 4, bW = (canvas.width-50)/4, bH = 20, bricks = [];
                     for(let c=0; c<cols; c++) { bricks[c]=[]; for(let r=0; r<rows; r++) bricks[c][r]={x:0,y:0,s:1}; }
                     const move = e => pX = (e.touches ? e.touches[0].clientX : e.clientX) - canvas.getBoundingClientRect().left - pW/2;
                     canvas.addEventListener('mousemove', move); canvas.addEventListener('touchmove', move);
                     function loop() {
                         ctx.clearRect(0, 0, canvas.width, canvas.height);
-                        for(let c=0; c<cols; c++) {
-                            for(let r=0; r<rows; r++) {
-                                let b = bricks[c][r];
-                                if(b.s == 1) {
-                                    b.x = c*(bW+10)+25; b.y = r*(bH+10)+50;
-                                    ctx.fillStyle = r%2==0 ? "#00f3ff" : "#fff"; ctx.fillRect(b.x, b.y, bW, bH);
-                                    if(x>b.x && x<b.x+bW && y>b.y && y<b.y+bH) { dy = -dy; b.s = 0; }
-                                }
+                        bricks.forEach((col, c) => col.forEach((b, r) => {
+                            if(b.s == 1) {
+                                b.x = c*(bW+10)+25; b.y = r*(bH+10)+50;
+                                ctx.fillStyle = r%2==0 ? "#00f3ff" : "#fff"; ctx.fillRect(b.x, b.y, bW, bH);
+                                if(x>b.x && x<b.x+bW && y>b.y && y<b.y+bH) { dy = -dy; b.s = 0; }
                             }
-                        }
-                        ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fillStyle = "#00f3ff"; ctx.fill();
-                        ctx.fillRect(pX, canvas.height-pH-10, pW, pH);
-                        if(x+dx > canvas.width-r || x+dx < r) dx = -dx;
-                        if(y+dy < r) dy = -dy;
-                        else if(y+dy > canvas.height-r-10) {
+                        }));
+                        ctx.beginPath(); ctx.arc(x, y, 8, 0, Math.PI*2); ctx.fillStyle = "#00f3ff"; ctx.fill();
+                        ctx.fillRect(pX, canvas.height-20, pW, 10);
+                        if(x+dx > canvas.width-8 || x+dx < 8) dx = -dx;
+                        if(y+dy < 8) dy = -dy;
+                        else if(y+dy > canvas.height-20) {
                             if(x > pX && x < pX + pW) dy = -dy;
                             else { clearEgg(2000); return; }
                         }
@@ -772,25 +727,23 @@
             },
             "dinosaurio": () => {
                 startArcade((canvas, ctx) => {
-                    let dino = {x: 50, y: 0, w: 30, h: 40, dy: 0, jump: -12, g: 0.6, onGround: false};
-                    let obs = [], frame = 0, score = 0, ground = canvas.height - 100;
+                    let dino = {x: 50, y: 0, w: 30, h: 40, dy: 0, g: 0.6, onGround: false};
+                    let obs = [], frame = 0, ground = canvas.height - 100;
                     dino.y = ground - dino.h;
-                    const tap = () => { if(dino.onGround) { dino.dy = dino.jump; dino.onGround = false; } };
-                    canvas.addEventListener('mousedown', tap); canvas.addEventListener('touchstart', tap);
+                    const jump = () => { if(dino.onGround) { dino.dy = -12; dino.onGround = false; } };
+                    canvas.addEventListener('mousedown', jump); canvas.addEventListener('touchstart', jump);
                     function loop() {
+                        ctx.clearRect(0,0,canvas.width,canvas.height);
                         dino.dy += dino.g; dino.y += dino.dy;
                         if(dino.y + dino.h >= ground) { dino.y = ground - dino.h; dino.dy = 0; dino.onGround = true; }
-                        if(frame % 100 === 0) obs.push({x: canvas.width, y: ground - 30, w: 20, h: 30});
-                        ctx.clearRect(0,0,canvas.width,canvas.height);
+                        if(frame % 100 === 0) obs.push({x: canvas.width, w: 20, h: 30});
                         ctx.fillStyle = '#333'; ctx.fillRect(0, ground, canvas.width, 2);
                         ctx.fillStyle = '#00f3ff'; ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
-                        ctx.fillStyle = '#ff003c';
-                        for(let i=0; i<obs.length; i++) {
-                            let o = obs[i]; o.x -= 5; ctx.fillRect(o.x, o.y, o.w, o.h);
-                            if(dino.x < o.x+o.w && dino.x+dino.w > o.x && dino.y < o.y+o.h && dino.y+dino.h > o.y) { clearEgg(2000); return; }
-                        }
-                        obs = obs.filter(o => o.x > -50);
-                        frame++; score++; document.getElementById('scoreBoard').innerText = Math.floor(score/10);
+                        obs.forEach(o => {
+                            o.x -= 5; ctx.fillStyle = '#ff003c'; ctx.fillRect(o.x, ground-o.h, o.w, o.h);
+                            if(dino.x < o.x+o.w && dino.x+dino.w > o.x && dino.y+dino.h > ground-o.h) { clearEgg(2000); return; }
+                        });
+                        frame++; document.getElementById('scoreBoard').innerText = Math.floor(frame/10);
                         gameRequest = requestAnimationFrame(loop);
                     }
                     loop();
@@ -798,22 +751,22 @@
             },
             "pong": () => {
                 startArcade((canvas, ctx) => {
-                    let pW = 80, pH = 10, pX = canvas.width/2 - pW/2, aiX = pX;
-                    let bx = canvas.width/2, by = canvas.height/2, bdx = 5, bdy = 5, br = 6, score = 0;
-                    const move = e => pX = (e.touches ? e.touches[0].clientX : e.clientX) - canvas.getBoundingClientRect().left - pW/2;
+                    let pX = canvas.width/2 - 40, aiX = pX;
+                    let bx = canvas.width/2, by = canvas.height/2, bdx = 4, bdy = 4, score = 0;
+                    const move = e => pX = (e.touches ? e.touches[0].clientX : e.clientX) - canvas.getBoundingClientRect().left - 40;
                     canvas.addEventListener('mousemove', move); canvas.addEventListener('touchmove', move);
                     function loop() {
                         bx += bdx; by += bdy;
-                        if(bx < br || bx > canvas.width-br) bdx = -bdx;
-                        if(by < br + pH) { if(bx > aiX && bx < aiX+pW) bdy = -bdy; else bdy = -bdy; } 
-                        else if(by > canvas.height-br-pH) {
-                            if(bx > pX && bx < pX+pW) { bdy = -bdy; by = canvas.height-pH-br-1; score++; document.getElementById('scoreBoard').innerText = score; }
+                        if(bx < 5 || bx > canvas.width-5) bdx = -bdx;
+                        if(by < 15) { if(bx > aiX && bx < aiX+80) bdy = -bdy; else bdy = -bdy; } 
+                        else if(by > canvas.height-15) {
+                            if(bx > pX && bx < pX+80) { bdy = -bdy; score++; document.getElementById('scoreBoard').innerText = score; }
                             else { clearEgg(2000); return; }
                         }
-                        aiX += (bx - (aiX + pW/2)) * 0.1;
+                        aiX += (bx - (aiX + 40)) * 0.1;
                         ctx.clearRect(0,0,canvas.width,canvas.height);
-                        ctx.fillStyle = '#fff'; ctx.fillRect(pX, canvas.height-pH, pW, pH); ctx.fillRect(aiX, 0, pW, pH);
-                        ctx.beginPath(); ctx.arc(bx, by, br, 0, Math.PI*2); ctx.fillStyle = '#00f3ff'; ctx.fill();
+                        ctx.fillStyle = '#fff'; ctx.fillRect(pX, canvas.height-10, 80, 10); ctx.fillRect(aiX, 0, 80, 10);
+                        ctx.beginPath(); ctx.arc(bx, by, 6, 0, Math.PI*2); ctx.fillStyle = '#00f3ff'; ctx.fill();
                         gameRequest = requestAnimationFrame(loop);
                     }
                     loop();
@@ -821,48 +774,45 @@
             },
             "snake": () => {
                 startArcade((canvas, ctx) => {
-                    let s = 20, snake = [{x:10, y:10}], dx = 1, dy = 0, food = {x:5, y:5}, score = 0, last = 0;
-                    const place = () => food = {x: Math.floor(Math.random()*(canvas.width/s)), y: Math.floor(Math.random()*(canvas.height/s))};
-                    place();
+                    let snake = [{x:10, y:10}], dx = 1, dy = 0, food = {x:5, y:5}, last = 0;
                     const dir = e => {
-                        let rect = canvas.getBoundingClientRect(), cx = canvas.width/2, cy = canvas.height/2;
-                        let tx = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left, ty = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+                        let r = canvas.getBoundingClientRect(), cx = r.left + canvas.width/2, cy = r.top + canvas.height/2;
+                        let tx = (e.touches ? e.touches[0].clientX : e.clientX), ty = (e.touches ? e.touches[0].clientY : e.clientY);
                         if(Math.abs(tx-cx) > Math.abs(ty-cy)) { if(tx>cx && dx==0) {dx=1;dy=0;} else if(tx<cx && dx==0) {dx=-1;dy=0;} } 
                         else { if(ty>cy && dy==0) {dx=0;dy=1;} else if(ty<cy && dy==0) {dx=0;dy=-1;} }
                     };
                     canvas.addEventListener('mousedown', dir); canvas.addEventListener('touchstart', dir);
-                    function loop(time) {
+                    function loop(t) {
                         gameRequest = requestAnimationFrame(loop);
-                        if(time - last < 100) return; last = time;
+                        if(t - last < 100) return; last = t;
                         let h = {x: snake[0].x+dx, y: snake[0].y+dy};
-                        if(h.x<0 || h.x>=canvas.width/s || h.y<0 || h.y>=canvas.height/s || snake.some(sg=>sg.x==h.x && sg.y==h.y)) { clearEgg(2000); return; }
+                        if(h.x<0 || h.x>=25 || h.y<0 || h.y>=40 || snake.some(s=>s.x==h.x && s.y==h.y)) { clearEgg(2000); return; }
                         snake.unshift(h);
-                        if(h.x==food.x && h.y==food.y) { score+=10; document.getElementById('scoreBoard').innerText = score; place(); } else snake.pop();
+                        if(h.x==food.x && h.y==food.y) { food={x:Math.floor(Math.random()*25),y:Math.floor(Math.random()*40)}; document.getElementById('scoreBoard').innerText = snake.length*10; } 
+                        else snake.pop();
                         ctx.clearRect(0,0,canvas.width,canvas.height);
-                        ctx.fillStyle = '#ff003c'; ctx.fillRect(food.x*s, food.y*s, s-1, s-1);
-                        ctx.fillStyle = '#00f3ff'; snake.forEach(sg => ctx.fillRect(sg.x*s, sg.y*s, s-1, s-1));
+                        ctx.fillStyle='#ff003c'; ctx.fillRect(food.x*20, food.y*20, 19, 19);
+                        ctx.fillStyle='#00f3ff'; snake.forEach(s=>ctx.fillRect(s.x*20, s.y*20, 19, 19));
                     }
                     gameRequest = requestAnimationFrame(loop);
                 });
             },
             "bird": () => {
                 startArcade((canvas, ctx) => {
-                    let b = {y: canvas.height/2, dy: 0, w: 20}, pipes = [], score = 0, frame = 0;
-                    const jump = () => b.dy = -7;
+                    let by = canvas.height/2, bdy = 0, pipes = [], frame = 0;
+                    const jump = () => bdy = -7;
                     canvas.addEventListener('mousedown', jump); canvas.addEventListener('touchstart', jump);
                     function loop() {
-                        b.dy += 0.4; b.y += b.dy; frame++;
-                        if(frame % 100 === 0) { let gap = 140, h = Math.random()*(canvas.height-gap-100)+50; pipes.push({x: canvas.width, top: h, bot: h+gap, w: 40, passed: false}); }
+                        bdy += 0.4; by += bdy; frame++;
+                        if(frame % 90 === 0) pipes.push({x: canvas.width, h: Math.random()*200+50});
                         ctx.clearRect(0,0,canvas.width,canvas.height);
-                        ctx.fillStyle = '#00f3ff'; ctx.fillRect(50, b.y, b.w, b.w);
-                        ctx.fillStyle = '#00ff00';
-                        for(let i=0; i<pipes.length; i++) {
-                            let p = pipes[i]; p.x -= 3;
-                            ctx.fillRect(p.x, 0, p.w, p.top); ctx.fillRect(p.x, p.bot, p.w, canvas.height-p.bot);
-                            if(50 < p.x+p.w && 50+b.w > p.x && (b.y < p.top || b.y+b.w > p.bot) || b.y > canvas.height || b.y < 0) { clearEgg(2000); return; }
-                            if(!p.passed && p.x + p.w < 50) { p.passed = true; score++; document.getElementById('scoreBoard').innerText = score; }
-                        }
-                        pipes = pipes.filter(p => p.x > -50);
+                        ctx.fillStyle='#00f3ff'; ctx.fillRect(50, by, 20, 20);
+                        pipes.forEach(p => {
+                            p.x -= 3; ctx.fillStyle='#00ff00';
+                            ctx.fillRect(p.x, 0, 40, p.h); ctx.fillRect(p.x, p.h+150, 40, canvas.height);
+                            if(50 < p.x+40 && 70 > p.x && (by < p.h || by+20 > p.h+150) || by > canvas.height) { clearEgg(2000); return; }
+                        });
+                        document.getElementById('scoreBoard').innerText = Math.floor(frame/10);
                         gameRequest = requestAnimationFrame(loop);
                     }
                     loop();
@@ -883,30 +833,16 @@
         }
 
         function resetSearch() {
-            filterMenu.style.display = 'none';
-            resultsContainer.innerHTML = '';
-            searchInput.value = '';
-            disclaimer.style.display = 'block';
+            filterMenu.style.display = 'none'; resultsContainer.innerHTML = '';
+            searchInput.value = ''; disclaimer.style.display = 'block';
             searchInput.focus();
-        }
-
-        function showZoneSelection(tramos, targetPk) {
-            filterButtons.innerHTML = '';
-            tramos.forEach(tramo => {
-                const btn = document.createElement('button');
-                btn.className = 'btn'; btn.innerText = tramo;
-                btn.onclick = () => filterByTramo(tramo, targetPk);
-                filterButtons.appendChild(btn);
-            });
-            filterMenu.style.display = 'block';
-            resultsContainer.innerHTML = '';
         }
 
         function filterByTramo(tramoName, targetPk) {
             const sectionData = accesos.filter(a => a.originalTramo.split(/ vía| VIA/i)[0].trim() === tramoName);
             const closeData = sectionData.filter(a => Math.abs(a.pk - targetPk) <= 1300);
             filterMenu.style.display = 'none';
-            renderCards(closeData.sort((a,b) => a.pk - b.pk), `Zona: ${tramoName}`);
+            renderCards(closeData, `Zona: ${tramoName}`);
         }
 
         searchInput.addEventListener('input', (e) => {
@@ -916,33 +852,50 @@
                 if (q.includes(word)) {
                     isEggRunning = true; overlay.classList.add('active');
                     eggs[word](); searchInput.value = ''; searchInput.blur();
-                    filterMenu.style.display = 'none'; resultsContainer.innerHTML = '';
-                    disclaimer.style.display = 'block'; return;
+                    return;
                 }
             }
             disclaimer.style.display = q ? 'none' : 'block';
             if (!q) { filterMenu.style.display = 'none'; resultsContainer.innerHTML = ''; return; }
-            const clean = q.replace(/[.,]/g, '');
-            const num = clean.match(/\d+/);
-            const targetPk = num ? parseFloat(num[0]) : null;
-            const textStr = clean.replace(/\d+/g, '').trim();
+            
+            const numMatch = q.match(/\d+/);
+            const targetPk = numMatch ? parseFloat(numMatch[0]) : null;
+            const textStr = q.replace(/\d+/g, '').trim();
+            const terms = textStr.split(/\s+/).filter(t => t.length > 0);
+
+            let cand = accesos;
+
             if (targetPk !== null) {
-                let cand = accesos;
-                if (textStr) {
-                    const terms = textStr.split(/\s+/).filter(t => t.length > 0);
+                if (terms.length > 0) {
+                    // Si hay PK y texto, filtramos ESTRICTAMENTE por el texto primero
                     cand = cand.filter(a => terms.every(t => a.abrevSearch.includes(t) || a.tramoSearch.includes(t)));
-                }
-                cand = cand.map(a => ({ ...a, dist: Math.abs(a.pk - targetPk) })).filter(a => a.dist <= 1300);
-                if (cand.length === 0) { renderCards([], `Nada a menos de 1.3km.`); return; }
-                if (textStr) renderCards(cand.sort((a,b) => a.pk - b.pk), `PK ${targetPk}:`);
-                else {
+                    // Y luego mostramos los mas cercanos a ese PK
+                    cand = cand.map(a => ({ ...a, dist: Math.abs(a.pk - targetPk) }))
+                               .filter(a => a.dist <= 1300)
+                               .sort((a,b) => a.dist - b.dist);
+                    renderCards(cand, `Resultados para "${textStr}" cerca del PK ${targetPk}:`);
+                } else {
+                    // Si solo hay PK, mantenemos la logica de zonas
+                    cand = cand.map(a => ({ ...a, dist: Math.abs(a.pk - targetPk) }))
+                               .filter(a => a.dist <= 1300);
                     const zones = [...new Set(cand.map(a => a.originalTramo.split(/ vía| VIA/i)[0].trim()))];
-                    if (zones.length > 1) showZoneSelection(zones, targetPk);
-                    else filterByTramo(zones[0], targetPk);
+                    if (zones.length > 1) {
+                        filterButtons.innerHTML = '';
+                        zones.forEach(z => {
+                            const b = document.createElement('button'); b.className='btn'; b.innerText=z;
+                            b.onclick=()=>filterByTramo(z, targetPk); filterButtons.appendChild(b);
+                        });
+                        filterMenu.style.display='block'; resultsContainer.innerHTML='';
+                    } else if(zones.length === 1) {
+                        filterByTramo(zones[0], targetPk);
+                    } else {
+                        renderCards([], "Nada a menos de 1.3km.");
+                    }
                 }
-            } else {
-                const terms = textStr.split(/\s+/).filter(t => t.length > 0);
-                renderCards(accesos.filter(a => terms.every(t => a.abrevSearch.includes(t) || a.tramoSearch.includes(t))));
+            } else if (terms.length > 0) {
+                // Solo busqueda por texto
+                cand = cand.filter(a => terms.every(t => a.abrevSearch.includes(t) || a.tramoSearch.includes(t)));
+                renderCards(cand);
             }
         });
     </script>
