@@ -181,6 +181,20 @@
         
         #egg-overlay.active { opacity: 1; pointer-events: all; }
 
+        .close-egg {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 100;
+            font-weight: bold;
+        }
+
         .egg-content {
             display: flex;
             flex-direction: column;
@@ -215,13 +229,12 @@
             text-transform: uppercase;
         }
 
-        /* FGC Tren de madera */
+        /* ANIMACIONES */
         @keyframes trainChug { 0% { transform: translateX(-120vw); } 100% { transform: translateX(120vw); } }
         @keyframes wheelRoll { 100% { transform: rotate(360deg); } }
         .wooden-train { width: 80vw; max-width: 400px; animation: trainChug 4s linear forwards; drop-shadow: 0 10px 10px rgba(0,0,0,0.5); }
         .train-wheel { transform-origin: 50% 50%; animation: wheelRoll 1s linear infinite; }
 
-        /* Matrix Fajardo */
         .matrix-msg { 
             font-family: monospace; 
             font-size: clamp(1.2rem, 4vw, 2rem); 
@@ -236,7 +249,6 @@
         }
         @keyframes matrixEnter { from { transform: scale(0); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 
-        /* Shalom Cruz */
         .cross-glow { 
             width: 120px; 
             height: auto;
@@ -247,7 +259,6 @@
         }
         @keyframes pulseGlow { from { filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5)); } to { filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.9)); transform: scale(1.05); } }
 
-        /* Futbol Fondos Dinamicos */
         .football-bg { position: absolute; inset: 0; z-index: 1; animation: slideBg 8s linear infinite; background-size: 200% 200%; }
         .bg-madrid { background: repeating-linear-gradient(45deg, #ffffff 0px, #ffffff 40px, #f4e8c1 40px, #f4e8c1 80px); }
         .bg-barca { background: repeating-linear-gradient(135deg, #004D98 0px, #004D98 50px, #A50044 50px, #A50044 100px); }
@@ -257,12 +268,7 @@
         .title-madrid { color: #00529F; text-shadow: 3px 3px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
         .title-barca { color: #FDB913; text-shadow: 4px 4px 0 #004D98, -2px -2px 0 #A50044, 2px -2px 0 #A50044, -2px 2px 0 #A50044, 2px 2px 0 #A50044; }
         .title-betis { color: #009A44; text-shadow: 3px 3px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
-        
-        .text-madrid { color: #00529F; text-shadow: 2px 2px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff; }
-        .text-barca { color: #FDB913; text-shadow: 2px 2px 4px #000; }
-        .text-betis { color: #000; text-shadow: 2px 2px 0 #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff; }
 
-        /* Banderas */
         .estelada-container { position: absolute; inset: 0; z-index: 1; overflow: hidden; background: repeating-linear-gradient(180deg, #ffed00 0%, #ffed00 10%, #da121a 10%, #da121a 20%); background-size: 100% 100vh; animation: flagWave 3s ease-in-out infinite alternate; }
         .estelada-triangle { position: absolute; left: 0; top: 0; width: 0; height: 0; border-top: 50vh solid transparent; border-bottom: 50vh solid transparent; border-left: 60vw solid #0f47af; }
         .estelada-star { position: absolute; left: 10vw; top: 50%; transform: translateY(-50%) rotate(-18deg); width: 15vw; min-width: 60px; fill: white; }
@@ -271,22 +277,12 @@
         .text-cat { color: #fff; text-shadow: 3px 3px 0 #da121a, -1px -1px 0 #da121a, 1px -1px 0 #da121a, -1px 1px 0 #da121a, 1px 1px 0 #da121a; }
         .text-spain { color: #fff; text-shadow: 3px 3px 0 #AA151B, -1px -1px 0 #AA151B, 1px -1px 0 #AA151B, -1px 1px 0 #AA151B, 1px 1px 0 #AA151B; font-size: 3rem; font-weight: 900; }
 
-        /* Star Wars 3D Crawl */
         .sw-space { position: absolute; inset: 0; background: #000; z-index: 1; overflow: hidden; perspective: 400px; }
         .sw-stars { position: absolute; inset: 0; background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 50px 160px, #ddd, rgba(0,0,0,0)), radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0)); background-repeat: repeat; background-size: 200px 200px; animation: spaceMove 10s linear infinite; }
         .sw-crawl-container { position: absolute; bottom: -100px; width: 100%; height: 100vh; display: flex; justify-content: center; transform-origin: 50% 100%; animation: swCrawl 8s linear forwards; }
         .sw-text { color: #feda4a; font-size: clamp(2rem, 6vw, 4rem); font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 4px; line-height: 1.5; width: 80%; }
-        @keyframes spaceMove { from { background-position: 0 0; } to { background-position: 0 200px; } }
         @keyframes swCrawl { 0% { transform: rotateX(30deg) translateY(0); opacity: 1; } 100% { transform: rotateX(40deg) translateY(-1200px); opacity: 0; } }
 
-        /* Otras animaciones viejas mantenidas */
-        .byd-car { width: 250px; }
-        .tesla-t { fill: #e82127; width: 120px; animation: fallCrash 2.5s cubic-bezier(.47,0,.74,.71) forwards; }
-        .tesla-thumb { fill: #e82127; width: 150px; opacity: 0; animation: fadeIn 0.5s 1.8s forwards; }
-        @keyframes fallCrash { 0% { transform: translateY(-100vh) rotate(0); } 70% { transform: translateY(0) rotate(0); } 100% { transform: translateY(100vh) rotate(45deg); opacity: 0; } }
-        .apple-bg { background: #000; width: 100%; height: 100%; position: absolute; top: 0; left: 0; }
-        .apple-sweep { position: absolute; top: 0; width: 100%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent); animation: appleSweep 1.5s infinite; }
-        @keyframes appleSweep { 0% { left: -100%; } 100% { left: 100%; } }
         .merida-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #0047b6 25%, #fff 25%, #fff 50%, #0047b6 50%, #0047b6 75%, #fff 75%, #fff 100%); background-size: 50px 50px; z-index: 1; animation: moveBg 2s linear infinite; }
         @keyframes moveBg { from { background-position: 0 0; } to { background-position: 50px 50px; } }
 
@@ -356,43 +352,25 @@
         const overlay = document.getElementById('egg-overlay');
 
         let isEggRunning = false;
+        let gameRequest;
 
         const clearEgg = (delay = 5000) => {
-            setTimeout(() => {
+            if (delay === 0) {
                 overlay.className = '';
                 overlay.innerHTML = '';
                 overlay.style.background = 'transparent';
                 document.body.style.filter = '';
                 isEggRunning = false;
-            }, delay);
-        };
-
-        const canvasFeathers = () => {
-            const c = document.createElement('canvas');
-            c.width = window.innerWidth; c.height = window.innerHeight;
-            c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; c.style.zIndex = '2';
-            c.style.pointerEvents = 'none';
-            overlay.appendChild(c);
-            const ctx = c.getContext('2d');
-            let feathers = Array(50).fill().map(() => ({x: Math.random() * c.width, y: Math.random() * -c.height, s: Math.random() * 2 + 1, a: Math.random() * Math.PI * 2, c: Math.random() > 0.5 ? '#fff' : '#00a0e9'}));
-            const interval = setInterval(() => {
-                ctx.clearRect(0, 0, c.width, c.height);
-                feathers.forEach(f => {
-                    ctx.fillStyle = f.c; ctx.save(); ctx.translate(f.x, f.y); ctx.rotate(f.a);
-                    ctx.beginPath(); ctx.ellipse(0, 0, 4 * f.s, 10 * f.s, 0, 0, Math.PI * 2); ctx.fill();
-                    ctx.restore();
-                    f.y += f.s * 2; f.x += Math.sin(f.a) * 2; f.a += 0.05;
-                    if(f.y > c.height) { f.y = -20; f.x = Math.random() * c.width; }
-                });
-            }, 30);
-            setTimeout(() => clearInterval(interval), 4400);
+                cancelAnimationFrame(gameRequest);
+                return;
+            }
+            setTimeout(() => clearEgg(0), delay);
         };
 
         const canvasMatrix = () => {
             const c = document.createElement('canvas');
             c.width = window.innerWidth; c.height = window.innerHeight;
             c.style.position = 'absolute'; c.style.top = '0'; c.style.left = '0'; c.style.zIndex = '1';
-            c.style.pointerEvents = 'none';
             overlay.appendChild(c);
             const ctx = c.getContext('2d');
             const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ@#$%&*'.split('');
@@ -456,30 +434,79 @@
                 overlay.innerHTML = '<div class="sw-space"><div class="sw-stars"></div><div class="sw-crawl-container"><div class="sw-text">Hace mucho tiempo,<br>en una galaxia muy,<br>muy lejana...<br><br>EPISODIO FGC<br><br>La búsqueda del PK perdido.</div></div></div>';
                 clearEgg(8000);
             },
-            "byd": () => {
+            "arkanoid": () => {
                 overlay.style.background = '#000';
-                overlay.innerHTML = '<div class="egg-content"><div class="egg-text" style="color:#00f3ff; font-family:monospace;">BUILD YOUR DREAMS</div><svg class="byd-car" viewBox="0 0 200 60"><path d="M10 50 L30 30 L80 20 L150 25 L180 40 L190 50 Z" fill="none" stroke="#00f3ff" stroke-width="3"/></svg><div class="egg-text" style="color:#00f3ff;">EL FUTURO ES ELÉCTRICO</div></div>';
-                clearEgg(5000);
-            },
-            "tesla": () => {
-                overlay.style.background = '#000';
-                overlay.innerHTML = '<div class="egg-content"><svg class="tesla-t" viewBox="0 0 100 100"><path d="M10,20 L90,20 L90,35 L55,35 L55,90 L45,90 L45,35 L10,35 Z"/></svg><svg class="tesla-thumb" viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><div class="egg-text" style="color:#e82127;">Lavadora Americana Sobrevalorada</div></div>';
-                clearEgg(6000);
-            },
-            "apple": () => {
-                overlay.style.background = '#000';
-                overlay.innerHTML = '<div class="apple-bg"><div class="apple-sweep"></div></div><div class="egg-content"><svg width="100" fill="#fff" viewBox="0 0 100 100"><path d="M80,50 C80,30 60,30 60,30 C50,30 45,35 40,35 C35,35 30,30 20,30 C10,30 0,40 0,60 C0,80 15,95 25,95 C30,95 35,90 40,90 C45,90 50,95 55,95 C65,95 80,80 80,60 C70,60 65,55 65,45 C65,35 75,30 80,30 M60,5 C60,5 50,5 45,15 C40,25 45,35 45,35 C45,35 55,35 60,25 C65,15 60,5 60,5"/></svg><div class="egg-text">Designed in California</div></div>';
-                clearEgg(5000);
-            },
-            "merida": () => {
-                overlay.innerHTML = '<div class="merida-bg"></div><div class="egg-content"><svg width="150" viewBox="0 0 24 24" fill="#0047b6"><path d="M21,5C21,5 21,2 18,2C15,2 15,5 15,5C15,5 12,5 12,8C12,11 15,11 15,11L15,13C15,13 13,13 13,15C13,17 15,17 15,17L15,22L18,22L18,17C18,17 20,17 20,15C20,13 18,13 18,13L18,11C18,11 21,11 21,8C21,5 18,5 18,5L21,5Z"/></svg><div class="egg-text" style="color:#0047b6; background:white; padding:10px; border-radius:10px;">¡Força Espanyol!</div></div>';
-                canvasFeathers();
-                clearEgg(5000);
+                overlay.innerHTML = '<button class="close-egg" onclick="clearEgg(0)">SALIR</button><canvas id="gameCanvas"></canvas>';
+                const canvas = document.getElementById('gameCanvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = Math.min(window.innerWidth, 400);
+                canvas.height = Math.min(window.innerHeight - 100, 600);
+                
+                let ballRadius = 8, x = canvas.width/2, y = canvas.height-30, dx = 3, dy = -3;
+                let paddleHeight = 10, paddleWidth = 75, paddleX = (canvas.width-paddleWidth)/2;
+                let brickRowCount = 5, brickColumnCount = 4, brickWidth = (canvas.width - 50) / 4, brickHeight = 20, brickPadding = 10, brickOffsetTop = 50, brickOffsetLeft = 25;
+                let bricks = [];
+                for(let c=0; c<brickColumnCount; c++) {
+                    bricks[c] = [];
+                    for(let r=0; r<brickRowCount; r++) { bricks[c][r] = { x: 0, y: 0, status: 1 }; }
+                }
+
+                function drawBall() {
+                    ctx.beginPath(); ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+                    ctx.fillStyle = "#00f3ff"; ctx.fill(); ctx.closePath();
+                }
+                function drawPaddle() {
+                    ctx.beginPath(); ctx.rect(paddleX, canvas.height-paddleHeight-10, paddleWidth, paddleHeight);
+                    ctx.fillStyle = "#00f3ff"; ctx.fill(); ctx.closePath();
+                }
+                function drawBricks() {
+                    for(let c=0; c<brickColumnCount; c++) {
+                        for(let r=0; r<brickRowCount; r++) {
+                            if(bricks[c][r].status == 1) {
+                                let brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+                                let brickY = (r*(brickHeight+brickPadding))+brickOffsetTop;
+                                bricks[c][r].x = brickX; bricks[c][r].y = brickY;
+                                ctx.beginPath(); ctx.rect(brickX, brickY, brickWidth, brickHeight);
+                                ctx.fillStyle = r % 2 == 0 ? "#00f3ff" : "#ffffff"; ctx.fill(); ctx.closePath();
+                            }
+                        }
+                    }
+                }
+                function collisionDetection() {
+                    for(let c=0; c<brickColumnCount; c++) {
+                        for(let r=0; r<brickRowCount; r++) {
+                            let b = bricks[c][r];
+                            if(b.status == 1) {
+                                if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) { dy = -dy; b.status = 0; }
+                            }
+                        }
+                    }
+                }
+                function draw() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    drawBricks(); drawBall(); drawPaddle(); collisionDetection();
+                    if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) dx = -dx;
+                    if(y + dy < ballRadius) dy = -dy;
+                    else if(y + dy > canvas.height-ballRadius-10) {
+                        if(x > paddleX && x < paddleX + paddleWidth) { dy = -dy; }
+                        else { clearEgg(2000); return; }
+                    }
+                    x += dx; y += dy;
+                    gameRequest = requestAnimationFrame(draw);
+                }
+                
+                const movePaddle = (e) => {
+                    let relativeX = (e.type.includes('touch') ? e.touches[0].clientX : e.clientX) - (window.innerWidth - canvas.width) / 2;
+                    if(relativeX > 0 && relativeX < canvas.width) paddleX = relativeX - paddleWidth/2;
+                };
+                document.addEventListener("mousemove", movePaddle);
+                document.addEventListener("touchmove", movePaddle);
+                draw();
             }
         };
 
         function renderCards(items, message = '') {
-            let html = message ? `<div class="status-msg">${message}</div>` : '';
+            let html = message ? `<div class="status-msg" style="text-align:center; padding:10px;">${message}</div>` : '';
             html += items.map(item => `
                 <div class="card">
                     <div class="card-pk">PK ${item.originalPk}</div>
@@ -487,7 +514,7 @@
                     <a href="${item.link}" target="_blank" class="btn">Abrir en Maps</a>
                 </div>
             `).join('');
-            resultsContainer.innerHTML = html || '<div class="status-msg">No hay coincidencias.</div>';
+            resultsContainer.innerHTML = html || '<div class="status-msg" style="text-align:center;">No hay coincidencias.</div>';
         }
 
         function resetSearch() {
@@ -502,8 +529,7 @@
             filterButtons.innerHTML = '';
             tramos.forEach(tramo => {
                 const btn = document.createElement('button');
-                btn.className = 'btn';
-                btn.innerText = tramo;
+                btn.className = 'btn'; btn.innerText = tramo;
                 btn.onclick = () => filterByTramo(tramo, targetPk);
                 filterButtons.appendChild(btn);
             });
@@ -514,70 +540,44 @@
         function filterByTramo(tramoName, targetPk) {
             const sectionData = accesos.filter(a => a.originalTramo.split(/ vía| VIA/i)[0].trim() === tramoName);
             const closeData = sectionData.filter(a => Math.abs(a.pk - targetPk) <= 1300);
-            const finalSelection = closeData.sort((a,b) => a.pk - b.pk);
             filterMenu.style.display = 'none';
-            renderCards(finalSelection, `Accesos en la zona: ${tramoName}`);
+            renderCards(closeData.sort((a,b) => a.pk - b.pk), `Zona: ${tramoName}`);
         }
 
         searchInput.addEventListener('input', (e) => {
             if (isEggRunning) return;
-
-            const queryRaw = e.target.value;
-            const queryLowercase = queryRaw.toLowerCase();
-
+            const q = e.target.value.toLowerCase();
             for (let word in eggs) {
-                if (queryLowercase.includes(word)) {
-                    isEggRunning = true;
-                    overlay.classList.add('active');
-                    eggs[word]();
-                    searchInput.value = '';
-                    searchInput.blur();
-                    filterMenu.style.display = 'none';
-                    resultsContainer.innerHTML = '';
-                    disclaimer.style.display = 'block';
-                    return;
+                if (q.includes(word)) {
+                    isEggRunning = true; overlay.classList.add('active');
+                    eggs[word](); searchInput.value = ''; searchInput.blur();
+                    filterMenu.style.display = 'none'; resultsContainer.innerHTML = '';
+                    disclaimer.style.display = 'block'; return;
                 }
             }
-
-            disclaimer.style.display = queryRaw ? 'none' : 'block';
-            if (!queryLowercase) { 
-                filterMenu.style.display = 'none';
-                resultsContainer.innerHTML = '';
-                return; 
-            }
-
-            const cleanQuery = queryLowercase.replace(/[.,]/g, '');
-            const numMatch = cleanQuery.match(/\d+/);
-            const targetPk = numMatch ? parseFloat(numMatch[0]) : null;
-            const textStr = cleanQuery.replace(/\d+/g, '').trim();
-
+            disclaimer.style.display = q ? 'none' : 'block';
+            if (!q) { filterMenu.style.display = 'none'; resultsContainer.innerHTML = ''; return; }
+            const clean = q.replace(/[.,]/g, '');
+            const num = clean.match(/\d+/);
+            const targetPk = num ? parseFloat(num[0]) : null;
+            const textStr = clean.replace(/\d+/g, '').trim();
             if (targetPk !== null) {
-                let candidates = accesos;
+                let cand = accesos;
                 if (textStr) {
                     const terms = textStr.split(/\s+/).filter(t => t.length > 0);
-                    candidates = candidates.filter(a => terms.every(term => a.abrevSearch.includes(term) || a.tramoSearch.includes(term)));
+                    cand = cand.filter(a => terms.every(t => a.abrevSearch.includes(t) || a.tramoSearch.includes(t)));
                 }
-                candidates = candidates.map(a => ({ ...a, dist: Math.abs(a.pk - targetPk) })).filter(a => a.dist <= 1300);
-
-                if (candidates.length === 0) {
-                    filterMenu.style.display = 'none';
-                    renderCards([], `No hay accesos a menos de 1.300m.`);
-                    return;
-                }
-
-                if (textStr) {
-                    filterMenu.style.display = 'none';
-                    const finalSelection = candidates.sort((a, b) => a.pk - b.pk);
-                    renderCards(finalSelection, `Accesos cerca del PK ${targetPk}:`);
-                } else {
-                    const uniqueTramos = [...new Set(candidates.map(a => a.originalTramo.split(/ vía| VIA/i)[0].trim()))];
-                    if (uniqueTramos.length > 1) showZoneSelection(uniqueTramos, targetPk);
-                    else if (uniqueTramos.length === 1) filterByTramo(uniqueTramos[0], targetPk);
+                cand = cand.map(a => ({ ...a, dist: Math.abs(a.pk - targetPk) })).filter(a => a.dist <= 1300);
+                if (cand.length === 0) { renderCards([], `Nada a menos de 1.3km.`); return; }
+                if (textStr) renderCards(cand.sort((a,b) => a.pk - b.pk), `PK ${targetPk}:`);
+                else {
+                    const zones = [...new Set(cand.map(a => a.originalTramo.split(/ vía| VIA/i)[0].trim()))];
+                    if (zones.length > 1) showZoneSelection(zones, targetPk);
+                    else filterByTramo(zones[0], targetPk);
                 }
             } else {
-                filterMenu.style.display = 'none';
                 const terms = textStr.split(/\s+/).filter(t => t.length > 0);
-                renderCards(accesos.filter(a => terms.every(term => a.abrevSearch.includes(term) || a.tramoSearch.includes(term))));
+                renderCards(accesos.filter(a => terms.every(t => a.abrevSearch.includes(t) || a.tramoSearch.includes(t))));
             }
         });
     </script>
