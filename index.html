@@ -172,89 +172,82 @@
             line-height: 1.5;
         }
 
-        .selector-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            margin-top: 10px;
+        #egg-overlay { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            pointer-events: none; 
+            z-index: 99999; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            overflow: hidden; 
+            transition: all 0.5s; 
+            opacity: 0; 
+            text-align: center;
+            padding: 20px;
         }
-
-        #egg-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 99999; display: flex; justify-content: center; align-items: center; overflow: hidden; transition: all 0.5s; opacity: 0; }
         #egg-overlay.active { opacity: 1; pointer-events: all; }
 
+        .egg-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            z-index: 10;
+        }
+
+        .egg-text {
+            color: #fff;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-top: 20px;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+            max-width: 90vw;
+            word-wrap: break-word;
+        }
+
         @keyframes trainMove { 0% { transform: translateX(-100vw); } 100% { transform: translateX(100vw); } }
-        .fgc-train { width: 400px; height: 100px; animation: trainMove 4s linear forwards; }
+        .fgc-train { width: 300px; height: auto; animation: trainMove 4s linear forwards; }
 
         @keyframes glitch { 0% { transform: translate(0) } 20% { transform: translate(-2px, 2px) } 40% { transform: translate(-2px, -2px) } 60% { transform: translate(2px, 2px) } 80% { transform: translate(2px, -2px) } 100% { transform: translate(0) } }
-        .byd-text { font-size: 4rem; color: #fff; font-family: monospace; animation: glitch 0.2s infinite; }
-        .byd-car { width: 300px; fill: #00f3ff; filter: drop-shadow(-20px 0 10px #00f3ff); animation: trainMove 1.5s cubic-bezier(.17,.67,.83,.67) forwards; }
+        .byd-car { width: 250px; fill: #00f3ff; animation: trainMove 2s forwards; }
 
-        .matrix-text { position: absolute; color: #0f0; font-family: monospace; font-size: 2rem; background: #000; padding: 20px; border: 2px solid #0f0; z-index: 2; }
+        .matrix-msg { 
+            font-family: monospace; 
+            font-size: 1.5rem; 
+            color: #0f0; 
+            background: rgba(0,0,0,0.8); 
+            padding: 20px; 
+            border: 1px solid #0f0; 
+            box-shadow: 0 0 20px #0f0;
+        }
 
-        @keyframes slideInL { from { transform: translateX(-100vw) } to { transform: translateX(0) } }
-        @keyframes slideInR { from { transform: translateX(100vw) } to { transform: translateX(0) } }
-        @keyframes fadeUp { to { transform: translateY(-100vh); opacity: 0; } }
-        .fcb-bg { position: absolute; width: 50vw; height: 100vh; top: 0; }
-        .fcb-blue { left: 0; background: #004D98; animation: slideInL 1s forwards; }
-        .fcb-red { right: 0; background: #A50044; animation: slideInR 1s forwards; }
-        .fcb-content { z-index: 2; display: flex; flex-direction: column; align-items: center; opacity: 0; animation: fadeInFCB 1s 1s forwards; }
-        .fcb-text { color: #FDB913; font-size: 3rem; margin-top: 20px; text-transform: uppercase; }
-        .fcb-out { animation: fadeUp 1.5s forwards; }
-        @keyframes fadeInFCB { to { opacity: 1; } }
+        .fcb-bg { position: absolute; width: 50vw; height: 100vh; top: 0; z-index: 1; }
+        .fcb-blue { left: 0; background: #004D98; }
+        .fcb-red { right: 0; background: #A50044; }
 
-        @keyframes drawText { from { width: 0; } to { width: 100%; } }
-        @keyframes rotateStar { to { transform: rotate(360deg); } }
-        .shalom-bg { background: radial-gradient(circle, #fffbe0 0%, #fff 100%); width: 100%; height: 100%; position: absolute; }
-        .shalom-star { width: 150px; fill: none; stroke: #d4af37; stroke-width: 2; animation: rotateStar 10s linear infinite; }
-        .shalom-text { font-family: 'Brush Script MT', cursive; font-size: 3rem; color: #d4af37; text-shadow: 0 0 10px #d4af37; white-space: nowrap; overflow: hidden; animation: drawText 3s steps(40) forwards; }
+        .shalom-text { font-family: 'Brush Script MT', cursive; font-size: 2.5rem; color: #d4af37; }
 
-        @keyframes flashEffect { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0; } }
-        .rm-flash { position: absolute; width: 100%; height: 100%; background: #fff; animation: flashEffect 0.5s forwards; }
-        .rm-stripe { position: absolute; width: 150%; height: 100px; background: #fff; border-top: 5px solid #FEBE10; border-bottom: 5px solid #FEBE10; transform: rotate(-45deg); }
-        .rm-content { z-index: 2; text-align: center; animation: scaleUp 1s 0.5s backwards; }
-        .rm-text { font-family: 'Times New Roman', serif; font-size: 4rem; color: #000; margin-top: 20px; }
-        @keyframes scaleUp { from { transform: scale(0); } to { transform: scale(1); } }
+        @keyframes flash { 0%, 50%, 100% { opacity: 1; } 25%, 75% { opacity: 0; } }
+        .rm-flash { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #fff; animation: flash 0.5s forwards; z-index: 5; }
 
-        @keyframes fallDown { to { transform: translateY(100vh); } }
-        @keyframes pulseBetis { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
         .betis-bar { width: 7.69%; height: 100%; background: #009A44; float: left; }
         .betis-bar:nth-child(even) { background: #fff; }
-        .betis-content { position: absolute; z-index: 2; text-align: center; }
-        .betis-shield { width: 200px; animation: pulseBetis 1s infinite; }
-        .betis-text { font-family: cursive; font-size: 3rem; color: #000; -webkit-text-stroke: 2px #fff; margin-top: 20px; z-index: 3; }
 
-        .esp-bg { background: linear-gradient(to bottom, #0047b6, #fff); width: 100%; height: 100%; position: absolute; z-index: 1; }
-        .esp-shield { width: 200px; filter: drop-shadow(0 0 20px #fff); z-index: 3; position: relative; }
-        .esp-text { position: absolute; bottom: 50px; font-size: 3rem; background: linear-gradient(to right, #0047b6, #00a0e9); -webkit-background-clip: text; color: transparent; z-index: 3; }
-
-        @keyframes waveFlag { 0% { background-position: 0 0; } 100% { background-position: 100px 0; } }
-        .es-bg { width: 100%; height: 100%; background: linear-gradient(to bottom, #c60d0f 33%, #ffc400 33%, #ffc400 66%, #c60d0f 66%); animation: waveFlag 2s infinite linear; position: absolute; }
-        .es-text { position: absolute; width: 100%; text-align: center; font-size: 8rem; font-weight: 900; color: #333; text-shadow: 2px 2px 0 #000, -1px -1px 0 #555; mix-blend-mode: overlay; z-index: 2; }
-
-        .cat-bg { width: 100%; height: 100%; background: #ffed00; position: absolute; }
-        .cat-bar { width: 100%; height: 10%; background: #da121a; position: absolute; left: 0; transform: scaleY(0); transition: transform 0.5s; }
-        .cat-bar:nth-child(1) { top: 10%; } .cat-bar:nth-child(2) { top: 30%; } .cat-bar:nth-child(3) { top: 50%; } .cat-bar:nth-child(4) { top: 70%; }
-        .cat-triangle { width: 0; height: 0; border-top: 50vh solid transparent; border-bottom: 50vh solid transparent; border-left: 50vw solid #0f47af; position: absolute; left: -50vw; top: 0; transition: left 1s; }
-        .cat-star { position: absolute; left: 15vw; top: 40vh; width: 100px; fill: #fff; opacity: 0; transition: opacity 1s 1s; }
-        .cat-text { position: absolute; font-family: 'Impact', sans-serif; font-size: 4rem; text-align: center; width: 100%; color: #000; z-index: 2; opacity: 0; transition: opacity 1s 2s; }
-
-        @keyframes saberUp { from { height: 0; } to { height: 300px; } }
-        .sw-saber { width: 10px; height: 300px; background: #f00; box-shadow: 0 0 20px #f00, 0 0 40px #f00; border-radius: 5px 5px 0 0; position: absolute; bottom: 40%; animation: saberUp 0.5s forwards; z-index: 2; }
-        .sw-text { position: absolute; bottom: 20%; font-family: sans-serif; font-size: 2rem; color: #fff; letter-spacing: 5px; z-index: 2; }
-
+        .es-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, #c60d0f 33%, #ffc400 33%, #ffc400 66%, #c60d0f 66%); z-index: 1; }
+        
         @keyframes appleSweep { 0% { left: -100%; } 100% { left: 100%; } }
-        .apple-bg { background: #000; width: 100%; height: 100%; position: absolute; }
-        .apple-sweep { position: absolute; top: 0; width: 50%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent); animation: appleSweep 2s infinite; }
-        .apple-logo { width: 150px; fill: #fff; z-index: 2; filter: drop-shadow(0 0 20px rgba(255,255,255,0.5)); }
-        .apple-text { position: absolute; bottom: 20%; color: #fff; font-size: 2rem; font-family: sans-serif; letter-spacing: 3px; z-index: 2; }
-        @keyframes singleFlash { 0%, 100% { opacity: 0; } 50% { opacity: 1; } }
-        .flash-overlay { position: absolute; width: 100%; height: 100%; background: #fff; animation: singleFlash 0.3s forwards; pointer-events: none; z-index: 4; }
+        .apple-sweep { position: absolute; top: 0; width: 100%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent); animation: appleSweep 2s infinite; z-index: 2; }
 
-        @keyframes fallCrash { 0% { transform: translateY(-100vh) rotate(0); } 80% { transform: translateY(10vh) rotate(15deg); } 100% { transform: translateY(100vh) rotate(45deg); opacity: 0; } }
-        @keyframes popInThumb { 0% { transform: scale(0); opacity: 0; } 80% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(1); opacity: 1; } }
-        .tesla-t { fill: #e82127; width: 150px; animation: fallCrash 2s forwards; position: absolute; z-index: 2; }
-        .tesla-thumb { fill: #e82127; width: 200px; position: absolute; opacity: 0; animation: popInThumb 0.5s 1.5s forwards; z-index: 2; }
-        .tesla-text { color: #fff; font-family: sans-serif; font-size: 3rem; font-weight: bold; position: absolute; bottom: 20%; opacity: 0; animation: popInThumb 0.5s 1.5s forwards; z-index: 2; text-shadow: 0 0 10px #e82127; text-transform: uppercase; text-align: center; }
+        @keyframes fallCrash { 0% { transform: translateY(-100vh); } 80% { transform: translateY(0); } 100% { transform: translateY(100vh) rotate(45deg); opacity: 0; } }
+        .tesla-t { fill: #e82127; width: 120px; animation: fallCrash 2s forwards; }
+        @keyframes popIn { from { transform: scale(0); } to { transform: scale(1); } }
+        .tesla-thumb { fill: #e82127; width: 150px; animation: popIn 0.5s 1.5s backwards; }
     </style>
 </head>
 <body>
@@ -594,7 +587,7 @@
             const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
             const drops = Array(Math.floor(c.width / 20)).fill(1);
             const interval = setInterval(() => {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
                 ctx.fillRect(0, 0, c.width, c.height);
                 ctx.fillStyle = '#0F0';
                 ctx.font = '20px monospace';
@@ -634,79 +627,64 @@
         const eggs = {
             "fgc": () => {
                 document.body.style.filter = 'sepia(0.6)';
-                overlay.style.background = 'transparent';
-                overlay.innerHTML = '<svg class="fgc-train" viewBox="0 0 400 100"><rect x="10" y="20" width="380" height="60" rx="10" fill="#fff" stroke="#e05206" stroke-width="4"/><rect x="30" y="30" width="40" height="30" fill="#333"/><rect x="90" y="30" width="40" height="30" fill="#333"/><rect x="150" y="30" width="40" height="30" fill="#333"/><rect x="210" y="30" width="40" height="30" fill="#333"/><rect x="270" y="30" width="40" height="30" fill="#333"/><rect x="330" y="30" width="40" height="30" fill="#333"/><circle cx="80" cy="90" r="10" fill="#555"/><circle cx="120" cy="90" r="10" fill="#555"/><circle cx="280" cy="90" r="10" fill="#555"/><circle cx="320" cy="90" r="10" fill="#555"/></svg>';
+                overlay.innerHTML = '<div class="egg-content"><svg class="fgc-train" viewBox="0 0 400 100"><rect x="10" y="20" width="380" height="60" rx="10" fill="#fff" stroke="#e05206" stroke-width="4"/><circle cx="80" cy="90" r="10" fill="#555"/><circle cx="320" cy="90" r="10" fill="#555"/></svg></div>';
                 clearEgg(4000);
             },
             "byd": () => {
                 overlay.style.background = '#000';
-                overlay.innerHTML = '<div class="byd-text" id="bydt">BUILD YOUR DREAMS</div>';
-                setTimeout(() => {
-                    document.getElementById('bydt').style.display = 'none';
-                    overlay.innerHTML += '<svg class="byd-car" viewBox="0 0 200 60"><path d="M10 50 L30 30 L80 20 L150 25 L180 40 L190 50 Z" fill="none" stroke="#00f3ff" stroke-width="3"/></svg><div style="position:absolute; bottom:20%; color:#00f3ff; font-family:monospace; font-size:2rem; animation: glitch 1s infinite;">EL FUTURO ES ELÉCTRICO</div>';
-                }, 1000);
-                clearEgg(4000);
+                overlay.innerHTML = '<div class="egg-content"><div class="egg-text" style="color:#00f3ff; font-family:monospace; animation: glitch 0.2s infinite;">BUILD YOUR DREAMS</div><svg class="byd-car" viewBox="0 0 200 60"><path d="M10 50 L30 30 L80 20 L150 25 L180 40 L190 50 Z" fill="none" stroke="#00f3ff" stroke-width="3"/></svg><div class="egg-text" style="color:#00f3ff; font-family:monospace;">EL FUTURO ES ELÉCTRICO</div></div>';
+                clearEgg(5000);
             },
             "tesla": () => {
                 overlay.style.background = '#000';
-                overlay.innerHTML = '<svg class="tesla-t" viewBox="0 0 100 100"><path d="M10,20 L90,20 L90,35 L55,35 L55,90 L45,90 L45,35 L10,35 Z"/></svg><svg class="tesla-thumb" viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><div class="tesla-text">Lavadora Americana Sobrevalorada</div>';
+                overlay.innerHTML = '<div class="egg-content"><svg class="tesla-t" viewBox="0 0 100 100"><path d="M10,20 L90,20 L90,35 L55,35 L55,90 L45,90 L45,35 L10,35 Z"/></svg><svg class="tesla-thumb" viewBox="0 0 24 24"><path d="M15 3H6c-.83 0-1.54.5-1.84 1.22l-3.02 7.05c-.09.23-.14.47-.14.73v2c0 1.1.9 2 2 2h6.31l-.95 4.57-.03.32c0 .41.17.79.44 1.06L9.83 23l6.59-6.59c.36-.36.58-.86.58-1.41V5c0-1.1-.9-2-2-2zm4 0v12h4V3h-4z"/></svg><div class="egg-text" style="color:#e82127; text-transform:uppercase;">Lavadora Americana Sobrevalorada</div></div>';
                 clearEgg(6000);
             },
             "fajardo": () => {
                 overlay.style.background = '#000';
                 canvasMatrix();
-                overlay.innerHTML += '<div class="matrix-text">ACCESS_LEVEL: ROOT_CREATOR<br>IDENTIFIED: FAJARDO</div>';
+                overlay.innerHTML += '<div class="egg-content"><div class="matrix-msg">ACCESS_LEVEL: ROOT_CREATOR<br>IDENTIFIED: FAJARDO<br>STATUS: UNSTOPPABLE</div></div>';
                 clearEgg(5000);
             },
             "fc barcelona": () => {
-                overlay.style.background = 'transparent';
-                overlay.innerHTML = '<div class="fcb-bg fcb-blue"></div><div class="fcb-bg fcb-red"></div><div class="fcb-content"><svg viewBox="0 0 100 100" width="200"><path d="M50 10 C20 10 10 30 10 50 C10 80 50 90 50 90 C50 90 90 80 90 50 C90 30 80 10 50 10 Z" fill="#A50044"/><path d="M50 10 C20 10 10 30 10 50 L90 50 C90 30 80 10 50 10 Z" fill="#004D98"/><circle cx="50" cy="70" r="10" fill="#FDB913"/></svg><div class="fcb-text">Mes que un club</div></div>';
-                setTimeout(() => { overlay.children[0].classList.add('fcb-out'); overlay.children[1].classList.add('fcb-out'); overlay.children[2].classList.add('fcb-out'); }, 4000);
-                clearEgg(5500);
+                overlay.innerHTML = '<div class="fcb-bg fcb-blue"></div><div class="fcb-bg fcb-red"></div><div class="egg-content"><svg viewBox="0 0 100 100" width="150"><path d="M50 10 C20 10 10 30 10 50 C10 80 50 90 50 90 C50 90 90 80 90 50 C90 30 80 10 50 10 Z" fill="#FDB913"/></svg><div class="egg-text" style="color:#FDB913; text-transform:uppercase;">Mes que un club</div></div>';
+                clearEgg(5000);
             },
             "shalom": () => {
-                overlay.style.background = 'transparent';
-                overlay.innerHTML = '<div class="shalom-bg"></div><div style="z-index:2; text-align:center"><svg class="shalom-star" viewBox="0 0 100 100"><polygon points="50,10 90,80 10,80"/><polygon points="50,90 90,20 10,20"/></svg><div class="shalom-text">Raul te desea paz, prosperidad y mucha luz</div></div>';
+                overlay.innerHTML = '<div class="shalom-bg"></div><div class="egg-content"><svg width="100" viewBox="0 0 100 100" stroke="#d4af37" fill="none"><polygon points="50,10 90,80 10,80"/><polygon points="50,90 90,20 10,20"/></svg><div class="shalom-text">Raul te desea paz, prosperidad y mucha luz</div></div>';
                 clearEgg(5000);
             },
             "real madrid": () => {
-                overlay.style.background = 'transparent';
-                overlay.innerHTML = '<div class="rm-flash"></div><div class="rm-stripe"></div><div class="rm-content"><svg viewBox="0 0 100 100" width="200"><circle cx="50" cy="50" r="40" fill="#fff" stroke="#FEBE10" stroke-width="5"/><path d="M50 10 L60 20 L40 20 Z" fill="#FEBE10"/><text x="50" y="60" text-anchor="middle" font-family="serif" font-size="30" fill="#00529F">MCF</text></svg><div class="rm-text">Hala Madrid y nada mas</div></div>';
-                setTimeout(() => { overlay.style.background = '#fff'; overlay.innerHTML = ''; }, 4000);
-                clearEgg(4500);
+                overlay.innerHTML = '<div class="rm-flash"></div><div class="egg-content"><svg viewBox="0 0 100 100" width="150"><circle cx="50" cy="50" r="40" fill="#fff" stroke="#FEBE10" stroke-width="5"/></svg><div class="egg-text" style="color:#00529F; text-shadow:none;">Hala Madrid y nada mas</div></div>';
+                clearEgg(5000);
             },
             "vox": () => {
-                overlay.style.background = 'transparent';
-                overlay.innerHTML = '<div class="es-bg"></div><div class="es-text">VIVA ESPAÑA</div>';
+                overlay.innerHTML = '<div class="es-bg"></div><div class="egg-content"><div class="egg-text" style="font-size:5rem; mix-blend-mode:overlay;">VIVA ESPAÑA</div></div>';
                 clearEgg(5000);
             },
             "puigdemont": () => {
-                overlay.style.background = 'transparent';
-                overlay.innerHTML = '<div class="cat-bg"><div class="cat-bar"></div><div class="cat-bar"></div><div class="cat-bar"></div><div class="cat-bar"></div></div><div class="cat-triangle"></div><svg class="cat-star" viewBox="0 0 100 100"><polygon points="50,10 60,40 90,40 65,60 75,90 50,70 25,90 35,60 10,40 40,40"/></svg><div class="cat-text" style="top:20%;">IN-DE-PEN-DEN-CIA</div><div class="cat-text" style="top:60%;">VISCA CATALUNYA</div>';
-                setTimeout(() => { document.querySelectorAll('.cat-bar').forEach(b => b.style.transform = 'scaleY(1)'); }, 100);
-                setTimeout(() => { document.querySelector('.cat-triangle').style.left = '0'; document.querySelector('.cat-star').style.opacity = '1'; document.querySelectorAll('.cat-text').forEach(t => t.style.opacity = '1'); }, 1000);
+                overlay.style.background = '#ffed00';
+                overlay.innerHTML = '<div class="cat-bar" style="top:10%;transform:scaleY(1);"></div><div class="cat-bar" style="top:30%;transform:scaleY(1);"></div><div class="cat-bar" style="top:50%;transform:scaleY(1);"></div><div class="cat-bar" style="top:70%;transform:scaleY(1);"></div><div class="egg-content"><div class="egg-text" style="color:#000;">VISCA CATALUNYA LLIURE</div></div>';
                 clearEgg(5000);
             },
             "star wars": () => {
                 overlay.style.background = '#000';
                 canvasStars();
-                setTimeout(() => { overlay.innerHTML = '<div class="sw-saber"></div><div class="sw-text">QUE LA FUERZA TE ACOMPAÑE</div>'; }, 2000);
+                overlay.innerHTML += '<div class="egg-content"><div class="sw-saber"></div><div class="egg-text" style="letter-spacing:5px;">QUE LA FUERZA TE ACOMPAÑE</div></div>';
                 clearEgg(6000);
             },
             "apple": () => {
-                overlay.style.background = 'transparent';
-                overlay.innerHTML = '<div class="apple-bg"><div class="apple-sweep"></div></div><svg class="apple-logo" viewBox="0 0 100 100"><path d="M80,50 C80,30 60,30 60,30 C50,30 45,35 40,35 C35,35 30,30 20,30 C10,30 0,40 0,60 C0,80 15,95 25,95 C30,95 35,90 40,90 C45,90 50,95 55,95 C65,95 80,80 80,60 C70,60 65,55 65,45 C65,35 75,30 80,30 M60,5 C60,5 50,5 45,15 C40,25 45,35 45,35 C45,35 55,35 60,25 C65,15 60,5 60,5"/></svg><div class="apple-text">Designed in California</div>';
-                setTimeout(() => { overlay.innerHTML += '<div class="flash-overlay"></div>'; }, 3000);
+                overlay.style.background = '#000';
+                overlay.innerHTML = '<div class="apple-sweep"></div><div class="egg-content"><svg width="120" fill="#fff" viewBox="0 0 100 100"><path d="M80,50 C80,30 60,30 60,30 C50,30 45,35 40,35 C35,35 30,30 20,30 C10,30 0,40 0,60 C0,80 15,95 25,95 C30,95 35,90 40,90 C45,90 50,95 55,95 C65,95 80,80 80,60 C70,60 65,55 65,45 C65,35 75,30 80,30 M60,5 C60,5 50,5 45,15 C40,25 45,35 45,35 C45,35 55,35 60,25 C65,15 60,5 60,5"/></svg><div class="egg-text" style="font-family:sans-serif; font-weight:lighter;">Designed in California</div></div>';
+                setTimeout(() => { overlay.innerHTML += '<div class="flash-overlay" style="position:absolute;top:0;left:0;width:100%;height:100%;background:#fff;animation:singleFlash 0.3s forwards;"></div>'; }, 3000);
                 clearEgg(5000);
             },
             "betis": () => {
-                overlay.style.background = 'transparent';
-                overlay.innerHTML = '<div style="width:100%;height:100%;position:absolute;">' + '<div class="betis-bar"></div>'.repeat(13) + '</div><div class="betis-content"><svg class="betis-shield" viewBox="0 0 100 100"><polygon points="50,10 90,30 50,90 10,30" fill="#009A44" stroke="#fff"/></svg><div class="betis-text">Viva er Betis manque pierda</div></div>';
+                overlay.innerHTML = '<div style="width:100%;height:100%;position:absolute;">' + '<div class="betis-bar"></div>'.repeat(13) + '</div><div class="egg-content"><div class="egg-text" style="color:#000; -webkit-text-stroke:1px #fff;">Viva er Betis manque pierda</div></div>';
                 clearEgg(5000);
             },
             "espanyol": () => {
-                overlay.style.background = 'transparent';
-                overlay.innerHTML = '<div class="esp-bg"></div><svg class="esp-shield" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#0047b6" stroke="#fff" stroke-width="5"/></svg><div class="esp-text">La Força d un Sentiment</div>';
+                overlay.innerHTML = '<div class="esp-bg"></div><div class="egg-content"><svg width="150" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="#0047b6" stroke="#fff" stroke-width="5"/></svg><div class="egg-text" style="color:#0047b6; text-shadow:0 0 10px #fff;">La Força d un Sentiment</div></div>';
                 canvasFeathers();
                 clearEgg(5000);
             }
@@ -748,20 +726,13 @@
         function filterByTramo(tramoName, targetPk) {
             const sectionData = accesos.filter(a => a.originalTramo.split(/ vía| VIA/i)[0].trim() === tramoName);
             const closeData = sectionData.filter(a => Math.abs(a.pk - targetPk) <= 1300);
-            const exactMatches = closeData.filter(a => a.pk === targetPk);
-            const prevMatches = closeData.filter(a => a.pk < targetPk).slice(-2);
-            const nextMatches = closeData.filter(a => a.pk > targetPk).slice(0, 2);
-            const finalSelection = [...prevMatches, ...exactMatches, ...nextMatches];
-            finalSelection.sort((a,b) => a.pk - b.pk);
+            const finalSelection = closeData.sort((a,b) => a.pk - b.pk);
             filterMenu.style.display = 'none';
-            renderCards(finalSelection, finalSelection.length > 0 ? `Accesos en la zona: ${tramoName}` : `No hay accesos a menos de 1.300m en la zona ${tramoName}`);
+            renderCards(finalSelection, `Accesos en la zona: ${tramoName}`);
         }
 
         searchInput.addEventListener('input', (e) => {
-            if (isEggRunning) {
-                e.preventDefault();
-                return;
-            }
+            if (isEggRunning) return;
 
             const queryRaw = e.target.value;
             const queryLowercase = queryRaw.toLowerCase();
@@ -781,7 +752,6 @@
             }
 
             disclaimer.style.display = queryRaw ? 'none' : 'block';
-
             if (!queryLowercase) { 
                 filterMenu.style.display = 'none';
                 resultsContainer.innerHTML = '';
@@ -803,18 +773,14 @@
 
                 if (candidates.length === 0) {
                     filterMenu.style.display = 'none';
-                    renderCards([], `No hay accesos a menos de 1.300m para el PK ${targetPk}.`);
+                    renderCards([], `No hay accesos a menos de 1.300m.`);
                     return;
                 }
 
                 if (textStr) {
                     filterMenu.style.display = 'none';
-                    candidates.sort((a, b) => a.pk - b.pk);
-                    const exactMatches = candidates.filter(a => a.pk === targetPk);
-                    const prevMatches = candidates.filter(a => a.pk < targetPk).slice(-2);
-                    const nextMatches = candidates.filter(a => a.pk > targetPk).slice(0, 2);
-                    const finalSelection = [...prevMatches, ...exactMatches, ...nextMatches].sort((a, b) => a.pk - b.pk);
-                    renderCards(finalSelection, `Accesos a menos de 1.300m del PK ${targetPk}:`);
+                    const finalSelection = candidates.sort((a, b) => a.pk - b.pk);
+                    renderCards(finalSelection, `Accesos cerca del PK ${targetPk}:`);
                 } else {
                     const uniqueTramos = [...new Set(candidates.map(a => a.originalTramo.split(/ vía| VIA/i)[0].trim()))];
                     if (uniqueTramos.length > 1) showZoneSelection(uniqueTramos, targetPk);
