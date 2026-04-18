@@ -273,7 +273,7 @@
         
         .sw-space { position: absolute; inset: 0; background: #000; z-index: 1; overflow: hidden; perspective: 400px; }
         .sw-stars { position: absolute; inset: 0; background-image: radial-gradient(2px 2px at 20px 30px, #eee, rgba(0,0,0,0)), radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 160px 120px, #ddd, rgba(0,0,0,0)); background-repeat: repeat; background-size: 200px 200px; animation: spaceMove 10s linear infinite; }
-        .sw-crawl-container { position: absolute; bottom: -100px; width: 100%; height: 100vh; display: flex; justify-content: center; transform-origin: 50% 100%; animation: swCrawl 8s linear forwards; }
+        .sw-crawl-container { position: absolute; bottom: -100px; width: 100%; height: 100vh; display: flex; justify-content: center; transform-origin: 50% 100%; animation: swCrawl 8s linear forwards; z-index: 2; }
         .sw-text { color: #feda4a; font-size: clamp(2rem, 6vw, 4rem); font-weight: bold; text-align: center; text-transform: uppercase; letter-spacing: 4px; line-height: 1.5; width: 80%; }
         @keyframes spaceMove { from { background-position: 0 0; } to { background-position: 0 200px; } }
         @keyframes swCrawl { 0% { transform: rotateX(30deg) translateY(0); opacity: 1; } 100% { transform: rotateX(40deg) translateY(-1200px); opacity: 0; } }
@@ -293,7 +293,7 @@
         .apple-sweep { position: absolute; top: 0; width: 100%; height: 100%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent); animation: appleSweep 1.5s infinite; }
         @keyframes appleSweep { 0% { left: -100%; } 100% { left: 100%; } }
         .apple-logo-anim { animation: pulseGlow 2s infinite alternate; }
-        @keyframes pulseGlow { from { filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5)); } to { filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.9)); transform: scale(1.05); } }
+        @keyframes pulseGlow { from { filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)); } to { filter: none; transform: scale(1.05); } }
 
         canvas { touch-action: none; background: #111; max-width: 100vw; max-height: 100vh; border: 2px solid var(--neon-cyan); }
         #scoreBoard { position: absolute; top: 20px; left: 20px; color: #00f3ff; font-family: monospace; font-size: 24px; z-index: 50; }
@@ -685,7 +685,7 @@
                 clearEgg(5000);
             },
             "fc barcelona": () => {
-                overlay.innerHTML = '<div class="football-bg bg-barca"></div><div class="egg-content"><div class="egg-title title-barca">FC BARCELONA</div><div class="egg-text" style="color:#fff;">Més que un club... y alguna palanca.</div></div>';
+                overlay.innerHTML = '<div class="football-bg bg-barca"></div><div class="egg-content"><div class="egg-title title-barca">FC BARCELONA</div><div class="egg-text" style="color:#fff;">Més que un club. ¡¡FORÇA BARSA!!.</div></div>';
                 clearEgg(5000);
             },
             "merida": () => {
@@ -711,7 +711,7 @@
             },
             "byd": () => {
                 overlay.style.background = '#000';
-                overlay.innerHTML = '<div class="egg-content"><div class="egg-text" style="color:#00f3ff; font-family:monospace;">🚗 BYD Seal Excellence cruzando a toda leche...</div></div>';
+                overlay.innerHTML = '<div class="egg-content"><div class="egg-text" style="color:#00f3ff; font-family:monospace;">🚗 BYD: La soberania electrica que el resto del mundo solo puede alquilar.</div></div>';
                 clearEgg(5000);
             },
             "tesla": () => {
