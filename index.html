@@ -880,14 +880,14 @@
 
         function filterByTramo(tramoName, targetPk) {
             const sectionData = accesos.filter(a => a.originalTramo.split(/ vía| VIA/i)[0].trim() === tramoName);
-            const closeData = sectionData.filter(a => Math.abs(a.pk - targetPk) <= 1300);
+            const closeData = sectionData.filter(a => Math.abs(a.pk - targetPk) <= 1500);
             filterMenu.style.display = 'none';
             renderCards(closeData, `Zona: ${tramoName}`, true);
         }
 
         searchInput.addEventListener('input', (e) => {
             if (isEggRunning) return;
-            const q = e.target.value.toLowerCase();
+            const q = e.target.value.toLowerCase().replace(/[.,]/g, '');
             for (let word in eggs) {
                 if (q.includes(word)) {
                     isEggRunning = true; overlay.classList.add('active');
@@ -909,12 +909,13 @@
                 if (terms.length > 0) {
                     cand = cand.filter(a => terms.every(t => a.abrevSearch.includes(t) || a.tramoSearch.includes(t)));
                     cand = cand.map(a => ({ ...a, dist: Math.abs(a.pk - targetPk) }))
+                               .filter(a => a.dist <= 1500)
                                .sort((a,b) => a.dist - b.dist);
                     filterMenu.style.display = 'none';
-                    renderCards(cand, `Resultados para "${textStr}" ordenados desde el PK ${targetPk}:`);
+                    renderCards(cand, `Resultados para "${textStr}" a menos de 1.5km del PK ${targetPk}:`);
                 } else {
                     cand = cand.map(a => ({ ...a, dist: Math.abs(a.pk - targetPk) }))
-                               .filter(a => a.dist <= 1300);
+                               .filter(a => a.dist <= 1500);
                     const zones = [...new Set(cand.map(a => a.originalTramo.split(/ vía| VIA/i)[0].trim()))];
                     if (zones.length > 1) {
                         filterButtons.innerHTML = '';
@@ -926,7 +927,7 @@
                     } else if(zones.length === 1) {
                         filterByTramo(zones[0], targetPk);
                     } else {
-                        renderCards([], "Nada a menos de 1.3km.");
+                        renderCards([], "Nada a menos de 1.5km.");
                     }
                 }
             } else if (terms.length > 0) {
