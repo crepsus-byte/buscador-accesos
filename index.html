@@ -433,12 +433,12 @@
         35,700 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/xJaF77RV92tvnEoaA 
         35,300 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/iWKKfm6rWDFffcsR7 
         34,600 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/fj6zbJ5kr5SN5Yq77 
-        34,320 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing 
-        34,250 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
-        34,100 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
-        33,900 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
-        33,750 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
-        33,450 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view?usp=sharing
+        34,320 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://maps.app.goo.gl/z9wcAsGddwxg212XA | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view
+        34,250 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://maps.app.goo.gl/z9wcAsGddwxg212XA | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view
+        34,100 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://maps.app.goo.gl/z9wcAsGddwxg212XA | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view
+        33,900 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://maps.app.goo.gl/z9wcAsGddwxg212XA | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view
+        33,750 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://maps.app.goo.gl/xHTu9ehEFHG6A2vW8 | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view
+        33,450 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://maps.app.goo.gl/z9wcAsGddwxg212XA | https://drive.google.com/file/d/1CB8F26AbHvXbaMyArQpZQvLhQHYFWIJl/view
         32,800 | ME-SE | MARTORELL ENLLAÇ - SANT ESTEVE SESROVIRES | https://goo.gl/maps/sY5ZS4irCzSC89238 
         32,204 | SE | SANT ESTEVE SESROVIRES | https://goo.gl/maps/Lbr9sMYUCyQwytfU8 
         31,700 | SE-BE | SANT ESTEVE SESROVIRES - LA BEGUDA | https://goo.gl/maps/nt1oZLAr9tqqZjTZ6 
@@ -583,7 +583,7 @@
             .map(line => {
                 const parts = line.split('|').map(s => s.trim());
                 if (parts.length < 4) return null;
-                const [pkRaw, abrev, tramo, link] = parts;
+                const [pkRaw, abrev, tramo, link, linkFoto] = parts;
                 return { 
                     pk: parsePk(pkRaw), 
                     originalPk: pkRaw, 
@@ -591,7 +591,8 @@
                     originalTramo: tramo,
                     abrevSearch: abrev.toLowerCase(),
                     tramoSearch: tramo.toLowerCase(),
-                    link 
+                    link,
+                    linkFoto: linkFoto || null
                 };
             })
             .filter(a => a !== null)
@@ -870,6 +871,7 @@
                     <div class="card-pk">PK ${item.originalPk}</div>
                     <div class="card-info">${item.originalAbrev} - ${item.originalTramo}</div>
                     <a href="${item.link}" target="_blank" class="btn">Abrir en Maps</a>
+                    ${item.linkFoto ? `<a href="${item.linkFoto}" target="_blank" class="btn btn-secondary" style="margin-top:10px;">Ver foto</a>` : ''}
                 </div>
             `).join('');
             
@@ -888,7 +890,10 @@
 
         function filterByTramo(tramoName, targetPk) {
             const sectionData = accesos.filter(a => a.originalTramo.split(/ vía| VIA/i)[0].trim() === tramoName);
-            const closeData = sectionData.filter(a => Math.abs(a.pk - targetPk) <= 1500);
+            const closeData = sectionData
+                .map(a => ({ ...a, dist: Math.abs(a.pk - targetPk) }))
+                .filter(a => a.dist <= 1500)
+                .sort((a,b) => a.dist - b.dist);
             filterMenu.style.display = 'none';
             renderCards(closeData, `Zona: ${tramoName}`, true);
         }
